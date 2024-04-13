@@ -1,6 +1,7 @@
 ﻿using FishStoreApplication.Data;
 using FishStoreApplication.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace FishStoreApplication.Controllers
 {
@@ -11,6 +12,14 @@ namespace FishStoreApplication.Controllers
         {
             _context = context;
         }
+        public async Task<IActionResult> Index()
+        {
+            // Get all fish from Db
+            List<Fish> fishes = await (from fish in _context.Fishes select fish).ToListAsync();
+            // Show them on the page
+            return View(fishes);
+        }
+
         [HttpGet]
         public IActionResult Create()
         {

@@ -17,6 +17,7 @@ namespace FishStoreApplication.Models
         /// Represents the name of the fish breed.
         /// </summary>
         [Required]
+        [Display(Name = "Breed Name")]
         public string BreedName { get; set; }
 
         /// <summary>

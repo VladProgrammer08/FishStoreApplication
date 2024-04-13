@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Fish>
+
+@{
+    ViewData["Title"] = "Fish Catalog";
+}
+
+<h1>Fish Catalog</h1>
+
+<p>
+    <a asp-action="Create" asp-controller="Fish">Create Fish</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FishId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BreedName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (Fish item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FishId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BreedName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.FishId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.FishId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.FishId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
