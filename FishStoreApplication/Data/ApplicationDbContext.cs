@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using FishStoreApplication.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FishStoreApplication.Data
@@ -9,5 +10,7 @@ namespace FishStoreApplication.Data
             : base(options)
         {
         }
+
+        public DbSet<Fish>Fishes { get; set; }
     }
 }
