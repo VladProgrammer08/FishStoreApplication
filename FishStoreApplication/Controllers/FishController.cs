@@ -38,5 +38,27 @@ namespace FishStoreApplication.Controllers
             }
             return View(f);
         }
+        public async Task<IActionResult> Edit(int id)
+        {
+            Fish? fishToEdit = await _context.Fishes.FindAsync(id);
+            if(fishToEdit == null)
+            {
+                return NotFound();
+            }
+            return View(fishToEdit);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Edit(Fish fishModel)
+        {
+            if(ModelState.IsValid)
+            {
+                _context.Fishes.Update(fishModel);
+                await _context.SaveChangesAsync();
+
+                TempData["Message"] = $"{fishModel.BreedName} was updated successfully";
+                return RedirectToAction("Index");
+            }
+            return View(fishModel);
+        }
     }
 }
