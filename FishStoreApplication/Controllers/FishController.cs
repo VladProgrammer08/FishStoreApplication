@@ -2,6 +2,7 @@
 using FishStoreApplication.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Policy;
 
 namespace FishStoreApplication.Controllers
 {
@@ -59,6 +60,30 @@ namespace FishStoreApplication.Controllers
                 return RedirectToAction("Index");
             }
             return View(fishModel);
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Fish? fishToDelete = await _context.Fishes.FindAsync(id);
+            if(fishToDelete == null)
+            {
+                return NotFound();
+            }
+            return View(fishToDelete);
+        }
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            Fish? fishToDelete = await _context.Fishes.FindAsync(id);
+            if(fishToDelete != null)
+            {
+                _context.Fishes.Remove(fishToDelete);
+                await _context.SaveChangesAsync();
+                TempData["Message"] = fishToDelete.BreedName + "was deleted successfully";
+                return RedirectToAction("Index");
+            }
+            TempData["Message"] = "This fish was already deleted";
+            return RedirectToAction("Index");
         }
     }
 }
