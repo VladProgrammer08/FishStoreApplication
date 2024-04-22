@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Build.Execution;
+using System.ComponentModel.DataAnnotations;
 
 namespace FishStoreApplication.Models
 {
@@ -21,14 +22,48 @@ namespace FishStoreApplication.Models
         public string BreedName { get; set; }
 
         /// <summary>
+        /// Represents the URL of the fish image.
+        /// </summary>
+        public string? FishImageURL { get; set; }
+        /// <summary>
         /// Represents the price of the fish.
         /// </summary>
         [Range(0, int.MaxValue)]
         public double Price { get; set; }
 
         /// <summary>
+        /// Represents the size description of the fish.
+        /// </summary>
+        public string? FishSize { get; set; }
+
+        /// <summary>
+        /// Represents any special dietary requirements for the fish.
+        /// </summary>
+        public string? FishSpecialDiet { get; set; }
+
+        /// <summary>
+        /// Describes the preferred environment or habitat for the fish.
+        /// </summary>
+        public string? FishEnvironment { get; set; }
+
+        /// <summary>
+        /// Indicates the temperament or behavior traits of the fish.
+        /// </summary>
+        public string? FishTemperament { get; set; }
+
+        /// <summary>
+        /// Represents the care level required for maintaining the fish.
+        /// </summary>
+        public string? FishCareLevel { get; set; }
+
+        /// <summary>
         /// Represents a description of the fish.
         /// </summary>
-        public string Description { get; set; }
+        public string? Description { get; set; }
+
+        /// <summary>
+        /// Specifies any warranty information related to the fish.
+        /// </summary>
+        public string? FishWarranty { get; set; }
     }
 }
