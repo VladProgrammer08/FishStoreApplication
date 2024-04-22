@@ -85,5 +85,14 @@ namespace FishStoreApplication.Controllers
             TempData["Message"] = "This fish was already deleted";
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Details(int id)
+        {
+            Fish fishDetails = await _context.Fishes.FindAsync(id);
+            if(fishDetails == null)
+            {
+                return NotFound();
+            }
+            return View(fishDetails);
+        }
     }
 }
