@@ -44,15 +44,15 @@
                 @Html.DisplayFor(modelItem => item.BreedName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Price)
+                $@Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.FishId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.FishId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.FishId">Delete</a>
+                    <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.FishId">Edit</a> |
+                    <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.FishId">Details</a> |
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.FishId">Delete</a>
             </td>
         </tr>
 }

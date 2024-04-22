@@ -35,7 +35,7 @@
                         @Html.DisplayNameFor(model => model.Price)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.Price)
+                        $@Html.DisplayFor(model => model.Price)
                     </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.FishImageURL)
@@ -104,6 +104,6 @@
 </div>
 
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.FishId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model?.FishId">Edit</a> |
+    <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>
 </div>
