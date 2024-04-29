@@ -22,5 +22,22 @@ namespace FishStoreApplication.Models
                 }
             }
         }
+
+        public static async Task CreateDefaultUser(IServiceProvider provider, string role)
+        {
+            var userManager = provider.GetService<UserManager<IdentityUser>>();
+
+            int numUsers = (await userManager.GetUsersInRoleAsync(role)).Count();
+            if (numUsers == 0)
+            {
+                var defaultUser = new IdentityUser()
+                {
+                    Email = "administrator@service.com",
+                    UserName = "Admin"
+                };
+                await userManager.CreateAsync(defaultUser, "AdminPass@1");
+                await userManager.AddToRoleAsync(defaultUser, role);
+            }
+        }
     }
 }
