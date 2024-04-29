@@ -1,11 +1,13 @@
 ﻿using FishStoreApplication.Data;
 using FishStoreApplication.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Policy;
 
 namespace FishStoreApplication.Controllers
 {
+    [Authorize(Roles = IdentityHelper.Admin)]
     public class FishController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -13,6 +15,7 @@ namespace FishStoreApplication.Controllers
         {
             _context = context;
         }
+        [Authorize(Roles = IdentityHelper.Admin)]
         public async Task<IActionResult> Index()
         {
             // Get all fish from Db

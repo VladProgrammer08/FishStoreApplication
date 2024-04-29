@@ -63,7 +63,7 @@ namespace FishStoreApplication.Data.Migrations
 
                     b.HasKey("FishId");
 
-                    b.ToTable("Fishes");
+                    b.ToTable("Fishes", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
