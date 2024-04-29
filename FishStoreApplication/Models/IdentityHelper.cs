@@ -3,7 +3,7 @@
 namespace FishStoreApplication.Models
 {
 #nullable disable
-    public static class IdentityHelper
+    public class IdentityHelper
     {
         public const string Admin = "Admin";
 
