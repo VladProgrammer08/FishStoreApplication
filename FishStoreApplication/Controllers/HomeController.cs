@@ -19,7 +19,7 @@ namespace FishStoreApplication.Controllers
             return View();
         }
 
-        [Authorize(Roles = IdentityHelper.Customer)]
+        [Authorize(Roles = $"{IdentityHelper.Admin}")]
         public IActionResult Privacy()
         {
             return View();
