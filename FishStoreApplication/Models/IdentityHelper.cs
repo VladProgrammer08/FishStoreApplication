@@ -33,7 +33,7 @@ namespace FishStoreApplication.Models
                 var defaultUser = new IdentityUser()
                 {
                     Email = "administrator@service.com",
-                    UserName = "Admin"
+                    UserName = "Admin1"
                 };
                 await userManager.CreateAsync(defaultUser, "AdminPass@1");
                 await userManager.AddToRoleAsync(defaultUser, role);
