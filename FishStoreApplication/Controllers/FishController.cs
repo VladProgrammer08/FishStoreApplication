@@ -15,13 +15,28 @@ namespace FishStoreApplication.Controllers
         {
             _context = context;
         }
+
         [Authorize(Roles = IdentityHelper.Admin)]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
+            const int NumFishToDisplayPerPage = 6;
+            const int PageOffSet = 1;
+            int currPage = id ?? 1;
+
+            int totalNumOfProducts = await _context.Fishes.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumFishToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages);
+
             // Get all fish from Db
-            List<Fish> fishes = await (from fish in _context.Fishes select fish).ToListAsync();
+            //List<Fish> fishes = await (from fish in _context.Fishes select fish).ToListAsync();
+            List<Fish> fishes = await (from fish in _context.Fishes
+                                       select fish)
+                                       .Skip(NumFishToDisplayPerPage * (currPage - PageOffSet))
+                                       .Take(NumFishToDisplayPerPage)
+                                       .ToListAsync();
+            FishCatalogViewModel catalogModel = new(fishes, lastPage, currPage);
             // Show them on the page
-            return View(fishes);
+            return View(catalogModel);
         }
 
         [HttpGet]
