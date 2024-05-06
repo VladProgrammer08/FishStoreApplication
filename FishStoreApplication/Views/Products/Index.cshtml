@@ -1,1 +1,37 @@
-﻿
+﻿@model FishCatalogViewModel
+
+@{
+    ViewData["Title"] = "Fish Catalog";
+}
+
+<div class="col-md-10">
+	@if (Model.Fishes.Count() != 0)
+	{
+		<div class="row">
+			@foreach (Fish item in Model.Fishes)
+			{
+
+				<div class="col-md-4">
+					<div class="card mb-4 box-shadow">
+
+						<img class="card-img-top" src="~/fish.jpg" alt="Fish image" style="height: 250px; width:342.5px;">
+						<div class="card-body">
+							<p class="card-text"><strong></strong> @item.BreedName</p>
+							<p class="card-text"><strong></strong> $@item.Price</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div class="btn-group">
+									<a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@item.FishId">Details</a>
+									<a class="btn btn-sm btn-outline-secondary" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			}
+		</div>
+	}
+	else
+	{
+		<h2>There are no fish for this page</h2>
+	}
+</div>
