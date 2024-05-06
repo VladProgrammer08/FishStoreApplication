@@ -1,20 +1,108 @@
 ﻿@model FishCatalogViewModel
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @{
     ViewData["Title"] = "Fish Catalog";
 }
+<style>
+	.row.align-items-start {
+		display: flex;
+		align-items: flex-start;
+	}
+	body{	
+		background-image: radial-gradient(circle at top right, white, lightblue, white, lightblue, white, lightblue, white);
+	}
 
-<div class="col-md-10">
+</style>
+
+<div class="container">
+	<div class="row align-items-start">
+		<div class="col-md-2 filter-section">
+			<h1>Categories</h1>
+			<div class="accordion" id="filterAccordion">
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="panelsStayOpen-headingOne">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+							Price
+						</button>
+					</h2>
+					<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
+						<div class="accordion-body">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="filter1">
+								<label class="form-check-label" for="filter1">
+									$1 - $10
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="filter2">
+								<label class="form-check-label" for="filter2">
+									$10 - $20
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+							Filter Group 1
+						</button>
+					</h2>
+					<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+						<div class="accordion-body">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="filter1">
+								<label class="form-check-label" for="filter1">
+									Filter 1
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="filter2">
+								<label class="form-check-label" for="filter2">
+									Filter 2
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="accordion-item">
+					<h2 class="accordion-header" id="panelsStayOpen-headingThree">
+						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
+							Filter Group 1
+						</button>
+					</h2>
+					<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+						<div class="accordion-body">
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="filter1">
+								<label class="form-check-label" for="filter1">
+									Filter 1
+								</label>
+							</div>
+							<div class="form-check">
+								<input class="form-check-input" type="checkbox" value="" id="filter2">
+								<label class="form-check-label" for="filter2">
+									Filter 2
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-md-10 main-content">
+			<h1>Fish Catalog</h1>
 	@if (Model.Fishes.Count() != 0)
 	{
 		<div class="row">
 			@foreach (Fish item in Model.Fishes)
 			{
 
-				<div class="col-md-4">
+				<div class="col-md-4 fish-card" data-price="@item.Price">
 					<div class="card mb-4 box-shadow">
 
-						<img class="card-img-top" src="~/fish.jpg" alt="Fish image" style="height: 250px; width:342.5px;">
+						<img class="card-img-top" src="~/fish.jpg" alt="Fish image" style="height: 250px; width:334px;">
 						<div class="card-body">
 							<p class="card-text"><strong></strong> @item.BreedName</p>
 							<p class="card-text"><strong></strong> $@item.Price</p>
@@ -55,3 +143,27 @@
 		}
 	</ul>
 </nav>
+		<script>
+			$(document).ready(function () {
+				$('.form-check-input').on('change', function () {
+					var filterUnder10 = $('#filter1').is(':checked');
+					var filter10to20 = $('#filter2').is(':checked');
+
+					if (!filterUnder10 && !filter10to20) {
+						$('.fish-card').show();
+					} else {
+						$('.fish-card').each(function () {
+							var price = parseFloat($(this).data('price'));
+							if (filterUnder10 && price <= 10) {
+								$(this).show();
+							} else if (filter10to20 && price > 10 && price <= 20) {
+								$(this).show();
+							} else {
+								$(this).hide();
+							}
+						});
+					}
+				});
+			});
+
+		</script>
