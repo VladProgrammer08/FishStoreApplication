@@ -1,5 +1,6 @@
 ﻿using FishStoreApplication.Data;
 using FishStoreApplication.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,6 +13,7 @@ namespace FishStoreApplication.Controllers
 		{
 			_context = context;
 		}
+		[Authorize]
 		public async Task<IActionResult> Index(int? id)
 		{
 			const int NumFishToDisplayPerPage = 6;
