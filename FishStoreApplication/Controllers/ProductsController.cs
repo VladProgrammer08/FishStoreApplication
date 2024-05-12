@@ -34,6 +34,15 @@ namespace FishStoreApplication.Controllers
 
 			return View(catalogModel);
 		}
+        public async Task<IActionResult> Details(int id)
+        {
+            Fish productDetails = await _context.Fishes.FindAsync(id);
+            if (productDetails == null)
+            {
+                return NotFound();
+            }
+            return View(productDetails);
+        }
 
-	}
+    }
 }
