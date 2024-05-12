@@ -1,78 +1,222 @@
 ﻿@model FishStoreApplication.Models.Fish
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = Model.BreedName + " Details";
 }
 
-<h1>Details</h1>
+<div>
+    <a id="back_button" asp-action="Index">Back to List</a>
+</div>
 
-<div>
-    <h4>Fish</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.BreedName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.BreedName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishImageURL)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishImageURL)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishSize)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishSize)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishSpecialDiet)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishSpecialDiet)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishEnvironment)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishEnvironment)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishTemperament)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishTemperament)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishCareLevel)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishCareLevel)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FishWarranty)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FishWarranty)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.FishId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+<style>
+    #line{
+        width: 10%;
+        border-top: 3px solid black;
+        margin: 20px 0;
+    } 
+    #space{
+        margin-bottom:5%;
+    }
+    #cart{
+        border: 2px solid #000;
+        background-color: white;
+        color: black;
+        padding: 10px 20px;
+        font-size: 16px; 
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+        position:center;
+        width:100%;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+
+    }
+
+    .row dt {
+        width: 30%;
+        float: left;
+        clear: left;
+        margin-right: 10px;
+    }
+
+    .row dd {
+        width: 60%;
+        float: left;
+        margin-bottom: 10px;
+    }
+    #description{
+        width:100%;
+    }
+
+    .image-container .main-image {
+        margin-top:20px;
+        width: 580px;
+        height: 500px;
+        display: block;
+        margin-bottom: 10px;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+    }
+
+    .thumbnail-container .img-thumbnail {
+        width: 55px;
+        height: 50px;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .accordion-item {
+        border: none !important;
+    }
+    .accordion{
+        border: 2px solid #000;
+        padding: 0;
+        margin-left:12px;
+        width:96.3%;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+    }
+    #back_button{
+        border: 2px solid #000;
+        background-color: white;
+        color: black;
+        padding: 10px 20px;
+        font-size: 16px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+        position: center;
+        width: 10%;
+        margin-left:10px;
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+    }
+
+</style>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="image-container">
+                    <img src="~/gold_fish.jpg" alt="Fish image" id="mainImage" class="img-fluid main-image" />
+                    <div class="thumbnail-container d-flex justify-content-center">
+                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
+                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
+                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
+                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <h4>@Html.DisplayFor(model => model.BreedName)</h4>
+                <div id="line"></div>
+                <dl class="row">
+
+                    <dd class="col-sm-10">
+                        <b>$@Html.DisplayFor(model => model.Price)</b>
+                    </dd>
+
+                    <div id="space"></div>
+
+                    <dd id="description" class="col-sm-10">
+                        @Html.DisplayFor(model => model.Description)
+                    </dd>
+
+                    <div id="space"></div>
+
+                    <div>
+                        <a id="cart" asp-action="Index"><b>ADD TO CART</b></a>
+                    </div>
+
+                    <div id="space"></div>
+
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    <strong>Attributes</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <dl class="row">
+                                        <dt class="col-sm-2">
+                                            @Html.DisplayNameFor(model => model.FishSize)
+                                        </dt>
+                                        <dd class="col-sm-10">
+                                            @Html.DisplayFor(model => model.FishSize)
+                                        </dd>
+                                    </dl>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <strong>Specifications</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FishSpecialDiet)</dt>
+                                        <dd class="col-sm-10">@Html.DisplayFor(model => model.FishSpecialDiet)</dd>
+                                    </div>
+                                    <div class="row">
+                                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FishEnvironment)</dt>
+                                        <dd class="col-sm-10">@Html.DisplayFor(model => model.FishEnvironment)</dd>
+                                    </div>
+                                    <div class="row">
+                                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FishTemperament)</dt>
+                                        <dd class="col-sm-10">@Html.DisplayFor(model => model.FishTemperament)</dd>
+                                    </div>
+                                    <div class="row">
+                                        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FishCareLevel)</dt>
+                                        <dd class="col-sm-10">@Html.DisplayFor(model => model.FishCareLevel)</dd>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                    <strong>Warranty</strong>
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <dd class="col-sm-10">
+                                        @Html.DisplayFor(model => model.FishWarranty)
+                                    </dd>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.img-thumbnail').click(function () {
+                // Store the source of the main image
+                var mainImgSrc = $('#mainImage').attr('src');
+
+                // Get the source of the clicked thumbnail
+                var thumbImgSrc = $(this).attr('src');
+
+                // Set the source of the main image to the thumbnail source
+                $('#mainImage').attr('src', thumbImgSrc);
+
+                // Set the source of the clicked thumbnail to the main image source
+                $(this).attr('src', mainImgSrc);
+            });
+        });
+    </script>
+</body>
+
+
+
