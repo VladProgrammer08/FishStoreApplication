@@ -1,7 +1,6 @@
 ﻿@model FishStoreApplication.Models.Fish
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 @{
     ViewData["Title"] = Model.BreedName + " Details";
 }
@@ -146,7 +145,7 @@
                                             @Html.DisplayNameFor(model => model.FishSize)
                                         </dt>
                                         <dd class="col-sm-10">
-                                            @Html.DisplayFor(model => model.FishSize)
+                                            @Html.DisplayFor(model => model.FishSize) Inch
                                         </dd>
                                     </dl>
                                 </div>

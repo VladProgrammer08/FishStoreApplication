@@ -34,7 +34,7 @@ namespace FishStoreApplication.Models
         /// <summary>
         /// Represents the size description of the fish.
         /// </summary>
-        public string? FishSize { get; set; }
+        public int? FishSize { get; set; }
 
         /// <summary>
         /// Represents any special dietary requirements for the fish.
