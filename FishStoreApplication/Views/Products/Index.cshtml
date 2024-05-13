@@ -1,169 +1,243 @@
 ﻿@model FishCatalogViewModel
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 @{
-    ViewData["Title"] = "Fish Catalog";
+	ViewData["Title"] = "Fish Catalog";
 }
 <style>
 	.row.align-items-start {
 		display: flex;
 		align-items: flex-start;
 	}
-	body{	
+	body {
 		background-image: radial-gradient(circle at top right, white, lightblue, white, lightblue, white, lightblue, white);
 	}
 
+
 </style>
+<body>
+	<div class="container">
+		<div class="row align-items-start">
+			<div class="col-md-2 filter-section">
+				<h1>Categories</h1>
 
-<div class="container">
-	<div class="row align-items-start">
-		<div class="col-md-2 filter-section">
-			<h1>Categories</h1>
-			<div class="accordion" id="filterAccordion">
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="panelsStayOpen-headingOne">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-							Price
-						</button>
-					</h2>
-					<div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingOne">
-						<div class="accordion-body">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="filter1">
-								<label class="form-check-label" for="filter1">
-									$1 - $10
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="filter2">
-								<label class="form-check-label" for="filter2">
-									$10 - $20
-								</label>
+				<div class="accordion" id="filterAccordion">
+
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingOne">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+								Price
+							</button>
+						</h2>
+						<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#filterAccordion">
+							<div class="accordion-body">
+
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter1">
+									<label class="form-check-label" for="filter1">
+										$1 - $10
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter2" checked>
+									<label class="form-check-label" for="filter2">
+										$10 - $20
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter3" checked>
+									<label class="form-check-label" for="filter3">
+										Any Price
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-							Filter Group 1
-						</button>
-					</h2>
-					<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-						<div class="accordion-body">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="filter1">
-								<label class="form-check-label" for="filter1">
-									Filter 1
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="filter2">
-								<label class="form-check-label" for="filter2">
-									Filter 2
-								</label>
+
+
+
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="headingTwo">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+								Size
+							</button>
+						</h2>
+						<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#filterAccordion">
+							<div class="accordion-body">
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
+									<label class="form-check-label" for="filter4">
+										Less than 10 inch
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter5" checked>
+									<label class="form-check-label" for="filter5">
+										More than 10 inch
+									</label>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="accordion-item">
-					<h2 class="accordion-header" id="panelsStayOpen-headingThree">
-						<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseThree">
-							Filter Group 1
-						</button>
-					</h2>
-					<div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-						<div class="accordion-body">
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="filter1">
-								<label class="form-check-label" for="filter1">
-									Filter 1
-								</label>
-							</div>
-							<div class="form-check">
-								<input class="form-check-input" type="checkbox" value="" id="filter2">
-								<label class="form-check-label" for="filter2">
-									Filter 2
-								</label>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 
-		<div class="col-md-10 main-content">
-			<h1>Fish Catalog</h1>
-	@if (Model.Fishes.Count() != 0)
-	{
-		<div class="row">
-			@foreach (Fish item in Model.Fishes)
-			{
 
-				<div class="col-md-4 fish-card" data-price="@item.Price">
-					<div class="card mb-4 box-shadow">
 
-						<img class="card-img-top" src="~/fish.jpg" alt="Fish image" style="height: 250px; width:334px;">
-						<div class="card-body">
-							<p class="card-text"><strong></strong> @item.BreedName</p>
-							<p class="card-text"><strong></strong> $@item.Price</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@item.FishId">Details</a>
-									<a class="btn btn-sm btn-outline-secondary" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+					<div class="accordion-item">
+						<h2 class="accordion-header" id="flush-headingThree">
+							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
+								Filter Group 1
+							</button>
+						</h2>
+						<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#filterAccordion">
+							<div class="accordion-body">
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="filter1">
+									<label class="form-check-label" for="filter1">
+										Filter 1
+									</label>
+								</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" value="" id="filter2">
+									<label class="form-check-label" for="filter2">
+										Filter 2
+									</label>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			}
-		</div>
-	}
-	else
-	{
-		<h2>There are no fish for this page</h2>
-	}
-</div>
-<nav aria-label="Fish Catalog Pages">
-	<ul class="pagination">
-		@for (int i = 1; i <= Model.LastPage; i++)
-		{
-			if (i == Model.CurrentPage)
-			{
-				<li class="page-item active">
-					<a class="page-link">@i</a>
-				</li>
-			}
-			else
-			{
-				<li class=" page-item">
-					<a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
-				</li>
-			}
+				<a id="btn_results" class="btn btn-sm btn-outline-secondary">See Results</a>
+				<a id="clear_filters_btn" class="btn btn-sm btn-outline-secondary" type="button">Clear Filters</a>
+			</div>
+		
+	
 
-		}
-	</ul>
-</nav>
-		<script>
-			$(document).ready(function () {
-				$('.form-check-input').on('change', function () {
-					var filterUnder10 = $('#filter1').is(':checked');
-					var filter10to20 = $('#filter2').is(':checked');
+	
+	
 
-					if (!filterUnder10 && !filter10to20) {
-						$('.fish-card').show();
-					} else {
-						$('.fish-card').each(function () {
-							var price = parseFloat($(this).data('price'));
-							if (filterUnder10 && price <= 10) {
-								$(this).show();
-							} else if (filter10to20 && price > 10 && price <= 20) {
-								$(this).show();
-							} else {
-								$(this).hide();
-							}
-						});
+			<div class="col-md-10 main-content">
+				<h1>Fish Catalog</h1>
+				@if (Model.Fishes.Count() != 0)
+				{
+					<div class="row">
+						@foreach (Fish item in Model.Fishes)
+						{
+
+							<div class="col-md-4 fish-card" data-price="@item.Price" data-size="@item.FishSize">
+								<div class="card mb-4 box-shadow">
+
+									<img class="card-img-top" src="~/fish.jpg" alt="Fish image" style="height: 250px; width:334px;">
+									<div class="card-body">
+										<p class="card-text"><strong></strong> @item.BreedName</p>
+										<p class="card-text"><strong></strong> $@item.Price</p>
+										<div class="d-flex justify-content-between align-items-center">
+											<div class="btn-group">
+												<a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@item.FishId">Details</a>
+												<a class="btn btn-sm btn-outline-secondary" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				}
+				else
+				{
+					<h2>There are no fish with these filters</h2>
+				}
+			</div>
+
+
+			<nav aria-label="Fish Catalog Pages">
+				<ul class="pagination">
+					@for (int i = 1; i <= Model.LastPage; i++)
+					{
+						if (i == Model.CurrentPage)
+						{
+							<li class="page-item active">
+								<a class="page-link">@i</a>
+							</li>
+						}
+						else
+						{
+							<li class=" page-item">
+
+								<a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+							</li>
+						}
+
 					}
-				});
-			});
+				</ul>
+			</nav>
+		</div>
+	</div>
+			<script>
+				$(document).ready(function () {
+					// Function to update the URL with the current filters
+					function updateUrl() {
+						var filterUnder10 = $('#filter1').is(':checked');
+						var filter10to20 = $('#filter2').is(':checked');
+						var filterSizeLessThan10 = $('#filter4').is(':checked');
+						var filterSizeMoreThan10 = $('#filter5').is(':checked');
+						var queryParams = new URLSearchParams(window.location.search);
 
-		</script>
+						queryParams.set('filterUnder10', filterUnder10);
+						queryParams.set('filter10to20', filter10to20);
+						queryParams.set('filterSizeLessThan10', filterSizeLessThan10);
+						queryParams.set('filterSizeMoreThan10', filterSizeMoreThan10);
+						history.replaceState(null, null, "?" + queryParams.toString());
+					}
+
+					// Set the state of the checkboxes based on the query parameters
+					function setCheckboxStates() {
+						var queryParams = new URLSearchParams(window.location.search);
+						var filterUnder10 = queryParams.get('filterUnder10') === 'true';
+						var filter10to20 = queryParams.get('filter10to20') === 'true';
+						var filterSizeLessThan10 = queryParams.get('filterSizeLessThan10') === 'true';
+						var filterSizeMoreThan10 = queryParams.get('filterSizeMoreThan10') === 'true';
+
+						$('#filter1').prop('checked', filterUnder10);
+						$('#filter2').prop('checked', filter10to20);
+						$('#filter4').prop('checked', filterSizeLessThan10);
+						$('#filter5').prop('checked', filterSizeMoreThan10);
+					}
+
+					// Add an event listener to the button to apply filters
+					$('#btn_results').on('click', function () {
+						updateUrl();
+						// Trigger a page refresh to apply the filters server-side
+						window.location.reload();
+					});
+
+					// Set the checkbox states on initial page load
+					setCheckboxStates();
+
+					$(document).ready(function () {
+						// Function to clear all filters
+						function clearFilters() {
+							// Reset all filter checkboxes
+							$('input[type=checkbox]').prop('checked', false);
+							// Reset all filter radio buttons
+							$('input[type=radio]').prop('checked', false);
+							// Update the URL to remove filter parameters
+							var queryParams = new URLSearchParams(window.location.search);
+							queryParams.delete('filterUnder10');
+							queryParams.delete('filter10to20');
+							queryParams.delete('filterSizeLessThan10');
+							queryParams.delete('filterSizeMoreThan10');
+							history.replaceState(null, null, window.location.pathname);
+							// Reload the page to apply the changes
+							window.location.reload();
+						}
+
+						// Add an event listener to the clear filters button
+						$('#clear_filters_btn').on('click', clearFilters);
+
+						// Rest of your existing code...
+					});
+
+				});
+
+			</script>
+
+</body>
