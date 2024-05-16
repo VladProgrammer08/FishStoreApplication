@@ -81,29 +81,7 @@
 
 
 
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="flush-headingThree">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
-								Filter Group 1
-							</button>
-						</h2>
-						<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#filterAccordion">
-							<div class="accordion-body">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="filter1">
-									<label class="form-check-label" for="filter1">
-										Filter 1
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="filter2">
-									<label class="form-check-label" for="filter2">
-										Filter 2
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
+				
 				</div>
 				<a id="btn_results" class="btn btn-sm btn-outline-secondary">See Results</a>
 				<a id="clear_filters_btn" class="btn btn-sm btn-outline-secondary" type="button">Clear Filters</a>
@@ -173,7 +151,7 @@
 	</div>
 			<script>
 				$(document).ready(function () {
-					// Function to update the URL with the current filters
+
 					function updateUrl() {
 						var filterUnder10 = $('#filter1').is(':checked');
 						var filter10to20 = $('#filter2').is(':checked');
@@ -188,7 +166,7 @@
 						history.replaceState(null, null, "?" + queryParams.toString());
 					}
 
-					// Set the state of the checkboxes based on the query parameters
+
 					function setCheckboxStates() {
 						var queryParams = new URLSearchParams(window.location.search);
 						var filterUnder10 = queryParams.get('filterUnder10') === 'true';
@@ -202,38 +180,34 @@
 						$('#filter5').prop('checked', filterSizeMoreThan10);
 					}
 
-					// Add an event listener to the button to apply filters
 					$('#btn_results').on('click', function () {
 						updateUrl();
-						// Trigger a page refresh to apply the filters server-side
+
 						window.location.reload();
 					});
 
-					// Set the checkbox states on initial page load
 					setCheckboxStates();
 
 					$(document).ready(function () {
-						// Function to clear all filters
+
 						function clearFilters() {
-							// Reset all filter checkboxes
+		
 							$('input[type=checkbox]').prop('checked', false);
-							// Reset all filter radio buttons
+
 							$('input[type=radio]').prop('checked', false);
-							// Update the URL to remove filter parameters
+
 							var queryParams = new URLSearchParams(window.location.search);
 							queryParams.delete('filterUnder10');
 							queryParams.delete('filter10to20');
 							queryParams.delete('filterSizeLessThan10');
 							queryParams.delete('filterSizeMoreThan10');
 							history.replaceState(null, null, window.location.pathname);
-							// Reload the page to apply the changes
+
 							window.location.reload();
 						}
 
-						// Add an event listener to the clear filters button
 						$('#clear_filters_btn').on('click', clearFilters);
 
-						// Rest of your existing code...
 					});
 
 				});

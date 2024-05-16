@@ -201,16 +201,13 @@
     <script>
         $(document).ready(function () {
             $('.img-thumbnail').click(function () {
-                // Store the source of the main image
+
                 var mainImgSrc = $('#mainImage').attr('src');
 
-                // Get the source of the clicked thumbnail
                 var thumbImgSrc = $(this).attr('src');
 
-                // Set the source of the main image to the thumbnail source
                 $('#mainImage').attr('src', thumbImgSrc);
 
-                // Set the source of the clicked thumbnail to the main image source
                 $(this).attr('src', mainImgSrc);
             });
         });
