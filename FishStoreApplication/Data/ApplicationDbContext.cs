@@ -11,6 +11,8 @@ namespace FishStoreApplication.Data
         {
         }
 
-        public DbSet<Fish>Fishes { get; set; }
+        public DbSet<Fish> Fishes { get; set; }
+
+        public DbSet<CartFishViewModel> CartFishViewModel { get; set; } = default!;
     }
 }

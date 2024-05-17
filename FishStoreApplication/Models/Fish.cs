@@ -66,4 +66,26 @@ namespace FishStoreApplication.Models
         /// </summary>
         public string? FishWarranty { get; set; }
     }
+    
+
+    public class CartFishViewModel
+    {
+		/// <summary>
+		/// The unique identifier for each fish product
+		/// (Primary Key)
+		/// </summary>
+		[Key]
+		public int FishId { get; set; }
+
+		/// <summary>
+		/// The official breed name of the Fish
+		/// </summary>
+		public string BreedName { get; set; }
+
+
+		/// <summary>
+		/// The sales price of the fish
+		/// </summary>
+		public double Price { get; set; }
+    }
 }
