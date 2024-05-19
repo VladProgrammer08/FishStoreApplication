@@ -21,7 +21,7 @@ namespace FishStoreApplication.Controllers
 			if (fishToAdd == null)
 			{
 				TempData["Message"] = "Sorry that fish no longer exists";
-				return RedirectToAction("Index", "Fishes");
+				return RedirectToAction("Index", "Products");
 			}
 			CartFishViewModel cartFish = new()
 			{
@@ -36,7 +36,7 @@ namespace FishStoreApplication.Controllers
 			WriteShoppingCartCookie(cartFishes);
 
 			TempData["Message"] = "Item added to cart";
-			return RedirectToAction("Index", "Fishes");
+			return RedirectToAction("Index", "Products");
 		}
 		public void WriteShoppingCartCookie(List<CartFishViewModel> cartFish)
 		{
