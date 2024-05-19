@@ -6,12 +6,12 @@ using Newtonsoft.Json;
 
 namespace FishStoreApplication.Controllers
 {
-	public class CartController1 : Controller
+	public class CartController : Controller
 	{
 		private readonly ApplicationDbContext _context;
 		private const string Cart = "ShopingCart";
 
-		public CartController1(ApplicationDbContext context)
+		public CartController(ApplicationDbContext context)
 		{
 			_context = context;
 		}
