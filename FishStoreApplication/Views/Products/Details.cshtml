@@ -126,7 +126,7 @@
                     <div id="space"></div>
 
                     <div>
-                        <a id="cart" asp-action="Index"><b>ADD TO CART</b></a>
+                        <a id="cart" asp-controller="Cart" asp-action="Add" asp-route-id="@Model?.FishId" ><b>ADD TO CART</b></a>
                     </div>
 
                     <div id="space"></div>

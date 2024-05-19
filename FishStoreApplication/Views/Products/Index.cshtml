@@ -110,7 +110,7 @@
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
 												<a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@item.FishId">Details</a>
-												<a class="btn btn-sm btn-outline-secondary" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+												<a class="btn btn-sm btn-outline-secondary" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
 											</div>
 										</div>
 									</div>
