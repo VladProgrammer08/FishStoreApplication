@@ -56,7 +56,7 @@ namespace FishStoreApplication.Models
         public virtual Cart Cart { get; set; }
     }
 
-    [Keyless]
+    
     public class CartSummaryViewModel
     {
         /// <summary>

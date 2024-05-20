@@ -43,7 +43,6 @@ namespace FishStoreApplication.Controllers
                     return RedirectToAction("Index", "Products");
                 }
 
-                // Now we can safely use LINQ on cart.Items
                 var cartItem = cart.Items.FirstOrDefault(ci => ci.FishId == fishToAdd.FishId);
                 if (cartItem == null)
                 {
@@ -103,6 +102,34 @@ namespace FishStoreApplication.Controllers
                                        .FirstOrDefault(ci => ci.FishId == id && ci.Cart.UserId == userId);
 
                 if (cartItem != null)
+                {
+                    _context.CartItems.Remove(cartItem);
+                    _context.SaveChanges();
+                }
+
+                return RedirectToAction(nameof(Summary));
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+        public IActionResult DecreaseQuantity(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var cartItem = _context.CartItems
+                                       .Include(ci => ci.Cart)
+                                       .FirstOrDefault(ci => ci.FishId == id && ci.Cart.UserId == userId);
+
+                if (cartItem != null && cartItem.Quantity > 1)
+                {
+                    cartItem.Quantity--;
+                    _context.SaveChanges();
+                }
+                else if (cartItem != null)
                 {
                     _context.CartItems.Remove(cartItem);
                     _context.SaveChanges();
