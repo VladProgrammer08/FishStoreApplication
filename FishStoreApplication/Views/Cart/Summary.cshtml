@@ -41,7 +41,9 @@ else
                         @(item.Fish.Price * item.Quantity)
                     </td>
                     <td>
-                        <a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.CartItemId">Remove Item</a>
+                        <a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.FishId">Remove Item</a>
+                        <a class="btn btn-warning" asp-action="DecreaseQuantity" asp-route-id="@item.FishId">-</a>
+
                     </td>
                 </tr>
             }
