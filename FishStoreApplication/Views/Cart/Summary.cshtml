@@ -1,43 +1,56 @@
-﻿@model IEnumerable<FishStoreApplication.Models.CartFishViewModel>
+﻿@model CartSummaryViewModel
 
-@{
-    ViewData["Title"] = "Your Shopping Cart";
-}
-
-<h1>Summary</h1>
-
-@if(Model.Count() == 0)
+@if (Model.Items.Count == 0)
 {
     <h2>There is nothing in the cart</h2>
 }
-else{
+else
+{
     <table class="table">
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.BreedName)
+                    Fish Name
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Price)
+                    Price
+                </th>
+                <th>
+                    Quantity
+                </th>
+                <th>
+                    Subtotal
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Items)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.BreedName)
+                        @Html.DisplayFor(modelItem => item.Fish.BreedName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Price)
+                        @Html.DisplayFor(modelItem => item.Fish.Price)
                     </td>
                     <td>
-                        <a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.FishId">Remove Item</a>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @(item.Fish.Price * item.Quantity)
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.CartItemId">Remove Item</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
+    <div>
+        <h3>Total Price: @Model.TotalPrice</h3>
+        <h3>Tax (@(Model.TaxRate * 100)%): @Model.TotalTax</h3>
+        <h3>Final Price: @Model.FinalPrice</h3>
+    </div>
 }
