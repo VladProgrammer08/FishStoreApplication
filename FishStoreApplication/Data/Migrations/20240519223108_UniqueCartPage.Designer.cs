@@ -4,6 +4,7 @@ using FishStoreApplication.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FishStoreApplication.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240519223108_UniqueCartPage")]
+    partial class UniqueCartPage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,47 +25,28 @@ namespace FishStoreApplication.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("FishStoreApplication.Models.Cart", b =>
+            modelBuilder.Entity("FishStoreApplication.Models.CartFishViewModel", b =>
                 {
-                    b.Property<int>("CartId")
+                    b.Property<int>("FishId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("FishId"));
+
+                    b.Property<string>("BreedName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
 
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CartId");
+                    b.HasKey("FishId");
 
-                    b.ToTable("Carts", (string)null);
-                });
-
-            modelBuilder.Entity("FishStoreApplication.Models.CartItem", b =>
-                {
-                    b.Property<int>("CartItemId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CartItemId"));
-
-                    b.Property<int>("CartId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FishId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("CartItemId");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("FishId");
-
-                    b.ToTable("CartItems", (string)null);
+                    b.ToTable("CartFishViewModel");
                 });
 
             modelBuilder.Entity("FishStoreApplication.Models.Fish", b =>
@@ -106,7 +90,7 @@ namespace FishStoreApplication.Data.Migrations
 
                     b.HasKey("FishId");
 
-                    b.ToTable("Fishes", (string)null);
+                    b.ToTable("Fishes");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -311,25 +295,6 @@ namespace FishStoreApplication.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("FishStoreApplication.Models.CartItem", b =>
-                {
-                    b.HasOne("FishStoreApplication.Models.Cart", "Cart")
-                        .WithMany("Items")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("FishStoreApplication.Models.Fish", "Fish")
-                        .WithMany()
-                        .HasForeignKey("FishId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Fish");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -379,11 +344,6 @@ namespace FishStoreApplication.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FishStoreApplication.Models.Cart", b =>
-                {
-                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }
