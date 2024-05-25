@@ -3,6 +3,13 @@
 @{
 	ViewData["Title"] = "Fish Catalog";
 }
+@if (TempData["Message"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@TempData["Message"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
 <style>
 	.row.align-items-start {
 		display: flex;
@@ -149,6 +156,8 @@
 			</nav>
 		</div>
 	</div>
+	@section Scripts 
+	{
 			<script>
 				$(document).ready(function () {
 
@@ -213,5 +222,6 @@
 				});
 
 			</script>
+	}
 
 </body>
