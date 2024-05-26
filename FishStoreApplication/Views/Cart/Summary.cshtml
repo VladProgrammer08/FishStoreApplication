@@ -1,58 +1,158 @@
 ﻿@model CartSummaryViewModel
 
+@section Head
+{
+    <style>
+        #line {
+            width: 100%;
+            border-top: 3px solid black;
+            margin-top:20px;
+            margin-bottom: 10px
+        }
+        #line2 {
+            width: 100%;
+            border-top: 3px solid black;
+            margin-top: 20px;
+            margin-bottom: 20px
+        }
+
+        #cart {
+            border: 2px solid #000;
+            background-color: white;
+            color: black;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            position: center;
+            width: 100%;
+            margin-bottom:20px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+        }
+        #remove_btn{
+            border: 2px solid #000;
+            background-color: white;
+            color: black;
+            padding: 7px 15px;
+            padding-right:0px;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            position: center;
+            width: 58%;
+            margin-bottom: 20px;
+            border-radius:9px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        #remove_btn:hover {
+            background-color: black;
+            color: white;
+        }
+        #decrease_btn{
+            border: 2px solid #000;
+            background-color: white;
+            color: black;
+            padding: 7px 10px;
+            padding-left:17.5px;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            position: center;
+            width: 20%;
+            margin-bottom: 20px;
+            border-radius: 9px;
+            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+            transition: background-color 0.3s ease, color 0.3s ease;
+
+        }
+
+        #decrease_btn:hover {
+             background-color: black;
+             color: white;
+        }
+
+    </style>
+}
 @if (Model.Items.Count == 0)
 {
     <h2>There is nothing in the cart</h2>
 }
 else
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    Fish Name
-                </th>
-                <th>
-                    Price
-                </th>
-                <th>
-                    Quantity
-                </th>
-                <th>
-                    Subtotal
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.Items)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fish.BreedName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Fish.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Quantity)
-                    </td>
-                    <td>
-                        @(item.Fish.Price * item.Quantity)
-                    </td>
-                    <td>
-                        <a class="btn btn-danger" asp-action="Remove" asp-route-id="@item.FishId">Remove Item</a>
-                        <a class="btn btn-warning" asp-action="DecreaseQuantity" asp-route-id="@item.FishId">-</a>
-
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-
-    <div>
-        <h3>Total Price: @Model.TotalPrice</h3>
-        <h3>Tax (@(Model.TaxRate * 100)%): @Model.TotalTax</h3>
-        <h3>Final Price: @Model.FinalPrice</h3>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <table class="table table-striped">
+                    <h3>My Shopping Cart</h3>
+                    <div id="line"></div>
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th></th>
+                            <th>Quantity</th>
+                            <th>Subtotal</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Items)
+                        {
+                            <tr>
+                                <td><img src="@item.Fish.FishImageURL" alt="Product Image" style="width:100px; height:100px;"/></td>
+                                <td><b>@Html.DisplayFor(modelItem => item.Fish.BreedName)</b>
+                                    <br />
+                                    <span>ID: @item.Fish.FishId</span>
+                                    <br />
+                                    <span>Size: @item.Fish.FishSize Inch</span>
+                                </td>
+                                <td><b>@Html.DisplayFor(modelItem => item.Quantity)</b></td>
+                                <td><b>@((item.Fish.Price * item.Quantity).ToString("C"))</b></td>
+                                <td>
+                                    <br />
+                                    <a id="remove_btn" asp-action="Remove" asp-route-id="@item.FishId">Remove Item</a>
+                                    <a id="decrease_btn" asp-action="DecreaseQuantity" asp-route-id="@item.FishId"><b>-</b></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <h3>Summary</h3>
+                <div id="line2"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <h5>Subtotal</h5>
+                    <h5 style="width: 100px; text-align: right;">$@Model.TotalPrice.ToString("F2")</h5>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <h6>Shipping</h6>
+                    <h6 style="width: 100px; text-align: right;">TBD</h6>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <h6>Sale Tax (@(Model.TaxRate * 100)%)</h6>
+                    <h6 style="width: 100px; text-align: right;">$@Model.TotalTax.ToString("F2")</h6>
+                </div>
+                <div id="line2"></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <h5>Estimated Total</h5>
+                    <h6 style="width: 100px; text-align: right;">$@Model.FinalPrice.ToString("F2")</h6>
+                </div>
+                <div id="line2"></div>
+                <div>
+                    <div>
+                        <a id="cart" asp-action="Index"><b>CHECKOUT</b></a>
+                    </div>
+                </div>
+                <p>Need help? Call us at 1-887-332-444</p>
+                <div id="line2"></div>
+            </div>
+        </div>
     </div>
+
 }
