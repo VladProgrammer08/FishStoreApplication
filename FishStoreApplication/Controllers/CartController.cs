@@ -143,7 +143,26 @@ namespace FishStoreApplication.Controllers
             }
         }
 
+        public async Task<IActionResult> CheckoutAsync()
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var cart = _context.Carts.Include(c => c.Items)
+                                     .FirstOrDefault(c => c.UserId == userId);
 
+            if (cart != null && cart.Items.Any())
+            {
+                _context.CartItems.RemoveRange(cart.Items);
+                _context.SaveChanges();
+                TempData["Message"] = "Thank you for shopping with us!";
+            }
+            return RedirectToAction("Index", "Products");
+        }
+
+        public IActionResult ShoppingAction()
+        {
+
+            return RedirectToAction("Index", "Products");
+        }
 
     }
 }

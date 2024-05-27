@@ -77,11 +77,49 @@
              color: white;
         }
 
+        .cart-icon-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 1.5em;
+            margin-top: 120px;
+        }
+
+        .cart-icon-container i {
+            font-size: 15em;
+            margin-bottom: 50px;
+        }
+
+        #shopping_btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 70px;
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        #shopping_btn:hover {
+            background-color: gray;
+        }
+
     </style>
 }
 @if (Model.Items.Count == 0)
 {
-    <h2>There is nothing in the cart</h2>
+    <div class="cart-icon-container">
+        <i class='bx bx-cart-add'></i>
+        <h3>Your cart is empty!<h3>
+        <h5>Add something to make us happy.</h5>
+        <div>
+            <a id="shopping_btn" asp-action="ShoppingAction">Continue Shopping</a>
+        </div>
+    </div>
+    
 }
 else
 {
@@ -145,14 +183,16 @@ else
                 </div>
                 <div id="line2"></div>
                 <div>
-                    <div>
-                        <a id="cart" asp-action="Index"><b>CHECKOUT</b></a>
-                    </div>
+                    <form asp-action="Checkout" method="post">
+                        <button type="submit" id="cart"><b>CHECKOUT</b></button>
+                    </form>
                 </div>
                 <p>Need help? Call us at 1-887-332-444</p>
                 <div id="line2"></div>
             </div>
         </div>
     </div>
-
 }
+
+
+
