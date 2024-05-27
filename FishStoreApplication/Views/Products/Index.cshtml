@@ -10,8 +10,142 @@
 			align-items: flex-start;
 		}
 
+		.pagination .page-link {
+			color: black;
+			background-color: white;
+			border: 1px solid black;
+			transition: background-color 0.3s;
+		}
 
+		.pagination .page-item.active .page-link {
+			color: white;
+			background-color: black;
+			border: 1px solid black;
+		}
 
+		.pagination .page-link:hover {
+			background-color: black;
+			color: white;
+		}
+
+		#line {
+			width: 55%;
+			border-top: 3px solid black;
+			margin-bottom: 10px
+		}
+		h2{
+			margin-top:30px;
+		}
+
+		.icon-small {
+			font-size: 0.65em;
+		}
+
+		#btns{
+			margin-top:40px;
+		}
+
+		.form-check-input:checked {
+			background-color: #000000;
+			border-color: #000000;
+		}
+
+		.form-check-input:focus {
+			box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+		}
+
+		#btn_results{
+			border: 2px solid #000;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding:7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 20px;
+			border-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+		#btn_results:hover{
+			background-color: black;
+			color: white;
+		}
+
+		#clear_filters_btn{
+			border: 2px solid #000;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding: 7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 20px;
+			border-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		#clear_filters_btn:hover{
+			background-color: black;
+			color: white;
+		}
+
+		#details_btn{
+			border: 2px solid gray;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding: 7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 5px;
+			border-top-left-radius:9px;
+			border-bottom-left-radius:9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		#details_btn:hover{
+			background-color: gray;
+			color: white;
+		}
+
+		#add_to_cart_btn{
+			border: 2px solid gray;
+			background-color: white;
+			color: black;
+			font-size: 16px;
+			padding: 7px 3px;
+			text-decoration: none;
+			display: inline-block;
+			margin-left:5px;
+			cursor: pointer;
+			position: center;
+			width: 100%;
+			margin-bottom: 5px;
+			border-top-right-radius:9px;
+			border-bottom-right-radius:9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+		#add_to_cart_btn:hover{
+			background-color: gray;
+			color: white;
+		}
 	</style>
 }
 @if (TempData["Message"] != null)
@@ -23,82 +157,56 @@
 }
 
 
-	<div class="container">
-		<div class="row align-items-start">
-			<div class="col-md-2 filter-section">
-				<h1>Categories</h1>
+<div class="container">
+	<div class="row align-items-start">
+		<div class="col-md-2 filter-section">
+			<h1>Filter by</h1>
 
-				<div class="accordion" id="filterAccordion">
-
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="headingOne">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-								Price
-							</button>
-						</h2>
-						<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#filterAccordion">
-							<div class="accordion-body">
-
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter1">
-									<label class="form-check-label" for="filter1">
-										$1 - $10
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter2" checked>
-									<label class="form-check-label" for="filter2">
-										$10 - $20
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter3" checked>
-									<label class="form-check-label" for="filter3">
-										Any Price
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-					<div class="accordion-item">
-						<h2 class="accordion-header" id="headingTwo">
-							<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-								Size
-							</button>
-						</h2>
-						<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#filterAccordion">
-							<div class="accordion-body">
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
-									<label class="form-check-label" for="filter4">
-										Less than 10 inch
-									</label>
-								</div>
-								<div class="form-check">
-									<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter5" checked>
-									<label class="form-check-label" for="filter5">
-										More than 10 inch
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-
-
-				
+			<div>
+				<h2><i class='bx bxs-filter-alt icon-small'></i> Price</h2>
+				<div id="line"></div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter1">
+					<label class="form-check-label" for="filter1">
+						$1 - $10
+					</label>
 				</div>
-				<a id="btn_results" class="btn btn-sm btn-outline-secondary">See Results</a>
-				<a id="clear_filters_btn" class="btn btn-sm btn-outline-secondary" type="button">Clear Filters</a>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter2" checked>
+					<label class="form-check-label" for="filter2">
+						$10 - $20
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter3">
+					<label class="form-check-label" for="filter3">
+						Any Price
+					</label>
+				</div>
 			</div>
-		
-	
 
-	
-	
+			<div>
+				<h2><i class='bx bxs-filter-alt icon-small'></i> Size</h2>
+				<div id="line"></div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
+					<label class="form-check-label" for="filter4">
+						Less than 10 inch
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter5" checked>
+					<label class="form-check-label" for="filter5">
+						More than 10 inch
+					</label>
+				</div>
+			</div>
+			<div id="btns">
+				<a id="btn_results" type="button">See Results</a>
+				<a id="clear_filters_btn" type="button">Clear Filters</a>
+			</div>			
+		</div>
+		
 
 			<div class="col-md-10 main-content">
 				<h1>Fish Catalog</h1>
@@ -117,8 +225,8 @@
 										<p class="card-text"><strong></strong> $@item.Price</p>
 										<div class="d-flex justify-content-between align-items-center">
 											<div class="btn-group">
-												<a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@item.FishId">Details</a>
-												<a class="btn btn-sm btn-outline-secondary" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+												<a id="details_btn" asp-action="Details" asp-route-id="@item.FishId">Details</a>
+												<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
 											</div>
 										</div>
 									</div>
@@ -155,8 +263,8 @@
 					}
 				</ul>
 			</nav>
-		</div>
 	</div>
+</div>
 	@section Scripts 
 	{
 			<script>
