@@ -144,7 +144,7 @@ else
                         @foreach (var item in Model.Items)
                         {
                             <tr>
-                                <td><img src="@item.Fish.FishImageURL" alt="Product Image" style="width:100px; height:100px;"/></td>
+                                <td><img src="@Url.Content(item.Fish.MainImageURL)" alt="Product Image" style="width:100px; height:100px;" /></td>
                                 <td><b>@Html.DisplayFor(modelItem => item.Fish.BreedName)</b>
                                     <br />
                                     <span>ID: @item.Fish.FishId</span>
