@@ -22,9 +22,25 @@ namespace FishStoreApplication.Models
         public string BreedName { get; set; }
 
         /// <summary>
-        /// Represents the URL of the fish image.
+        /// Represents the URL of the main fish image.
         /// </summary>
-        public string? FishImageURL { get; set; }
+        public string? MainImageURL { get; set; }
+        /// <summary>
+        /// Represents the URL of the secondary fish image one.
+        /// </summary>
+        public string? SecondaryImageOne { get; set; }
+        /// <summary>
+        /// Represents the URL of the secondary fish image two.
+        /// </summary>
+        public string? SecondaryImageTwo { get; set; }
+        /// <summary>
+        /// Represents the URL of the secondary fish image three.
+        /// </summary>
+        public string? SecondaryImageThree { get; set; }
+        /// <summary>
+        /// Represents the URL of the secondary fish image four.
+        /// </summary>
+        public string? SecondaryImageFour { get; set; }
         /// <summary>
         /// Represents the price of the fish.
         /// </summary>
