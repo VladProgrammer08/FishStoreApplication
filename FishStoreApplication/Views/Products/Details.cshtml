@@ -108,12 +108,12 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="image-container">
-                    <img src="~/gold_fish.jpg" alt="Fish image" id="mainImage" class="img-fluid main-image" />
+                <img src="@Model.MainImageURL" alt="Fish image" id="mainImage" class="img-fluid main-image" />
                     <div class="thumbnail-container d-flex justify-content-center">
-                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
-                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
-                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
-                        <img src="~/fish.jpg" alt="Fish image" class="img-thumbnail" />
+                        <img src="@Model.SecondaryImageOne" alt="Fish image" class="img-thumbnail" />
+                        <img src="@Model.SecondaryImageTwo" alt="Fish image" class="img-thumbnail" />
+                        <img src="@Model.SecondaryImageThree" alt="Fish image" class="img-thumbnail" />
+                        <img src="@Model.SecondaryImageFour" alt="Fish image" class="img-thumbnail" />
                     </div>
                 </div>
             </div>
