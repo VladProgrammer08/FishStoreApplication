@@ -219,7 +219,7 @@
 							<div class="col-md-4 fish-card" data-price="@item.Price" data-size="@item.FishSize">
 								<div class="card mb-4 box-shadow">
 
-									<img class="card-img-top" src="~/fish.jpg" alt="Fish image" style="height: 250px; width:334px;">
+								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main fish image" style="height: 250px; width:334px;">
 									<div class="card-body">
 										<p class="card-text"><strong></strong> @item.BreedName</p>
 										<p class="card-text"><strong></strong> $@item.Price</p>
