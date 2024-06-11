@@ -1,7 +1,137 @@
-﻿@{
+﻿<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+@{
     ViewData["Title"] = "Home Page";
 }
+@section Head
+{
+    <style>
+        .left-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 70vh;
+        }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to Aqua World</h1>
+        .text-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 72vh;
+        }
+
+        .list-group-item {
+            padding: 19px 0;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .list-group-item:hover {
+            transform: scale(1.05);
+        }
+
+        #shopping_btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 70px;
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s ease-in-out;
+        }
+
+        #shopping_btn:hover {
+            background-color: gray;
+            transform: translateY(-5px);
+        }
+
+        #privacy_btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 70px;
+            text-decoration: none;
+            background-color: black;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.3s ease-in-out;
+        }
+
+            #privacy_btn:hover {
+                background-color: gray;
+                transform: translateY(-5px);
+            }
+
+        .social-icons i {
+            font-size: 24px;
+            margin: 0 10px;
+            transition: transform 0.3s ease;
+}
+
+        .social-icons i:hover {
+            transform: scale(1.2);
+        }
+
+        .contact-info p {
+            margin: 5px 0;
+        }
+
+
+        .col-md-6 {
+            text-align: center;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        .social-icons, .contact-info {
+            justify-content: center;
+        }
+
+    </style>
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 left-content">
+            <h1>High quality selection of Aquarium fish</h1>
+            <br />
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><h3><i class='bx bx-check'></i> Buy a fish you like</h3></li>
+                <li class="list-group-item"><h3><i class='bx bx-check'></i> Explore new fish species</h3></li>
+                <li class="list-group-item"><h3><i class='bx bx-check'></i> Make a perfect gift to your friend</h3></li>
+                <li class="list-group-item"><h3><i class='bx bx-check'></i> Get to know more of fish</h3></li>
+            </ul>
+            <div>
+                <a id="shopping_btn" asp-action="ShoppingAction">Shop Now</a>
+            </div>
+        </div>
+        <div class="col-md-6 text-right">
+            <section class="follow-us">
+                <h1>Follow us</h1>
+                <div class="social-icons">
+                    <i class='bx bxl-facebook-circle'></i>
+                    <i class='bx bxl-telegram'></i>
+                    <i class='bx bxl-instagram-alt'></i>
+                </div>
+            </section>
+            <section class="contacts">
+                <h1>Contacts</h1>
+                <div class="contact-info">
+                    <p><i class='bx bxs-phone'></i> +1(332)324-5243</p>
+                    <p><i class='bx bxl-gmail'></i> visit@aqua.com</p>
+                </div>
+            </section>
+            <section class="location">
+                <h1>Location</h1>
+                <address>
+                    742 Evergreen Terrace<br>
+                    Mystic Falls, Eldoria
+                </address>
+            </section>
+            <div>
+                <a id="privacy_btn" asp-action="SeePrivacyAction">See Privacy Policy</a>
+            </div>
+        </div>
+
+    </div>
 </div>
