@@ -19,7 +19,6 @@ namespace FishStoreApplication.Controllers
             return View();
         }
 
-        [Authorize(Roles = $"{IdentityHelper.Admin}")]
         public IActionResult Privacy()
         {
             return View();
@@ -29,6 +28,16 @@ namespace FishStoreApplication.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult ShoppingAction ()
+        {
+            return RedirectToAction("Index", "Products");
+        }
+
+        public IActionResult SeePrivacyAction()
+        {
+            return RedirectToAction("Privacy", "Home");
         }
     }
 }
