@@ -82,4 +82,20 @@ namespace FishStoreApplication.Models
         /// </summary>
         public string? FishWarranty { get; set; }
     }
+
+    public class CreateProductViewModel
+    {
+        public IFormFile MainImage { get; set; }
+        public IFormFile SecondaryImageOne { get; set; }
+        public IFormFile SecondaryImageTwo { get; set; }
+        public IFormFile SecondaryImageThree { get; set; }
+        public IFormFile SecondaryImageFour { get; set; }
+    }
+
+    public class FishViewModel
+    {
+        public Fish Fish { get; set; }
+
+        public CreateProductViewModel FishUpload { get; set; }
+    }
 }
