@@ -11,9 +11,11 @@ namespace FishStoreApplication.Controllers
     public class FishController : Controller
     {
         private readonly ApplicationDbContext _context;
-        public FishController(ApplicationDbContext context)
+        private readonly IWebHostEnvironment _environment;
+        public FishController(ApplicationDbContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         [Authorize(Roles = IdentityHelper.Admin)]
@@ -45,39 +47,206 @@ namespace FishStoreApplication.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Fish f)
+        public async Task<IActionResult> Create(FishViewModel f)
         {
             if(ModelState.IsValid)
             {
-                _context.Fishes.Add(f); // Prepares insert
+                if (f.FishUpload.MainImage != null)
+                {
+                    string mainImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(f.FishUpload.MainImage.FileName);
+
+                    // Save file to file system
+                    string mainImagePath = Path.Combine(_environment.WebRootPath, "images", mainImageFileName);
+                    using (var stream = new FileStream(mainImagePath, FileMode.Create))
+                    {
+                        await f.FishUpload.MainImage.CopyToAsync(stream);
+                    }
+                    // Generate unique file name
+                    f.Fish.MainImageURL = "/images/" + mainImageFileName;
+                }
+
+                // Handle Secondary Images
+
+                if (f.FishUpload.SecondaryImageOne != null)
+                {
+                    string secondaryImageOneFileName = Guid.NewGuid().ToString() + Path.GetExtension(f.FishUpload.SecondaryImageOne.FileName);
+                    string secondaryImageOnePath = Path.Combine(_environment.WebRootPath, "images", secondaryImageOneFileName);
+
+                    using (var stream = new FileStream(secondaryImageOnePath, FileMode.Create))
+                    {
+                        await f.FishUpload.SecondaryImageOne.CopyToAsync(stream);
+                    }
+
+                    f.Fish.SecondaryImageOne = "/images/" + secondaryImageOneFileName;
+                }
+                if (f.FishUpload.SecondaryImageTwo != null)
+                {
+                    string secondaryImageTwoFileName = Guid.NewGuid().ToString() + Path.GetExtension(f.FishUpload.SecondaryImageTwo.FileName);
+                    string secondaryImageTwoPath = Path.Combine(_environment.WebRootPath, "images", secondaryImageTwoFileName);
+
+                    using (var stream = new FileStream(secondaryImageTwoPath, FileMode.Create))
+                    {
+                        await f.FishUpload.SecondaryImageTwo.CopyToAsync(stream);
+                    }
+
+                    f.Fish.SecondaryImageTwo = "/images/" + secondaryImageTwoFileName;
+                }
+                if (f.FishUpload.SecondaryImageThree != null)
+                {
+                    string secondaryImageThreeFileName = Guid.NewGuid().ToString() + Path.GetExtension(f.FishUpload.SecondaryImageThree.FileName);
+                    string secondaryImageThreePath = Path.Combine(_environment.WebRootPath, "images", secondaryImageThreeFileName);
+
+                    using (var stream = new FileStream(secondaryImageThreePath, FileMode.Create))
+                    {
+                        await f.FishUpload.SecondaryImageThree.CopyToAsync(stream);
+                    }
+
+                    f.Fish.SecondaryImageThree = "/images/" + secondaryImageThreeFileName;
+                }
+                if (f.FishUpload.SecondaryImageFour != null)
+                {
+                    string secondaryImageFourFileName = Guid.NewGuid().ToString() + Path.GetExtension(f.FishUpload.SecondaryImageFour.FileName);
+                    string secondaryImageFourPath = Path.Combine(_environment.WebRootPath, "images", secondaryImageFourFileName);
+
+                    using (var stream = new FileStream(secondaryImageFourPath, FileMode.Create))
+                    {
+                        await f.FishUpload.SecondaryImageFour.CopyToAsync(stream);
+                    }
+
+                    f.Fish.SecondaryImageFour = "/images/" + secondaryImageFourFileName;
+                }
+
+                // Save fish to the database
+                _context.Fishes.Add(f.Fish); // Prepares insert
                 await _context.SaveChangesAsync(); // Executes pending insert
 
-                ViewData["Message"] = $"{f.BreedName} was added successfully!";
+                ViewData["Message"] = $"{f.Fish.BreedName} was added successfully!";
                 return View();
+                
             }
             return View(f);
         }
         public async Task<IActionResult> Edit(int id)
         {
             Fish? fishToEdit = await _context.Fishes.FindAsync(id);
-            if(fishToEdit == null)
+            if (fishToEdit == null)
             {
                 return NotFound();
             }
-            return View(fishToEdit);
-        }
-        [HttpPost]
-        public async Task<IActionResult> Edit(Fish fishModel)
-        {
-            if(ModelState.IsValid)
-            {
-                _context.Fishes.Update(fishModel);
-                await _context.SaveChangesAsync();
 
-                TempData["Message"] = $"{fishModel.BreedName} was updated successfully";
-                return RedirectToAction("Index");
+            var viewModel = new FishViewModel
+            {
+                Fish = fishToEdit,
+                FishUpload = new CreateProductViewModel()
+            };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, FishViewModel viewModel)
+        {
+            if (id != viewModel.Fish.FishId)
+            {
+                return NotFound();
             }
-            return View(fishModel);
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    // Handle Main Image
+                    if (viewModel.FishUpload.MainImage != null)
+                    {
+                        string mainImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.FishUpload.MainImage.FileName);
+                        string mainImagePath = Path.Combine(_environment.WebRootPath, "images", mainImageFileName);
+
+                        using (var stream = new FileStream(mainImagePath, FileMode.Create))
+                        {
+                            await viewModel.FishUpload.MainImage.CopyToAsync(stream);
+                        }
+
+                        viewModel.Fish.MainImageURL = "/images/" + mainImageFileName;
+                    }
+
+                    // Handle Secondary Images
+                    if (viewModel.FishUpload.SecondaryImageOne != null)
+                    {
+                        string secondaryImageOneFileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.FishUpload.SecondaryImageOne.FileName);
+                        string secondaryImageOnePath = Path.Combine(_environment.WebRootPath, "images", secondaryImageOneFileName);
+
+                        using (var stream = new FileStream(secondaryImageOnePath, FileMode.Create))
+                        {
+                            await viewModel.FishUpload.SecondaryImageOne.CopyToAsync(stream);
+                        }
+
+                        viewModel.Fish.SecondaryImageOne = "/images/" + secondaryImageOneFileName;
+                    }
+
+                    if (viewModel.FishUpload.SecondaryImageTwo != null)
+                    {
+                        string secondaryImageTwoFileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.FishUpload.SecondaryImageTwo.FileName);
+                        string secondaryImageTwoPath = Path.Combine(_environment.WebRootPath, "images", secondaryImageTwoFileName);
+
+                        using (var stream = new FileStream(secondaryImageTwoPath, FileMode.Create))
+                        {
+                            await viewModel.FishUpload.SecondaryImageTwo.CopyToAsync(stream);
+                        }
+
+                        viewModel.Fish.SecondaryImageTwo = "/images/" + secondaryImageTwoFileName;
+                    }
+
+                    if (viewModel.FishUpload.SecondaryImageThree != null)
+                    {
+                        string secondaryImageThreeFileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.FishUpload.SecondaryImageThree.FileName);
+                        string secondaryImageThreePath = Path.Combine(_environment.WebRootPath, "images", secondaryImageThreeFileName);
+
+                        using (var stream = new FileStream(secondaryImageThreePath, FileMode.Create))
+                        {
+                            await viewModel.FishUpload.SecondaryImageThree.CopyToAsync(stream);
+                        }
+
+                        viewModel.Fish.SecondaryImageThree = "/images/" + secondaryImageThreeFileName;
+                    }
+
+                    if (viewModel.FishUpload.SecondaryImageFour != null)
+                    {
+                        string secondaryImageFourFileName = Guid.NewGuid().ToString() + Path.GetExtension(viewModel.FishUpload.SecondaryImageFour.FileName);
+                        string secondaryImageFourPath = Path.Combine(_environment.WebRootPath, "images", secondaryImageFourFileName);
+
+                        using (var stream = new FileStream(secondaryImageFourPath, FileMode.Create))
+                        {
+                            await viewModel.FishUpload.SecondaryImageFour.CopyToAsync(stream);
+                        }
+
+                        viewModel.Fish.SecondaryImageFour = "/images/" + secondaryImageFourFileName;
+                    }
+
+                    _context.Update(viewModel.Fish);
+                    await _context.SaveChangesAsync();
+
+                    TempData["Message"] = $"{viewModel.Fish.BreedName} was updated successfully";
+                    return RedirectToAction("Index");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!FishExists(viewModel.Fish.FishId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+            }
+            return View(viewModel);
+        }
+
+        private bool FishExists(int id)
+        {
+            return _context.Fishes.Any(e => e.FishId == id);
         }
 
         public async Task<IActionResult> Delete(int id)

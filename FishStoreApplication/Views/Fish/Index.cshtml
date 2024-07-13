@@ -44,6 +44,9 @@
                         @Html.DisplayFor(modelItem => item.BreedName)
                     </td>
                     <td>
+                        <img height="200" src="@item.MainImageURL" alt="@item.BreedName" />
+                    </td>
+                    <td>
                         $@Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
