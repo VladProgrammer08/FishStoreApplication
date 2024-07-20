@@ -51,6 +51,7 @@ namespace FishStoreApplication.Controllers
         {
             if(ModelState.IsValid)
             {
+                // Handle Main Image
                 if (f.FishUpload.MainImage != null)
                 {
                     string mainImageFileName = Guid.NewGuid().ToString() + Path.GetExtension(f.FishUpload.MainImage.FileName);

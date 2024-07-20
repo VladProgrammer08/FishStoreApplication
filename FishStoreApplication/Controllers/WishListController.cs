@@ -11,7 +11,6 @@ namespace FishStoreApplication.Controllers
 	public class WishListController : Controller
 	{
 		private readonly ApplicationDbContext _context;
-		private const string Cart = "ShopingCart";
 
 		public WishListController(ApplicationDbContext context)
 		{
@@ -79,7 +78,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
-		public IActionResult RemoveFromWishList(int id)
+        public IActionResult RemoveFromWishList(int id)
 		{
 			if (User.Identity.IsAuthenticated)
 			{
