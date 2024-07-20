@@ -235,10 +235,9 @@
 											<a id="details_btn" asp-action="Details" asp-route-id="@item.FishId">Details</a>
 											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
 										</div>
-
-										<button class="btn heart-btn" style="position: absolute; top: 0; right: 0;">
-											<i class='bx bx-heart heart-icon' style='font-size: 27px;'></i>
-										</button>
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="AddToWishList" asp-route-id="@item.FishId" style="position: absolute; top: 0; right: 0;">
+											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
+										</a>
 									</div>
 								</div>
 								</div>
