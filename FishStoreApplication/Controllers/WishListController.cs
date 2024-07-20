@@ -31,17 +31,18 @@ namespace FishStoreApplication.Controllers
 						UserId = userId,
 						Items = new List<WishListItem>()
 					};
+					_context.WishLists.Add(wishList); // Add the new wishlist to the context
 				}
 				else if (wishList.Items == null)
 				{
 					wishList.Items = new List<WishListItem>();
 				}
 				var productToAdd = _context.Fishes.SingleOrDefault(f => f.FishId == id);
-                if (productToAdd == null)
+				if (productToAdd == null)
 				{
 					TempData["Message"] = "Sorry, that fish no longer exists";
 					return RedirectToAction("Index", "Products");
-                }
+				}
 				var wishListItem = wishList.Items.FirstOrDefault(wi => wi.FishId == productToAdd.FishId);
 				if (wishListItem == null)
 				{
@@ -54,14 +55,15 @@ namespace FishStoreApplication.Controllers
 				_context.SaveChanges();
 				TempData["Message"] = "Item added to WishList";
 				return RedirectToAction("Index", "Products");
-            }
+			}
 			else
 			{
 				return RedirectToAction("Login", "Account");
 			}
 		}
 
-        public IActionResult WishListView()
+
+		public IActionResult WishListView()
         {
             if (User.Identity.IsAuthenticated)
             {
