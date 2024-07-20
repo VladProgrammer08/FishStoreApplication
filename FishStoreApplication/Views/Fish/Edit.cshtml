@@ -6,17 +6,17 @@
 
 <h1>Edit @Model.Fish.BreedName</h1>
  <hr />
- <div class="row">
-     <div class="col-md-4">
+<div class="row">
+    <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
-             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-             <input type="hidden" asp-for="Fish.FishId" />
-             <div class="form-group">
-                 <label asp-for="Fish.BreedName" class="control-label"></label>
-                 <input asp-for="Fish.BreedName" class="form-control" />
-                 <span asp-validation-for="Fish.BreedName" class="text-danger"></span>
-             </div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Fish.FishId" />
+            <div class="form-group">
+                <label asp-for="Fish.BreedName" class="control-label"></label>
+                <input asp-for="Fish.BreedName" class="form-control" />
+                <span asp-validation-for="Fish.BreedName" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <label asp-for="Fish.Price" class="control-label"></label>
                 <div class="input-group">
@@ -26,49 +26,59 @@
                 <span asp-validation-for="Fish.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FishUpload.MainImage" class="control-label">Main image file</label>
-                <input asp-for="FishUpload.MainImage" class="form-control" />
-                <span asp-validation-for="FishUpload.MainImage" class="text-danger"></span>
+                <label asp-for="Fish.MainImageURL" class="control-label">Main Image</label>
+                <input type="text" asp-for="Fish.MainImageURL" class="form-control" readonly />
                 @if (!string.IsNullOrEmpty(Model.Fish.MainImageURL))
                 {
                     <img src="@Model.Fish.MainImageURL" alt="Main Image" height="100" />
                 }
+                <label asp-for="FishUpload.MainImage" class="control-label">Replace Main Image</label>
+                <input asp-for="FishUpload.MainImage" class="form-control" />
+                <span asp-validation-for="FishUpload.MainImage" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FishUpload.SecondaryImageOne" class="control-label">Secondary image file (first)</label>
-                <input asp-for="FishUpload.SecondaryImageOne" class="form-control" />
-                <span asp-validation-for="FishUpload.SecondaryImageOne" class="text-danger"></span>
+                <label asp-for="Fish.SecondaryImageOne" class="control-label">Secondary Image One</label>
+                <input type="text" asp-for="Fish.SecondaryImageOne" class="form-control" readonly />
                 @if (!string.IsNullOrEmpty(Model.Fish.SecondaryImageOne))
                 {
                     <img src="@Model.Fish.SecondaryImageOne" alt="Secondary Image One" height="100" />
                 }
+                <label asp-for="FishUpload.SecondaryImageOne" class="control-label">Replace Secondary Image One</label>
+                <input asp-for="FishUpload.SecondaryImageOne" class="form-control" />
+                <span asp-validation-for="FishUpload.SecondaryImageOne" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FishUpload.SecondaryImageTwo" class="control-label">Secondary image file (second)</label>
-                <input asp-for="FishUpload.SecondaryImageTwo" class="form-control" />
-                <span asp-validation-for="FishUpload.SecondaryImageTwo" class="text-danger"></span>
+                <label asp-for="Fish.SecondaryImageTwo" class="control-label">Secondary Image Two</label>
+                <input type="text" asp-for="Fish.SecondaryImageTwo" class="form-control" readonly />
                 @if (!string.IsNullOrEmpty(Model.Fish.SecondaryImageTwo))
                 {
                     <img src="@Model.Fish.SecondaryImageTwo" alt="Secondary Image Two" height="100" />
                 }
+                <label asp-for="FishUpload.SecondaryImageTwo" class="control-label">Replace Secondary Image Two</label>
+                <input asp-for="FishUpload.SecondaryImageTwo" class="form-control" />
+                <span asp-validation-for="FishUpload.SecondaryImageTwo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FishUpload.SecondaryImageThree" class="control-label">Secondary image file (third)</label>
-                <input asp-for="FishUpload.SecondaryImageThree" class="form-control" />
-                <span asp-validation-for="FishUpload.SecondaryImageThree" class="text-danger"></span>
+                <label asp-for="Fish.SecondaryImageThree" class="control-label">Secondary Image Three</label>
+                <input type="text" asp-for="Fish.SecondaryImageThree" class="form-control" readonly />
                 @if (!string.IsNullOrEmpty(Model.Fish.SecondaryImageThree))
                 {
                     <img src="@Model.Fish.SecondaryImageThree" alt="Secondary Image Three" height="100" />
                 }
+                <label asp-for="FishUpload.SecondaryImageThree" class="control-label">Replace Secondary Image Three</label>
+                <input asp-for="FishUpload.SecondaryImageThree" class="form-control" />
+                <span asp-validation-for="FishUpload.SecondaryImageThree" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FishUpload.SecondaryImageFour" class="control-label">Secondary image file (fourth)</label>
-                <input asp-for="FishUpload.SecondaryImageFour" class="form-control" />
-                <span asp-validation-for="FishUpload.SecondaryImageFour" class="text-danger"></span>
+                <label asp-for="Fish.SecondaryImageFour" class="control-label">Secondary Image Four</label>
+                <input type="text" asp-for="Fish.SecondaryImageFour" class="form-control" readonly />
                 @if (!string.IsNullOrEmpty(Model.Fish.SecondaryImageFour))
                 {
                     <img src="@Model.Fish.SecondaryImageFour" alt="Secondary Image Four" height="100" />
                 }
+                <label asp-for="FishUpload.SecondaryImageFour" class="control-label">Replace Secondary Image Four</label>
+                <input asp-for="FishUpload.SecondaryImageFour" class="form-control" />
+                <span asp-validation-for="FishUpload.SecondaryImageFour" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fish.FishSize" class="control-label">Fish Size(IN)</label>
@@ -76,7 +86,7 @@
                 <span asp-validation-for="Fish.FishSize" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fish.FishSpecialDiet" class="control-label">Fish Special diet</label>
+                <label asp-for="Fish.FishSpecialDiet" class="control-label">Fish Special Diet</label>
                 <input asp-for="Fish.FishSpecialDiet" class="form-control" />
                 <span asp-validation-for="Fish.FishSpecialDiet" class="text-danger"></span>
             </div>
@@ -91,7 +101,7 @@
                 <span asp-validation-for="Fish.FishTemperament" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fish.FishCareLevel" class="control-label">Fish Care level</label>
+                <label asp-for="Fish.FishCareLevel" class="control-label">Fish Care Level</label>
                 <input asp-for="Fish.FishCareLevel" class="form-control" />
                 <span asp-validation-for="Fish.FishCareLevel" class="text-danger"></span>
             </div>
@@ -105,12 +115,13 @@
                 <input asp-for="Fish.FishWarranty" class="form-control" />
                 <span asp-validation-for="Fish.FishWarranty" class="text-danger"></span>
             </div>
-             <div class="form-group">
-                 <input type="submit" value="Save" class="btn btn-success mb-2" />
-             </div>
-         </form>
-  </div>
- </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success mb-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
 
 <div class="mb-2">
     <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>

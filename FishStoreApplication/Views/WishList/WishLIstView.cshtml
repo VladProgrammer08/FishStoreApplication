@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FishStoreApplication.Models.WishListItem>
+
+@{
+    ViewData["Title"] = "My Wishlist";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Fish Name</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Fish.BreedName</td>
+                    <td>@item.Fish.Price.ToString("C")</td>
+                    <td>
+                        <a asp-action="RemoveFromWishList" asp-route-id="@item.FishId" class="btn btn-danger">Remove</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Your wishlist is empty.</p>
+}
