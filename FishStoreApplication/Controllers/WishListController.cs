@@ -1,6 +1,7 @@
 ﻿using FishStoreApplication.Data;
 using FishStoreApplication.Data.Migrations;
 using FishStoreApplication.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -62,7 +63,7 @@ namespace FishStoreApplication.Controllers
 			}
 		}
 
-
+		[Authorize]
 		public IActionResult WishListView()
         {
             if (User.Identity.IsAuthenticated)
@@ -101,5 +102,68 @@ namespace FishStoreApplication.Controllers
 			}
 		}
 
-    }
+		[HttpPost]
+		public IActionResult ToggleWishList(int id)
+		{
+			if (User.Identity.IsAuthenticated)
+			{
+				string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				var wishList = _context.WishLists.Include(w => w.Items)
+												 .FirstOrDefault(w => w.UserId == userId);
+				if (wishList == null)
+				{
+					wishList = new WishList
+					{
+						UserId = userId,
+						Items = new List<WishListItem>()
+					};
+					_context.WishLists.Add(wishList);
+				}
+
+				var wishListItem = wishList.Items.FirstOrDefault(wi => wi.FishId == id);
+				if (wishListItem == null)
+				{
+					var productToAdd = _context.Fishes.SingleOrDefault(f => f.FishId == id);
+					if (productToAdd == null)
+					{
+						TempData["Message"] = "Sorry, that fish no longer exists";
+						return RedirectToAction("Index", "Products");
+					}
+
+					wishListItem = new WishListItem
+					{
+						FishId = productToAdd.FishId
+					};
+					wishList.Items.Add(wishListItem);
+					TempData["Message"] = "Item added to WishList";
+				}
+				else
+				{
+					_context.WishListItems.Remove(wishListItem);
+					TempData["Message"] = "Item removed from WishList";
+				}
+
+				_context.SaveChanges();
+				return RedirectToAction("Index", "Products");
+			}
+			else
+			{
+				return RedirectToAction("Login", "Account");
+			}
+		}
+
+		[HttpGet]
+		public JsonResult IsInWishList(int id)
+		{
+			if (User.Identity.IsAuthenticated)
+			{
+				string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+				var isInWishList = _context.WishListItems
+										   .Any(wi => wi.FishId == id && wi.WishList.UserId == userId);
+				return Json(new { isInWishList });
+			}
+			return Json(new { isInWishList = false });
+		}
+
+	}
 }

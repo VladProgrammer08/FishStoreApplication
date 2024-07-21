@@ -235,7 +235,7 @@
 											<a id="details_btn" asp-action="Details" asp-route-id="@item.FishId">Details</a>
 											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
 										</div>
-										<a class="btn heart-btn" asp-controller="WishList" asp-action="AddToWishList" asp-route-id="@item.FishId" style="position: absolute; top: 0; right: 0;">
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.FishId" data-fish-id="@item.FishId" style="position: absolute; top: 0; right: 0;">
 											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
 										</a>
 									</div>
@@ -341,17 +341,57 @@
 				});
 
 		$(document).ready(function () {
+			// Check the wishlist status for each heart icon on page load
+			$('.heart-btn').each(function () {
+				const heartBtn = $(this);
+				const fishId = heartBtn.data('fish-id');
+
+				$.ajax({
+					url: '/WishList/IsInWishList',
+					type: 'GET',
+					data: { id: fishId },
+					success: function (response) {
+						if (response.isInWishList) {
+							heartBtn.find('.heart-icon').removeClass('bx-heart').addClass('bxs-heart');
+							heartBtn.data('in-wishlist', true);
+						} else {
+							heartBtn.data('in-wishlist', false);
+						}
+					}
+				});
+			});
+
 			// Add a click event handler for each heart icon
-			$('.heart-btn').click(function () {
+			$('.heart-btn').click(function (e) {
+				e.preventDefault(); // Prevent the default action
+
 				const heartIcon = $(this).find('.heart-icon');
+				const isInWishlist = $(this).data('in-wishlist');
+				const url = $(this).attr('href');
+
 				// Toggle the heart icon
-				if (heartIcon.hasClass('bx-heart')) {
-					heartIcon.removeClass('bx-heart').addClass('bxs-heart');
-				} else {
+				if (isInWishlist) {
 					heartIcon.removeClass('bxs-heart').addClass('bx-heart');
+					$(this).data('in-wishlist', false);
+				} else {
+					heartIcon.removeClass('bx-heart').addClass('bxs-heart');
+					$(this).data('in-wishlist', true);
 				}
+
+				// Send an AJAX request to toggle the wishlist status
+				$.ajax({
+					url: url,
+					type: 'POST',
+					success: function (response) {
+						// Optionally handle the response
+					},
+					error: function (error) {
+						// Optionally handle the error
+					}
+				});
 			});
 		});
+
 
 
 			</script>
