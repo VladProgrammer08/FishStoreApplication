@@ -124,29 +124,26 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+        <div class="col-md-6" style="position: relative;">
+            <a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@Model?.FishId" data-fish-id="@Model?.FishId" style="position: absolute; top: 0; right: 0;">
+                <i class="bx bx-heart heart-icon" style="font-size: 30px;"></i>
+            </a>
 
-                <h4>@Html.DisplayFor(model => model.BreedName)</h4>
-                <div id="line"></div>
-                <dl class="row">
-
-                    <dd class="col-sm-10">
-                        <b>$@Html.DisplayFor(model => model.Price)</b>
-                    </dd>
-
-                    <div id="space"></div>
-
-                    <dd id="description" class="col-sm-10">
-                        @Html.DisplayFor(model => model.Description)
-                    </dd>
-
-                    <div id="space"></div>
-
-                    <div>
-                        <a id="cart" asp-controller="Cart" asp-action="Add" asp-route-id="@Model?.FishId" ><b>ADD TO CART</b></a>
-                    </div>
-
-                    <div id="space"></div>
+            <h4>@Html.DisplayFor(model => model.BreedName)</h4>
+            <div id="line"></div>
+            <dl class="row">
+                <dd class="col-sm-10">
+                    <b>$@Html.DisplayFor(model => model.Price)</b>
+                </dd>
+                <div id="space"></div>
+                <dd id="description" class="col-sm-10">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <div id="space"></div>
+                <div>
+                    <a id="cart" asp-controller="Cart" asp-action="Add" asp-route-id="@Model?.FishId"><b>ADD TO CART</b></a>
+                </div>
+                <div id="space"></div>
 
                     <div class="accordion" id="accordionExample">
                         <div class="accordion-item">
@@ -229,6 +226,53 @@
                 $(this).attr('src', mainImgSrc);
             });
         });
+
+        $(document).ready(function () {
+            $('.heart-btn').each(function () {
+                const heartBtn = $(this);
+                const fishId = heartBtn.data('fish-id');
+
+                $.ajax({
+                    url: '/WishList/IsInWishList',
+                    type: 'GET',
+                    data: { id: fishId },
+                    success: function (response) {
+                        if (response.isInWishList) {
+                            heartBtn.find('.heart-icon').removeClass('bx-heart').addClass('bxs-heart');
+                            heartBtn.data('in-wishlist', true);
+                        } else {
+                            heartBtn.data('in-wishlist', false);
+                        }
+                    }
+                });
+            });
+
+            $('.heart-btn').click(function (e) {
+                e.preventDefault();
+
+                const heartIcon = $(this).find('.heart-icon');
+                const isInWishlist = $(this).data('in-wishlist');
+                const url = $(this).attr('href');
+
+                if (isInWishlist) {
+                    heartIcon.removeClass('bxs-heart').addClass('bx-heart');
+                    $(this).data('in-wishlist', false);
+                } else {
+                    heartIcon.removeClass('bx-heart').addClass('bxs-heart');
+                    $(this).data('in-wishlist', true);
+                }
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    success: function (response) {
+
+                    },
+                    error: function (error) {
+                    }
+                });
+            });
+        });
+
     </script>
 }
 
