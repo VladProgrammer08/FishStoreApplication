@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using Cart = FishStoreApplication.Models.Cart;
 using WishList = FishStoreApplication.Models.WishList;
 
 namespace FishStoreApplication.Controllers
@@ -13,7 +14,7 @@ namespace FishStoreApplication.Controllers
 	{
 		private readonly ApplicationDbContext _context;
 
-		public WishListController(ApplicationDbContext context)
+        public WishListController(ApplicationDbContext context)
 		{
 			_context = context;
 		}
@@ -63,15 +64,19 @@ namespace FishStoreApplication.Controllers
 			}
 		}
 
-		[Authorize]
-		public IActionResult WishListView()
+        [Authorize]
+        public IActionResult WishListView()
         {
             if (User.Identity.IsAuthenticated)
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                string userName = User.Identity.Name; // Get the username
+
                 var wishListItems = _context.WishListItems.Include(wi => wi.Fish)
                                             .Where(wi => wi.WishList.UserId == userId)
                                             .ToList();
+
+                ViewData["Title"] = $"{userName}'s Wishlist";
 
                 return View(wishListItems);
             }
@@ -165,5 +170,65 @@ namespace FishStoreApplication.Controllers
 			return Json(new { isInWishList = false });
 		}
 
-	}
+        public IActionResult Add(int id)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                var cart = _context.Carts.Include(c => c.Items)
+                                         .FirstOrDefault(c => c.UserId == userId);
+
+                if (cart == null)
+                {
+                    cart = new Cart { UserId = userId, Items = new List<CartItem>() };
+                    _context.Carts.Add(cart);
+                }
+                else if (cart.Items == null)
+                {
+                    cart.Items = new List<CartItem>();
+                }
+
+                var fishToAdd = _context.Fishes.SingleOrDefault(f => f.FishId == id);
+                if (fishToAdd == null)
+                {
+                    TempData["Message"] = "Sorry that fish no longer exists";
+                    return RedirectToAction("Index", "Products");
+                }
+
+                var cartItem = cart.Items.FirstOrDefault(ci => ci.FishId == fishToAdd.FishId);
+                if (cartItem == null)
+                {
+                    cartItem = new CartItem { FishId = fishToAdd.FishId, Quantity = 1 };
+                    cart.Items.Add(cartItem);
+                }
+                else
+                {
+                    cartItem.Quantity++;
+                }
+
+                // Remove the item from the wishlist
+                var wishList = _context.WishLists.Include(w => w.Items)
+                                                 .FirstOrDefault(w => w.UserId == userId);
+                if (wishList != null)
+                {
+                    var wishListItem = wishList.Items.FirstOrDefault(wi => wi.FishId == id);
+                    if (wishListItem != null)
+                    {
+                        wishList.Items.Remove(wishListItem);
+                    }
+                }
+
+                _context.SaveChanges();
+
+                TempData["Message"] = "Item added to cart";
+                return RedirectToAction("WishListView", "WishList");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Account");
+            }
+        }
+
+
+    }
 }
