@@ -33,7 +33,7 @@ namespace FishStoreApplication.Controllers
 						UserId = userId,
 						Items = new List<WishListItem>()
 					};
-					_context.WishLists.Add(wishList); // Add the new wishlist to the context
+					_context.WishLists.Add(wishList);
 				}
 				else if (wishList.Items == null)
 				{
