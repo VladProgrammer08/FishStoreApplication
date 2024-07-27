@@ -277,7 +277,7 @@
 </div>
 	@section Scripts 
 	{
-			<script>
+		<script>
 				$(document).ready(function () {
 
 					function updateUrl() {
@@ -340,17 +340,16 @@
 
 				});
 
-		$(document).ready(function () {
-			// Check the wishlist status for each heart icon on page load
-			$('.heart-btn').each(function () {
-				const heartBtn = $(this);
-				const fishId = heartBtn.data('fish-id');
+			$(document).ready(function () {
+				$('.heart-btn').each(function () {
+					const heartBtn = $(this);
+					const fishId = heartBtn.data('fish-id');
 
-				$.ajax({
-					url: '/WishList/IsInWishList',
-					type: 'GET',
-					data: { id: fishId },
-					success: function (response) {
+					$.ajax({
+						url: '/WishList/IsInWishList',
+						type: 'GET',
+						data: { id: fishId },
+						success: function (response) {
 						if (response.isInWishList) {
 							heartBtn.find('.heart-icon').removeClass('bx-heart').addClass('bxs-heart');
 							heartBtn.data('in-wishlist', true);
@@ -361,15 +360,13 @@
 				});
 			});
 
-			// Add a click event handler for each heart icon
 			$('.heart-btn').click(function (e) {
-				e.preventDefault(); // Prevent the default action
+				e.preventDefault();
 
 				const heartIcon = $(this).find('.heart-icon');
 				const isInWishlist = $(this).data('in-wishlist');
 				const url = $(this).attr('href');
 
-				// Toggle the heart icon
 				if (isInWishlist) {
 					heartIcon.removeClass('bxs-heart').addClass('bx-heart');
 					$(this).data('in-wishlist', false);
@@ -378,23 +375,20 @@
 					$(this).data('in-wishlist', true);
 				}
 
-				// Send an AJAX request to toggle the wishlist status
 				$.ajax({
 					url: url,
 					type: 'POST',
 					success: function (response) {
-						// Optionally handle the response
 					},
 					error: function (error) {
-						// Optionally handle the error
 					}
+					});
 				});
 			});
-		});
 
 
 
-			</script>
-	}
+		</script>
+}
 
 
