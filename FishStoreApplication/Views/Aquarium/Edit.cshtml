@@ -1,0 +1,117 @@
+﻿@model FishStoreApplication.Models.AquariumViewModel
+
+@{
+	ViewData["Title"] = "Edit" + Model.Aquarium.AquariumBrand;
+}
+<h1>Edit @Model.Aquarium.AquariumBrand</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Aquarium.AquariumId" />
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumBrand" class="control-label"></label>
+                <input asp-for="Aquarium.AquariumBrand" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumBrand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumPrice" class="control-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="Aquarium.AquariumPrice" class="form-control" />
+                </div>
+                <span asp-validation-for="Aquarium.AquariumPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.MainImageURL" class="control-label">Main Image</label>
+                <input type="text" asp-for="Aquarium.MainImageURL" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Aquarium.MainImageURL))
+                {
+                    <img src="@Model.Aquarium.MainImageURL" alt="Main Image" height="100" />
+                }
+                <label asp-for="AquariumFileUpload.MainImage" class="control-label">Replace Main Image</label>
+                <input asp-for="AquariumFileUpload.MainImage" class="form-control" />
+                <span asp-validation-for="AquariumFileUpload.MainImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.SecondaryImageOne" class="control-label">Secondary Image One</label>
+                <input type="text" asp-for="Aquarium.SecondaryImageOne" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Aquarium.SecondaryImageOne))
+                {
+                    <img src="@Model.Aquarium.SecondaryImageOne" alt="Secondary Image One" height="100" />
+                }
+                <label asp-for="AquariumFileUpload.SecondaryImageOne" class="control-label">Replace Secondary Image One</label>
+                <input asp-for="AquariumFileUpload.SecondaryImageOne" class="form-control" />
+                <span asp-validation-for="AquariumFileUpload.SecondaryImageOne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.SecondaryImageTwo" class="control-label">Secondary Image Two</label>
+                <input type="text" asp-for="Aquarium.SecondaryImageTwo" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Aquarium.SecondaryImageTwo))
+                {
+                    <img src="@Model.Aquarium.SecondaryImageTwo" alt="Secondary Image Two" height="100" />
+                }
+                <label asp-for="AquariumFileUpload.SecondaryImageTwo" class="control-label">Replace Secondary Image Two</label>
+                <input asp-for="AquariumFileUpload.SecondaryImageTwo" class="form-control" />
+                <span asp-validation-for="AquariumFileUpload.SecondaryImageTwo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.SecondaryImageThree" class="control-label">Secondary Image Three</label>
+                <input type="text" asp-for="Aquarium.SecondaryImageThree" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Aquarium.SecondaryImageThree))
+                {
+                    <img src="@Model.Aquarium.SecondaryImageThree" alt="Secondary Image Three" height="100" />
+                }
+                <label asp-for="AquariumFileUpload.SecondaryImageThree" class="control-label">Replace Secondary Image Three</label>
+                <input asp-for="AquariumFileUpload.SecondaryImageThree" class="form-control" />
+                <span asp-validation-for="AquariumFileUpload.SecondaryImageThree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.SecondaryImageFour" class="control-label">Secondary Image Four</label>
+                <input type="text" asp-for="Aquarium.SecondaryImageFour" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Aquarium.SecondaryImageFour))
+                {
+                    <img src="@Model.Aquarium.SecondaryImageFour" alt="Secondary Image Four" height="100" />
+                }
+                <label asp-for="AquariumFileUpload.SecondaryImageFour" class="control-label">Replace Secondary Image Four</label>
+                <input asp-for="AquariumFileUpload.SecondaryImageFour" class="form-control" />
+                <span asp-validation-for="AquariumFileUpload.SecondaryImageFour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumGallons" class="control-label">Gallon capacity</label>
+                <input asp-for="Aquarium.AquariumGallons" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumGallons" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumMaterial" class="control-label">Material</label>
+                <input asp-for="Aquarium.AquariumMaterial" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumMaterial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.Description" class="control-label">Description</label>
+                <input asp-for="Aquarium.Description" class="form-control" />
+                <span asp-validation-for="Aquarium.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumWarranty" class="control-label">Warranty</label>
+                <input asp-for="Aquarium.AquariumWarranty" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumWarranty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success mb-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mb-2">
+    <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
