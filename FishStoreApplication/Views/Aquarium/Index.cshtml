@@ -1,0 +1,86 @@
+﻿@model AquariumCatalogViewModel
+
+@{
+	ViewData["Title"] = "Aquarium Catalog";
+}
+
+<h1>Aquarium Catalog</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<p>
+    <a class="btn btn-outline-primary" asp-action="Create" asp-controller="Aquarium">Create Aquarium</a>
+</p>
+@if (Model.Aquariums.Count() != 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Aquariums[0].AquariumId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Aquariums[0].AquariumBrand)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Aquariums[0].AquariumPrice)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Aquarium item in Model.Aquariums)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AquariumId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AquariumBrand)
+                    </td>
+                    <td>
+                        <img height="200" src="@item.MainImageURL" alt="@item.AquariumBrand" />
+                    </td>
+                    <td>
+                        $@Html.DisplayFor(modelItem => item.AquariumPrice)
+                    </td>
+                    <td>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.AquariumId">Edit</a> |
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.AquariumId">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AquariumId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>There are no aquariums for this page</h2>
+}
+
+<nav aria-label="Aquarium Catalog Pages">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.LastPage; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class=" page-item">
+                    <a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+                </li>
+            }
+
+        }
+    </ul>
+</nav>
