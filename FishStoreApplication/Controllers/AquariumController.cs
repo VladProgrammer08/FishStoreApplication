@@ -36,7 +36,7 @@ namespace FishStoreApplication.Controllers
 											  .Skip(NumItemsToDisplayPerPage * (currPage - PageOffSet))
 											  .Take(NumItemsToDisplayPerPage)
 											  .ToListAsync();
-			// add catalog model
+			AquariumCatalogViewModel catalogModel = new(aquariums, lastPage, currPage);
 			return View();
 
 		}
