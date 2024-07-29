@@ -13,6 +13,7 @@ namespace FishStoreApplication.Models
         /// (Primary Key)
         /// </summary>
         [Key]
+        [Display(Name = "Fish id")]
         public int FishId { get; set; }
         /// <summary>
         /// Represents the name of the fish breed.

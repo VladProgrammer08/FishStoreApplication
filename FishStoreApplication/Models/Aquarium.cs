@@ -8,7 +8,8 @@ namespace FishStoreApplication.Models
 		/// Unique identifier for each aquarium.
 		/// </summary>
 		[Key]
-		public int AquariumId { get; set; }
+        [Display(Name = "Aquarium ID")]
+        public int AquariumId { get; set; }
 		/// <summary>
 		/// Capacity of the aquarium in gallons.
 		/// </summary>
@@ -17,10 +18,13 @@ namespace FishStoreApplication.Models
 		/// Cost of the aquarium.
 		/// </summary>
 		[Range(0, int.MaxValue)]
+		[Display(Name = "Price")]
 		public double AquariumPrice { get; set; }
 		/// <summary>
 		/// Brand name of the aquarium.
 		/// </summary>
+
+		[Display(Name = "Brand")]
 		public string AquariumBrand { get; set; }
 		/// <summary>
 		/// Material from which the aquarium is made
