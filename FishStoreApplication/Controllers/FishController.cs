@@ -282,5 +282,9 @@ namespace FishStoreApplication.Controllers
             }
             return View(fishDetails);
         }
+        public IActionResult BackToManage()
+        {
+            return RedirectToAction("Index", "ManageProduct");
+        }
     }
 }

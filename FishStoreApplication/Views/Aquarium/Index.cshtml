@@ -1,5 +1,16 @@
 ﻿@model AquariumCatalogViewModel
 
+@section Head
+{
+    <style>
+        #actions{
+            padding-left:6.3%;
+        }
+    </style>
+}
+
+
+
 @{
 	ViewData["Title"] = "Aquarium Catalog";
 }
@@ -13,9 +24,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-<p>
+<div class="d-flex justify-content-between mt-3">
+    <a class="btn btn-outline-primary" asp-action="BackToManage" asp-controller="Fish">Back</a>
     <a class="btn btn-outline-primary" asp-action="Create" asp-controller="Aquarium">Create Aquarium</a>
-</p>
+</div>
 @if (Model.Aquariums.Count() != 0)
 {
     <table class="table table-striped">
@@ -24,13 +36,14 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Aquariums[0].AquariumId)
                 </th>
+                <th>Image</th>
                 <th>
                     @Html.DisplayNameFor(model => model.Aquariums[0].AquariumBrand)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Aquariums[0].AquariumPrice)
                 </th>
-                <th></th>
+                <th id="actions">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -38,18 +51,22 @@
             {
                 <tr>
                     <td>
+                        <br />
                         @Html.DisplayFor(modelItem => item.AquariumId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.AquariumBrand)
                     </td>
                     <td>
                         <img height="200" src="@item.MainImageURL" alt="@item.AquariumBrand" />
                     </td>
                     <td>
+                        <br />
+                        @Html.DisplayFor(modelItem => item.AquariumBrand)
+                    </td>               
+                    <td>
+                        <br />
                         $@Html.DisplayFor(modelItem => item.AquariumPrice)
                     </td>
                     <td>
+                        <br />                    
                         <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.AquariumId">Edit</a> |
                         <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.AquariumId">Details</a> |
                         <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AquariumId">Delete</a>

@@ -1,0 +1,43 @@
+﻿@section Head
+{
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transition: background-color 0.3s;
+        }
+    </style>
+}
+@{
+    ViewData["Title"] = "Manage Products";
+}
+
+<div class="container mt-5">
+    <header class="text-center mb-4">
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <img src="~/images/fish.jpg" class="card-img-top" alt="Fish">
+                <div class="card-body text-center">
+                    <a asp-controller="Fish" asp-action="Index" class="btn btn-primary btn-lg">Manage Fish</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <img src="~/images/aquarium.jpg" class="card-img-top" alt="Aquarium">
+                <div class="card-body text-center">
+                    <a asp-controller="Aquarium" asp-action="Index" class="btn btn-primary btn-lg">Manage Aquariums</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center mt-4">
+    </footer>
+</div>

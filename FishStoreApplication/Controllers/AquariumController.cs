@@ -21,7 +21,7 @@ namespace FishStoreApplication.Controllers
 		}
 
 		[Authorize(Roles = IdentityHelper.Admin)]
-		public async Task<ActionResult> Index(int? id)
+		public async Task<IActionResult> Index(int? id)
 		{
 			const int NumItemsToDisplayPerPage = 6;
 			const int PageOffSet = 1;
@@ -37,7 +37,7 @@ namespace FishStoreApplication.Controllers
 											  .Take(NumItemsToDisplayPerPage)
 											  .ToListAsync();
 			AquariumCatalogViewModel catalogModel = new(aquariums, lastPage, currPage);
-			return View();
+			return View(catalogModel);
 
 		}
 
