@@ -6,7 +6,7 @@ namespace FishStoreApplication.Models
     /// <summary>
     /// Represents a single fish for available for purchase
     /// </summary>
-    public class Fish
+    public class Fish : Product
     {
         /// <summary>
         /// The unique identifier for each fish product

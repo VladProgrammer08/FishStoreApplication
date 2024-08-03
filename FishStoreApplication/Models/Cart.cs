@@ -47,6 +47,10 @@ namespace FishStoreApplication.Models
         /// </summary>
         public int CartId { get; set; }
         /// <summary>
+        /// Navigation property to the Product
+        /// </summary>
+        public Product Product { get; set; }
+        /// <summary>
         /// Navigation property to the Fish entity
         /// </summary>
         public virtual Fish Fish { get; set; }

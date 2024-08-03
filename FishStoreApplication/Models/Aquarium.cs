@@ -2,7 +2,7 @@
 
 namespace FishStoreApplication.Models
 {
-	public class Aquarium
+	public class Aquarium : Product
 	{
 		/// <summary>
 		/// Unique identifier for each aquarium.
