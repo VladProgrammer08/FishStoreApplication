@@ -4,10 +4,7 @@ namespace FishStoreApplication.Models
 {
 	public class Aquarium : Product
 	{
-		/// <summary>
-		/// Unique identifier for each aquarium.
-		/// </summary>
-		[Key]
+
         [Display(Name = "Aquarium ID")]
         public int AquariumId { get; set; }
 		/// <summary>

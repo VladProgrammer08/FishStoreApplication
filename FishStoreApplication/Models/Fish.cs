@@ -8,11 +8,7 @@ namespace FishStoreApplication.Models
     /// </summary>
     public class Fish : Product
     {
-        /// <summary>
-        /// The unique identifier for each fish product
-        /// (Primary Key)
-        /// </summary>
-        [Key]
+
         [Display(Name = "Fish id")]
         public int FishId { get; set; }
         /// <summary>
