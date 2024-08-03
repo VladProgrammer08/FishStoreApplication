@@ -29,29 +29,30 @@ namespace FishStoreApplication.Models
 			Items = new List<WishListItem>();
 		}
 	}
-	public class WishListItem
-	{
-		[Key]
-		public int WishListItemId { get; set; }
+    public class WishListItem
+    {
+        [Key]
+        public int WishListItemId { get; set; }
 
-		/// <summary>
-		/// The unique identifier for each fish product
-		/// </summary>
-		public int FishId { get; set; }
+        /// <summary>
+        /// The unique identifier for each product
+        /// </summary>
+        public int ProductId { get; set; }
 
-		/// <summary>
-		/// The unique identifier for each wish list
-		/// </summary>
-		public int WishListId { get; set; }
+        /// <summary>
+        /// The unique identifier for each wish list
+        /// </summary>
+        public int WishListId { get; set; }
 
-		/// <summary>
-		/// Navigation property to the Fish entity
-		/// </summary>
-		public virtual Fish Fish { get; set; }
+        /// <summary>
+        /// Navigation property to the Product entity
+        /// </summary>
+        public virtual Product Product { get; set; }
 
-		/// <summary>
-		/// Navigation property back to the WishList
-		/// </summary>
-		public virtual WishList WishList { get; set; }
-	}
+        /// <summary>
+        /// Navigation property back to the WishList
+        /// </summary>
+        public virtual WishList WishList { get; set; }
+    }
+
 }
