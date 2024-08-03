@@ -1,0 +1,235 @@
+﻿@model AquariumCatalogViewModel
+@{
+	ViewData["Title"] = "Aquarium Catalog";
+}
+
+@if (TempData["Message"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@TempData["Message"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+<div class="container">
+	<div class="row align-items-start">
+		<div class="col-md-2 filter-section">
+			<h1>Filter by</h1>
+
+			<div>
+				<h2><i class='bx bxs-filter-alt icon-small'></i> Price</h2>
+				<div id="line"></div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter1">
+					<label class="form-check-label" for="filter1">
+						$1 - $50
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter2" checked>
+					<label class="form-check-label" for="filter2">
+						$50 - $100
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter3">
+					<label class="form-check-label" for="filter3">
+						Any Price
+					</label>
+				</div>
+			</div>
+			<div>
+				<h2><i class='bx bxs-filter-alt icon-small'></i> Size</h2>
+				<div id="line"></div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
+					<label class="form-check-label" for="filter4">
+						Less than 20 gallons
+					</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter5" checked>
+					<label class="form-check-label" for="filter5">
+						More than 20 gallons
+					</label>
+				</div>
+			</div>
+			<div id="btns">
+				<a id="btn_results" type="button">See Results</a>
+				<a id="clear_filters_btn" type="button">Clear Filters</a>
+			</div>
+		</div>
+
+		<div class="col-md-10 main-content">
+			<h1>Fish Catalog</h1>
+			@if (Model.Aquariums.Count() != 0)
+			{
+				<div class="row">
+					@foreach (Aquarium item in Model.Aquariums)
+					{
+
+						<div class="col-md-4 fish-card" data-price="@item.AquariumPrice" data-size="@item.AquariumGallons">
+							<div class="card mb-4 box-shadow">
+
+								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main fish image" style="height: 250px; width:334px;">
+								<div class="card-body">
+									<p class="card-text"><strong>@item.AquariumBrand</strong></p>
+									<p class="card-text">$@item.AquariumPrice</p>
+									<div class="d-flex justify-content-between align-items-center">
+										<div class="btn-group">
+											<a id="details_btn" asp-action="AquariumDetails" asp-route-id="@item.AquariumId">Details</a>
+											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.AquariumId">Add to Cart</a>
+										</div>
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.AquariumId" data-fish-id="@item.AquariumId" style="position: absolute; top: 0; right: 0;">
+											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					}
+				</div>
+			}
+			else
+			{
+				<h2>There are no aquarium with these filters</h2>
+			}
+		</div>
+
+		<nav aria-label="Aquarium Catalog Pages">
+			<ul class="pagination">
+				@for (int i = 1; i <= Model.LastPage; i++)
+				{
+					if (i == Model.CurrentPage)
+					{
+						<li class="page-item active">
+							<a class="page-link">@i</a>
+						</li>
+					}
+					else
+					{
+						<li class=" page-item">
+
+							<a class="page-link" asp-action="AquariumIndex" asp-route-id="@i">@i</a>
+						</li>
+					}
+
+				}
+			</ul>
+		</nav>
+	</div>
+</div>
+
+
+@section Scripts 
+	{
+		<script>
+		$(document).ready(function () {
+
+			function updateUrl() {
+				var filterUnder50 = $('#filter1').is(':checked');
+				var filter50to100 = $('#filter2').is(':checked');
+				var filterSizeLessThan20 = $('#filter4').is(':checked');
+				var filterSizeMoreThan20 = $('#filter5').is(':checked');
+				var queryParams = new URLSearchParams(window.location.search);
+
+				queryParams.set('filterUnder50', filterUnder50);
+				queryParams.set('filter50to100', filter50to100);
+				queryParams.set('filterSizeLessThan20', filterSizeLessThan20);
+				queryParams.set('filterSizeMoreThan20', filterSizeMoreThan20);
+				history.replaceState(null, null, "?" + queryParams.toString());
+			}
+
+
+			function setCheckboxStates() {
+				var queryParams = new URLSearchParams(window.location.search);
+				var filterUnder50 = queryParams.get('filterUnder50') === 'true';
+				var filter50to100 = queryParams.get('filter50to100') === 'true';
+				var filterSizeLessThan20 = queryParams.get('filterSizeLessThan20') === 'true';
+				var filterSizeMoreThan20 = queryParams.get('filterSizeMoreThan20') === 'true';
+
+				$('#filter1').prop('checked', filterUnder50);
+				$('#filter2').prop('checked', filter50to1000);
+				$('#filter4').prop('checked', filterSizeLessThan20);
+				$('#filter5').prop('checked', filterSizeMoreThan20);
+			}
+
+			$('#btn_results').on('click', function () {
+				updateUrl();
+
+				window.location.reload();
+			});
+
+			setCheckboxStates();
+
+			$(document).ready(function () {
+
+				function clearFilters() {
+
+					$('input[type=checkbox]').prop('checked', false);
+
+					$('input[type=radio]').prop('checked', false);
+
+					var queryParams = new URLSearchParams(window.location.search);
+					queryParams.delete('filterUnder50');
+					queryParams.delete('filter50to100');
+					queryParams.delete('filterSizeLessThan20');
+					queryParams.delete('filterSizeMoreThan20');
+					history.replaceState(null, null, window.location.pathname);
+
+					window.location.reload();
+				}
+
+				$('#clear_filters_btn').on('click', clearFilters);
+
+			});
+
+		});
+
+		$(document).ready(function () {
+			$('.heart-btn').each(function () {
+				const heartBtn = $(this);
+				const aquariumId = heartBtn.data('aquarium-id');
+
+				$.ajax({
+					url: '/WishList/IsInWishList',
+					type: 'GET',
+					data: { id: aquariumId },
+					success: function (response) {
+						if (response.isInWishList) {
+							heartBtn.find('.heart-icon').removeClass('bx-heart').addClass('bxs-heart');
+							heartBtn.data('in-wishlist', true);
+						} else {
+							heartBtn.data('in-wishlist', false);
+						}
+					}
+				});
+			});
+
+			$('.heart-btn').click(function (e) {
+				e.preventDefault();
+
+				const heartIcon = $(this).find('.heart-icon');
+				const isInWishlist = $(this).data('in-wishlist');
+				const url = $(this).attr('href');
+
+				if (isInWishlist) {
+					heartIcon.removeClass('bxs-heart').addClass('bx-heart');
+					$(this).data('in-wishlist', false);
+				} else {
+					heartIcon.removeClass('bx-heart').addClass('bxs-heart');
+					$(this).data('in-wishlist', true);
+				}
+
+				$.ajax({
+					url: url,
+					type: 'POST',
+					success: function (response) {
+					},
+					error: function (error) {
+					}
+				});
+			});
+		});
+		</script>
+	}
