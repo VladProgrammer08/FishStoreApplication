@@ -68,5 +68,56 @@ namespace FishStoreApplication.Controllers
 			return View(productDetails);
 		}
 
-	}
+		[Authorize]
+		public async Task<IActionResult> AquariumIndex(int? id, bool filterUnder50 = false, bool filter50to100 = false, bool filterSizeLessThan20 = false, bool filterSizeMoreThan20 = false)
+		{
+			const int NumAquariumToDisplayPerPage = 6;
+			const int PageOffSet = 1;
+			int currPage = id ?? 1;
+
+			var aquariumQuerry = _context.Aquariums.AsQueryable();
+
+			if (filterUnder50)
+			{
+				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumPrice <= 50);
+			}
+			if (filter50to100)
+			{
+				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumPrice >= 50 && a.AquariumPrice <= 100);
+			}
+
+			if (filterSizeLessThan20)
+			{
+				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumGallons < 20);
+			}
+			if (filterSizeMoreThan20)
+			{
+				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumGallons > 20);
+			}
+
+			int totalNumOfProducts = await aquariumQuerry.CountAsync();
+			double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumAquariumToDisplayPerPage);
+			int lastPage = Convert.ToInt32(maxNumPages);
+
+			List<Aquarium> aquariums = await aquariumQuerry
+												.Skip(NumAquariumToDisplayPerPage * (currPage - PageOffSet))
+												.Take(NumAquariumToDisplayPerPage)
+												.ToListAsync();
+			AquariumCatalogViewModel catalogModel = new(aquariums, lastPage, currPage);
+
+			return View(catalogModel);
+
+		}
+
+        public async Task<IActionResult> AquariumDetails(int id)
+        {
+            Aquarium productDetails = await _context.Aquariums.FindAsync(id);
+            if (productDetails == null)
+            {
+                return NotFound();
+            }
+            return View(productDetails);
+        }
+
+    }
 }
