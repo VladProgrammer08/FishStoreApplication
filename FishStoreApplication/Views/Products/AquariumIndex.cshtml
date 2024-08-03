@@ -1,9 +1,10 @@
-﻿@model FishCatalogViewModel
+﻿@model AquariumCatalogViewModel
 @{
-	ViewData["Title"] = "Fish Catalog";
+	ViewData["Title"] = "Aquarium Catalog";
 }
+
 @section Head
-{
+{	
 	<style>
 		.row.align-items-start {
 			display: flex;
@@ -33,16 +34,17 @@
 			border-top: 3px solid black;
 			margin-bottom: 10px
 		}
-		h2{
-			margin-top:30px;
+
+		h2 {
+			margin-top: 30px;
 		}
 
 		.icon-small {
 			font-size: 0.65em;
 		}
 
-		#btns{
-			margin-top:40px;
+		#btns {
+			margin-top: 40px;
 		}
 
 		.form-check-input:checked {
@@ -54,29 +56,7 @@
 			box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
 		}
 
-		#btn_results{
-			border: 2px solid #000;
-			background-color: white;
-			color: black;
-			padding-right: 0px;
-			padding:7px 3px;
-			font-size: 16px;
-			text-decoration: none;
-			display: inline-block;
-			cursor: pointer;
-			position: center;
-			width: 48%;
-			margin-bottom: 20px;
-			border-radius: 9px;
-			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
-			transition: background-color 0.3s ease, color 0.3s ease;
-		}
-		#btn_results:hover{
-			background-color: black;
-			color: white;
-		}
-
-		#clear_filters_btn{
+		#btn_results {
 			border: 2px solid #000;
 			background-color: white;
 			color: black;
@@ -94,12 +74,35 @@
 			transition: background-color 0.3s ease, color 0.3s ease;
 		}
 
-		#clear_filters_btn:hover{
-			background-color: black;
-			color: white;
+			#btn_results:hover {
+				background-color: black;
+				color: white;
+			}
+
+		#clear_filters_btn {
+			border: 2px solid #000;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding: 7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 20px;
+			border-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
 		}
 
-		#details_btn{
+			#clear_filters_btn:hover {
+				background-color: black;
+				color: white;
+			}
+
+		#details_btn {
 			border: 2px solid gray;
 			background-color: white;
 			color: black;
@@ -112,18 +115,18 @@
 			position: center;
 			width: 48%;
 			margin-bottom: 5px;
-			border-top-left-radius:9px;
-			border-bottom-left-radius:9px;
+			border-top-left-radius: 9px;
+			border-bottom-left-radius: 9px;
 			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
 			transition: background-color 0.3s ease, color 0.3s ease;
 		}
 
-		#details_btn:hover{
-			background-color: gray;
-			color: white;
-		}
+			#details_btn:hover {
+				background-color: gray;
+				color: white;
+			}
 
-		#add_to_cart_btn{
+		#add_to_cart_btn {
 			border: 2px solid gray;
 			background-color: white;
 			color: black;
@@ -131,30 +134,30 @@
 			padding: 7px 3px;
 			text-decoration: none;
 			display: inline-block;
-			margin-left:5px;
+			margin-left: 5px;
 			cursor: pointer;
 			position: center;
 			width: 100%;
 			margin-bottom: 5px;
-			border-top-right-radius:9px;
-			border-bottom-right-radius:9px;
+			border-top-right-radius: 9px;
+			border-bottom-right-radius: 9px;
 			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
 			transition: background-color 0.3s ease, color 0.3s ease;
 		}
 
-		#add_to_cart_btn:hover{
-			background-color: gray;
-			color: white;
-		}
+			#add_to_cart_btn:hover {
+				background-color: gray;
+				color: white;
+			}
 
-		.fish-card .card-img-top {
+		.aquarium-card .card-img-top {
 			width: 100%;
 			height: auto;
 			object-fit: cover;
 		}
-
 	</style>
 }
+
 @if (TempData["Message"] != null)
 {
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -162,7 +165,6 @@
 		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 }
-
 
 <div class="container">
 	<div class="row align-items-start">
@@ -175,13 +177,13 @@
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter1">
 					<label class="form-check-label" for="filter1">
-						$1 - $10
+						$1 - $50
 					</label>
 				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="flexRadioDefault" id="filter2" checked>
 					<label class="form-check-label" for="filter2">
-						$10 - $20
+						$50 - $100
 					</label>
 				</div>
 				<div class="form-check">
@@ -191,165 +193,164 @@
 					</label>
 				</div>
 			</div>
-
 			<div>
 				<h2><i class='bx bxs-filter-alt icon-small'></i> Size</h2>
 				<div id="line"></div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
 					<label class="form-check-label" for="filter4">
-						Less than 10 inch
+						Less than 20 gallons
 					</label>
 				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter5" checked>
 					<label class="form-check-label" for="filter5">
-						More than 10 inch
+						More than 20 gallons
 					</label>
 				</div>
 			</div>
 			<div id="btns">
 				<a id="btn_results" type="button">See Results</a>
 				<a id="clear_filters_btn" type="button">Clear Filters</a>
-			</div>			
+			</div>
 		</div>
-		
 
-			<div class="col-md-10 main-content">
-				<h1>Fish Catalog</h1>
-				@if (Model.Fishes.Count() != 0)
-				{
-					<div class="row">
-						@foreach (Fish item in Model.Fishes)
-						{
+		<div class="col-md-10 main-content">
+			<h1>Aquarium Catalog</h1>
+			@if (Model.Aquariums.Count() != 0)
+			{
+				<div class="row">
+					@foreach (Aquarium item in Model.Aquariums)
+					{
 
-							<div class="col-md-4 fish-card" data-price="@item.Price" data-size="@item.FishSize">
-								<div class="card mb-4 box-shadow">
+						<div class="col-md-4 aquarium-card" data-price="@item.AquariumPrice" data-size="@item.AquariumGallons">
+							<div class="card mb-4 box-shadow">
 
-								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main fish image" style="height: 250px; width:334px;">
+								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main aquarium image" style="height: 250px; width:334px;">
 								<div class="card-body">
-									<p class="card-text"><strong>@item.BreedName</strong></p>
-									<p class="card-text">$@item.Price</p>
+									<p class="card-text"><strong>@item.AquariumBrand</strong></p>
+									<p class="card-text">$@item.AquariumPrice</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a id="details_btn" asp-action="FishDetails" asp-route-id="@item.FishId">Details</a>
-											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+											<a id="details_btn" asp-action="AquariumDetails" asp-route-id="@item.AquariumId">Details</a>
+											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.AquariumId">Add to Cart</a>
 										</div>
-										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.FishId" data-fish-id="@item.FishId" style="position: absolute; top: 0; right: 0;">
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.AquariumId" data-aquarium-id="@item.AquariumId" style="position: absolute; top: 0; right: 0;">
 											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
 										</a>
 									</div>
 								</div>
-								</div>
 							</div>
-						}
-					</div>
-				}
-				else
-				{
-					<h2>There are no fish with these filters</h2>
-				}
-			</div>
-
-
-			<nav aria-label="Fish Catalog Pages">
-				<ul class="pagination">
-					@for (int i = 1; i <= Model.LastPage; i++)
-					{
-						if (i == Model.CurrentPage)
-						{
-							<li class="page-item active">
-								<a class="page-link">@i</a>
-							</li>
-						}
-						else
-						{
-							<li class=" page-item">
-
-								<a class="page-link" asp-action="FishIndex" asp-route-id="@i">@i</a>
-							</li>
-						}
-
+						</div>
 					}
-				</ul>
-			</nav>
+				</div>
+			}
+			else
+			{
+				<h2>There are no aquarium with these filters</h2>
+			}
+		</div>
+
+		<nav aria-label="Aquarium Catalog Pages">
+			<ul class="pagination">
+				@for (int i = 1; i <= Model.LastPage; i++)
+				{
+					if (i == Model.CurrentPage)
+					{
+						<li class="page-item active">
+							<a class="page-link">@i</a>
+						</li>
+					}
+					else
+					{
+						<li class=" page-item">
+
+							<a class="page-link" asp-action="AquariumIndex" asp-route-id="@i">@i</a>
+						</li>
+					}
+
+				}
+			</ul>
+		</nav>
 	</div>
 </div>
-	@section Scripts 
+
+
+@section Scripts 
 	{
 		<script>
-				$(document).ready(function () {
+		$(document).ready(function () {
 
-					function updateUrl() {
-						var filterUnder10 = $('#filter1').is(':checked');
-						var filter10to20 = $('#filter2').is(':checked');
-						var filterSizeLessThan10 = $('#filter4').is(':checked');
-						var filterSizeMoreThan10 = $('#filter5').is(':checked');
-						var queryParams = new URLSearchParams(window.location.search);
+			function updateUrl() {
+				var filterUnder50 = $('#filter1').is(':checked');
+				var filter50to100 = $('#filter2').is(':checked');
+				var filterSizeLessThan20 = $('#filter4').is(':checked');
+				var filterSizeMoreThan20 = $('#filter5').is(':checked');
+				var queryParams = new URLSearchParams(window.location.search);
 
-						queryParams.set('filterUnder10', filterUnder10);
-						queryParams.set('filter10to20', filter10to20);
-						queryParams.set('filterSizeLessThan10', filterSizeLessThan10);
-						queryParams.set('filterSizeMoreThan10', filterSizeMoreThan10);
-						history.replaceState(null, null, "?" + queryParams.toString());
-					}
+				queryParams.set('filterUnder50', filterUnder50);
+				queryParams.set('filter50to100', filter50to100);
+				queryParams.set('filterSizeLessThan20', filterSizeLessThan20);
+				queryParams.set('filterSizeMoreThan20', filterSizeMoreThan20);
+				history.replaceState(null, null, "?" + queryParams.toString());
+			}
 
 
-					function setCheckboxStates() {
-						var queryParams = new URLSearchParams(window.location.search);
-						var filterUnder10 = queryParams.get('filterUnder10') === 'true';
-						var filter10to20 = queryParams.get('filter10to20') === 'true';
-						var filterSizeLessThan10 = queryParams.get('filterSizeLessThan10') === 'true';
-						var filterSizeMoreThan10 = queryParams.get('filterSizeMoreThan10') === 'true';
+			function setCheckboxStates() {
+				var queryParams = new URLSearchParams(window.location.search);
+				var filterUnder50 = queryParams.get('filterUnder50') === 'true';
+				var filter50to100 = queryParams.get('filter50to100') === 'true';
+				var filterSizeLessThan20 = queryParams.get('filterSizeLessThan20') === 'true';
+				var filterSizeMoreThan20 = queryParams.get('filterSizeMoreThan20') === 'true';
 
-						$('#filter1').prop('checked', filterUnder10);
-						$('#filter2').prop('checked', filter10to20);
-						$('#filter4').prop('checked', filterSizeLessThan10);
-						$('#filter5').prop('checked', filterSizeMoreThan10);
-					}
+				$('#filter1').prop('checked', filterUnder50);
+				$('#filter2').prop('checked', filter50to1000);
+				$('#filter4').prop('checked', filterSizeLessThan20);
+				$('#filter5').prop('checked', filterSizeMoreThan20);
+			}
 
-					$('#btn_results').on('click', function () {
-						updateUrl();
+			$('#btn_results').on('click', function () {
+				updateUrl();
 
-						window.location.reload();
-					});
+				window.location.reload();
+			});
 
-					setCheckboxStates();
-
-					$(document).ready(function () {
-
-						function clearFilters() {
-		
-							$('input[type=checkbox]').prop('checked', false);
-
-							$('input[type=radio]').prop('checked', false);
-
-							var queryParams = new URLSearchParams(window.location.search);
-							queryParams.delete('filterUnder10');
-							queryParams.delete('filter10to20');
-							queryParams.delete('filterSizeLessThan10');
-							queryParams.delete('filterSizeMoreThan10');
-							history.replaceState(null, null, window.location.pathname);
-
-							window.location.reload();
-						}
-
-						$('#clear_filters_btn').on('click', clearFilters);
-
-					});
-
-				});
+			setCheckboxStates();
 
 			$(document).ready(function () {
-				$('.heart-btn').each(function () {
-					const heartBtn = $(this);
-					const fishId = heartBtn.data('fish-id');
 
-					$.ajax({
-						url: '/WishList/IsInWishList',
-						type: 'GET',
-						data: { id: fishId },
-						success: function (response) {
+				function clearFilters() {
+
+					$('input[type=checkbox]').prop('checked', false);
+
+					$('input[type=radio]').prop('checked', false);
+
+					var queryParams = new URLSearchParams(window.location.search);
+					queryParams.delete('filterUnder50');
+					queryParams.delete('filter50to100');
+					queryParams.delete('filterSizeLessThan20');
+					queryParams.delete('filterSizeMoreThan20');
+					history.replaceState(null, null, window.location.pathname);
+
+					window.location.reload();
+				}
+
+				$('#clear_filters_btn').on('click', clearFilters);
+
+			});
+
+		});
+
+		$(document).ready(function () {
+			$('.heart-btn').each(function () {
+				const heartBtn = $(this);
+				const aquariumId = heartBtn.data('aquarium-id');
+
+				$.ajax({
+					url: '/WishList/IsInWishList',
+					type: 'GET',
+					data: { id: aquariumId },
+					success: function (response) {
 						if (response.isInWishList) {
 							heartBtn.find('.heart-icon').removeClass('bx-heart').addClass('bxs-heart');
 							heartBtn.data('in-wishlist', true);
@@ -382,13 +383,8 @@
 					},
 					error: function (error) {
 					}
-					});
 				});
 			});
-
-
-
+		});
 		</script>
-}
-
-
+	}
