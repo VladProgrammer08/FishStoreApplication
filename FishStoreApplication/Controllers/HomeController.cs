@@ -32,7 +32,7 @@ namespace FishStoreApplication.Controllers
 
         public IActionResult ShoppingAction ()
         {
-            return RedirectToAction("Index", "Products");
+            return RedirectToAction("FishIndex", "Products");
         }
 
         public IActionResult SeePrivacyAction()

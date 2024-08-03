@@ -14,7 +14,7 @@ namespace FishStoreApplication.Controllers
 			_context = context;
 		}
 		[Authorize]
-		public async Task<IActionResult> Index(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterSizeLessThan10 = false, bool filterSizeMoreThan10 = false)
+		public async Task<IActionResult> FishIndex(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterSizeLessThan10 = false, bool filterSizeMoreThan10 = false)
 		{
 			const int NumFishToDisplayPerPage = 6;
 			const int PageOffSet = 1;
@@ -58,7 +58,7 @@ namespace FishStoreApplication.Controllers
 
 
 
-		public async Task<IActionResult> Details(int id)
+		public async Task<IActionResult> FishDetails(int id)
 		{
 			Fish productDetails = await _context.Fishes.FindAsync(id);
 			if (productDetails == null)

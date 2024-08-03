@@ -43,7 +43,7 @@ namespace FishStoreApplication.Controllers
 				if (productToAdd == null)
 				{
 					TempData["Message"] = "Sorry, that fish no longer exists";
-					return RedirectToAction("Index", "Products");
+					return RedirectToAction("FishIndex", "Products");
 				}
 				var wishListItem = wishList.Items.FirstOrDefault(wi => wi.FishId == productToAdd.FishId);
 				if (wishListItem == null)
@@ -56,7 +56,7 @@ namespace FishStoreApplication.Controllers
 				}
 				_context.SaveChanges();
 				TempData["Message"] = "Item added to WishList";
-				return RedirectToAction("Index", "Products");
+				return RedirectToAction("FishIndex", "Products");
 			}
 			else
 			{
@@ -132,7 +132,7 @@ namespace FishStoreApplication.Controllers
 					if (productToAdd == null)
 					{
 						TempData["Message"] = "Sorry, that fish no longer exists";
-						return RedirectToAction("Index", "Products");
+						return RedirectToAction("FishIndex", "Products");
 					}
 
 					wishListItem = new WishListItem
@@ -149,7 +149,7 @@ namespace FishStoreApplication.Controllers
 				}
 
 				_context.SaveChanges();
-				return RedirectToAction("Index", "Products");
+				return RedirectToAction("FishIndex", "Products");
 			}
 			else
 			{
@@ -192,7 +192,7 @@ namespace FishStoreApplication.Controllers
                 if (fishToAdd == null)
                 {
                     TempData["Message"] = "Sorry that fish no longer exists";
-                    return RedirectToAction("Index", "Products");
+                    return RedirectToAction("FishIndex", "Products");
                 }
 
                 var cartItem = cart.Items.FirstOrDefault(ci => ci.FishId == fishToAdd.FishId);
