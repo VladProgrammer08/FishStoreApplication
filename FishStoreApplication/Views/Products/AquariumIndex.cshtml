@@ -3,6 +3,161 @@
 	ViewData["Title"] = "Aquarium Catalog";
 }
 
+@section Head
+{	
+	<style>
+		.row.align-items-start {
+			display: flex;
+			align-items: flex-start;
+		}
+
+		.pagination .page-link {
+			color: black;
+			background-color: white;
+			border: 1px solid black;
+			transition: background-color 0.3s;
+		}
+
+		.pagination .page-item.active .page-link {
+			color: white;
+			background-color: black;
+			border: 1px solid black;
+		}
+
+		.pagination .page-link:hover {
+			background-color: black;
+			color: white;
+		}
+
+		#line {
+			width: 55%;
+			border-top: 3px solid black;
+			margin-bottom: 10px
+		}
+
+		h2 {
+			margin-top: 30px;
+		}
+
+		.icon-small {
+			font-size: 0.65em;
+		}
+
+		#btns {
+			margin-top: 40px;
+		}
+
+		.form-check-input:checked {
+			background-color: #000000;
+			border-color: #000000;
+		}
+
+		.form-check-input:focus {
+			box-shadow: 0 0 0 0.2rem rgba(108, 117, 125, 0.5);
+		}
+
+		#btn_results {
+			border: 2px solid #000;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding: 7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 20px;
+			border-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+			#btn_results:hover {
+				background-color: black;
+				color: white;
+			}
+
+		#clear_filters_btn {
+			border: 2px solid #000;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding: 7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 20px;
+			border-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+			#clear_filters_btn:hover {
+				background-color: black;
+				color: white;
+			}
+
+		#details_btn {
+			border: 2px solid gray;
+			background-color: white;
+			color: black;
+			padding-right: 0px;
+			padding: 7px 3px;
+			font-size: 16px;
+			text-decoration: none;
+			display: inline-block;
+			cursor: pointer;
+			position: center;
+			width: 48%;
+			margin-bottom: 5px;
+			border-top-left-radius: 9px;
+			border-bottom-left-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+			#details_btn:hover {
+				background-color: gray;
+				color: white;
+			}
+
+		#add_to_cart_btn {
+			border: 2px solid gray;
+			background-color: white;
+			color: black;
+			font-size: 16px;
+			padding: 7px 3px;
+			text-decoration: none;
+			display: inline-block;
+			margin-left: 5px;
+			cursor: pointer;
+			position: center;
+			width: 100%;
+			margin-bottom: 5px;
+			border-top-right-radius: 9px;
+			border-bottom-right-radius: 9px;
+			box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3), -1px -1px 5px rgba(0, 0, 0, 0.2) inset;
+			transition: background-color 0.3s ease, color 0.3s ease;
+		}
+
+			#add_to_cart_btn:hover {
+				background-color: gray;
+				color: white;
+			}
+
+		.aquarium-card .card-img-top {
+			width: 100%;
+			height: auto;
+			object-fit: cover;
+		}
+	</style>
+}
+
 @if (TempData["Message"] != null)
 {
 	<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -61,17 +216,17 @@
 		</div>
 
 		<div class="col-md-10 main-content">
-			<h1>Fish Catalog</h1>
+			<h1>Aquarium Catalog</h1>
 			@if (Model.Aquariums.Count() != 0)
 			{
 				<div class="row">
 					@foreach (Aquarium item in Model.Aquariums)
 					{
 
-						<div class="col-md-4 fish-card" data-price="@item.AquariumPrice" data-size="@item.AquariumGallons">
+						<div class="col-md-4 aquarium-card" data-price="@item.AquariumPrice" data-size="@item.AquariumGallons">
 							<div class="card mb-4 box-shadow">
 
-								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main fish image" style="height: 250px; width:334px;">
+								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main aquarium image" style="height: 250px; width:334px;">
 								<div class="card-body">
 									<p class="card-text"><strong>@item.AquariumBrand</strong></p>
 									<p class="card-text">$@item.AquariumPrice</p>
@@ -80,7 +235,7 @@
 											<a id="details_btn" asp-action="AquariumDetails" asp-route-id="@item.AquariumId">Details</a>
 											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.AquariumId">Add to Cart</a>
 										</div>
-										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.AquariumId" data-fish-id="@item.AquariumId" style="position: absolute; top: 0; right: 0;">
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.AquariumId" data-aquarium-id="@item.AquariumId" style="position: absolute; top: 0; right: 0;">
 											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
 										</a>
 									</div>
