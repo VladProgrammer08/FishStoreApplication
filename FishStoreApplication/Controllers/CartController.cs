@@ -42,13 +42,13 @@ namespace FishStoreApplication.Controllers
 
                 if (productType == "Fish")
                 {
-                    productToAdd = _context.Fishes.SingleOrDefault(f => f.FishId == id);
+                    productToAdd = _context.Fishes.SingleOrDefault(f => f.Id == id);
                     redirectAction = "FishIndex";
                 }
                 else if (productType == "Aquarium")
                 {
-                    productToAdd = _context.Aquariums.SingleOrDefault(a => a.AquariumId == id);
-                    redirectAction = "ProductIndex";
+                    productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
+                    redirectAction = "AquariumIndex";
                 }
 
                 if (productToAdd == null)

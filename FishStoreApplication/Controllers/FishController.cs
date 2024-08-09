@@ -121,7 +121,7 @@ namespace FishStoreApplication.Controllers
                 _context.Fishes.Add(f.Fish); // Prepares insert
                 await _context.SaveChangesAsync(); // Executes pending insert
 
-                ViewData["Message"] = $"{f.Fish.BreedName} was added successfully!";
+                ViewData["Message"] = $"{f.Fish.Name} was added successfully!";
                 return View();
                 
             }
@@ -148,7 +148,7 @@ namespace FishStoreApplication.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, FishViewModel viewModel)
         {
-            if (id != viewModel.Fish.FishId)
+            if (id != viewModel.Fish.Id)
             {
                 return NotFound();
             }
@@ -227,12 +227,12 @@ namespace FishStoreApplication.Controllers
                     _context.Update(viewModel.Fish);
                     await _context.SaveChangesAsync();
 
-                    TempData["Message"] = $"{viewModel.Fish.BreedName} was updated successfully";
+                    TempData["Message"] = $"{viewModel.Fish.Name} was updated successfully";
                     return RedirectToAction("Index");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!FishExists(viewModel.Fish.FishId))
+                    if (!FishExists(viewModel.Fish.Id))
                     {
                         return NotFound();
                     }
@@ -247,7 +247,7 @@ namespace FishStoreApplication.Controllers
 
         private bool FishExists(int id)
         {
-            return _context.Fishes.Any(e => e.FishId == id);
+            return _context.Fishes.Any(e => e.Id == id);
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -267,7 +267,7 @@ namespace FishStoreApplication.Controllers
             {
                 _context.Fishes.Remove(fishToDelete);
                 await _context.SaveChangesAsync();
-                TempData["Message"] = fishToDelete.BreedName + "was deleted successfully";
+                TempData["Message"] = fishToDelete.Name + "was deleted successfully";
                 return RedirectToAction("Index");
             }
             TempData["Message"] = "This fish was already deleted";
