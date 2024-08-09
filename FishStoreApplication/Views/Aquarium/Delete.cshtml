@@ -1,32 +1,32 @@
 ﻿@model FishStoreApplication.Models.Aquarium
 
 @{
-	ViewData["Title"] = "Delete" + Model.AquariumBrand;
+	ViewData["Title"] = "Delete" + Model.Name;
 }
 
-<h1>Delete @Model.AquariumBrand</h1>
+<h1>Delete @Model.Name</h1>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AquariumId)
+            @Html.DisplayNameFor(model => model.Id)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AquariumId)
+            @Html.DisplayFor(model => model.Id)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AquariumBrand)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.AquariumBrand)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.AquariumPrice)
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
         <dd class="col-sm-10">
-            $@Html.DisplayFor(model => model.AquariumPrice)
+            $@Html.DisplayFor(model => model.Price)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MainImageURL)
@@ -37,7 +37,7 @@
     </dl>
 
     <form asp-action="Delete">
-        <input type="hidden" asp-for="AquariumId" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>
     </form>
