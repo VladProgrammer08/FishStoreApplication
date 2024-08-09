@@ -4,58 +4,23 @@ namespace FishStoreApplication.Models
 {
 	public class Aquarium : Product
 	{
-
-        [Display(Name = "Aquarium ID")]
-        public int AquariumId { get; set; }
-		/// <summary>
-		/// Capacity of the aquarium in gallons.
-		/// </summary>
-		public double AquariumGallons { get; set; }
-		/// <summary>
-		/// Cost of the aquarium.
-		/// </summary>
-		[Range(0, int.MaxValue)]
-		[Display(Name = "Price")]
-		public double AquariumPrice { get; set; }
-		/// <summary>
-		/// Brand name of the aquarium.
-		/// </summary>
-
-		[Display(Name = "Brand")]
-		public string AquariumBrand { get; set; }
 		/// <summary>
 		/// Material from which the aquarium is made
 		/// </summary>
 		public string AquariumMaterial { get; set; }
 		/// <summary>
-		/// Represents the URL of the main aquarium image.
+		/// A primary color of the aquarium
 		/// </summary>
-		public string? MainImageURL { get; set; }
+        public string AquariumColor { get; set; }
 		/// <summary>
-		/// Represents the URL of the secondary aquarium image one.
+		/// A volume of the aquarium
 		/// </summary>
-		public string? SecondaryImageOne { get; set; }
+        public int AquariumVolume { get; set; }
 		/// <summary>
-		/// Represents the URL of the secondary aquarium image two.
+		/// A weight of the aquarium
 		/// </summary>
-		public string? SecondaryImageTwo { get; set; }
-		/// <summary>
-		/// Represents the URL of the secondary aquarium image three.
-		/// </summary>
-		public string? SecondaryImageThree { get; set; }
-		/// <summary>
-		/// Represents the URL of the secondary aquarium image four.
-		/// </summary>
-		public string? SecondaryImageFour { get; set; }
-		/// <summary>
-		/// Represents a description of the aquarium.
-		/// </summary>
-		public string? Description { get; set; }
-		/// <summary>
-		/// Specifies any warranty information related to the aquarium.
-		/// </summary>
-		public string? AquariumWarranty { get; set; }
-	}
+        public int AquariumWeight { get; set; }
+    }
 
 	public class AquariumFileUpload
 	{

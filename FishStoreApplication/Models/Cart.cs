@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FishStoreApplication.Models
 {
@@ -46,6 +47,7 @@ namespace FishStoreApplication.Models
         /// The unique identifier for each fish product
         /// </summary>
         public int CartId { get; set; }
+
         /// <summary>
         /// Navigation property to the Product
         /// </summary>
