@@ -17,14 +17,14 @@ namespace FishStoreApplication.Controllers
         {
             _context = context;
         }
-        public IActionResult Add(int id)
+        public IActionResult Add(int id, string productType)
         {
             if (User.Identity.IsAuthenticated)
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var cart = _context.Carts.Include(c => c.Items)
+                                         .ThenInclude(i => i.Product)
                                          .FirstOrDefault(c => c.UserId == userId);
-
 
                 if (cart == null)
                 {
@@ -36,17 +36,31 @@ namespace FishStoreApplication.Controllers
                     cart.Items = new List<CartItem>();
                 }
 
-                var fishToAdd = _context.Fishes.SingleOrDefault(f => f.FishId == id);
-                if (fishToAdd == null)
+                Product productToAdd = null;
+                string redirectAction = "Index";
+                string redirectController = "Products";
+
+                if (productType == "Fish")
                 {
-                    TempData["Message"] = "Sorry that fish no longer exists";
-                    return RedirectToAction("FishIndex", "Products");
+                    productToAdd = _context.Fishes.SingleOrDefault(f => f.Id == id);
+                    redirectAction = "FishIndex";
+                }
+                else if (productType == "Aquarium")
+                {
+                    productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
+                    redirectAction = "AquariumIndex";
                 }
 
-                var cartItem = cart.Items.FirstOrDefault(ci => ci.FishId == fishToAdd.FishId);
+                if (productToAdd == null)
+                {
+                    TempData["Message"] = "Sorry, that product no longer exists";
+                    return RedirectToAction(redirectAction, redirectController);
+                }
+
+                var cartItem = cart.Items.FirstOrDefault(ci => ci.ProductId == productToAdd.Id);
                 if (cartItem == null)
                 {
-                    cartItem = new CartItem { FishId = fishToAdd.FishId, Quantity = 1 };
+                    cartItem = new CartItem { ProductId = productToAdd.Id, Product = productToAdd, Quantity = 1 };
                     cart.Items.Add(cartItem);
                 }
                 else
@@ -57,13 +71,14 @@ namespace FishStoreApplication.Controllers
                 _context.SaveChanges();
 
                 TempData["Message"] = "Item added to cart";
-                return RedirectToAction("FishIndex", "Products");
+                return RedirectToAction(redirectAction, redirectController);
             }
             else
             {
                 return RedirectToAction("Login", "Account");
             }
         }
+
 
         [Authorize]
         public IActionResult Summary()
@@ -72,14 +87,14 @@ namespace FishStoreApplication.Controllers
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var cartItems = _context.CartItems
-                                        .Include(ci => ci.Fish)
+                                        .Include(ci => ci.Product)
                                         .Where(ci => ci.Cart.UserId == userId)
                                         .ToList();
 
                 var summaryViewModel = new CartSummaryViewModel
                 {
                     Items = cartItems,
-                    TotalPrice = cartItems.Sum(ci => ci.Fish.Price * ci.Quantity),
+                    TotalPrice = cartItems.Sum(ci => ci.Product.Price * ci.Quantity),
                     TaxRate = 0.10
                 };
 
@@ -92,6 +107,7 @@ namespace FishStoreApplication.Controllers
         }
 
 
+
         public IActionResult Remove(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -99,7 +115,7 @@ namespace FishStoreApplication.Controllers
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var cartItem = _context.CartItems
                                        .Include(ci => ci.Cart)
-                                       .FirstOrDefault(ci => ci.FishId == id && ci.Cart.UserId == userId);
+                                       .FirstOrDefault(ci => ci.ProductId == id && ci.Cart.UserId == userId);
 
                 if (cartItem != null)
                 {
@@ -115,6 +131,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
+
         public IActionResult DecreaseQuantity(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -122,7 +139,7 @@ namespace FishStoreApplication.Controllers
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
                 var cartItem = _context.CartItems
                                        .Include(ci => ci.Cart)
-                                       .FirstOrDefault(ci => ci.FishId == id && ci.Cart.UserId == userId);
+                                       .FirstOrDefault(ci => ci.ProductId == id && ci.Cart.UserId == userId);
 
                 if (cartItem != null && cartItem.Quantity > 1)
                 {
@@ -142,6 +159,7 @@ namespace FishStoreApplication.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
 
         public async Task<IActionResult> CheckoutAsync()
         {

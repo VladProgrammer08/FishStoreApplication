@@ -135,29 +135,31 @@ else
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th></th>
+                            <th>Name</th>
+                            <th>Length</th>
                             <th>Quantity</th>
                             <th>Subtotal</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model.Items)
                         {
                             <tr>
-                                <td><img src="@Url.Content(item.Fish.MainImageURL)" alt="Product Image" style="width:100px; height:100px;" /></td>
-                                <td><b>@Html.DisplayFor(modelItem => item.Fish.BreedName)</b>
+                                <td><img src="@Url.Content(item.Product.MainImageURL)" alt="Product Image" style="width:100px; height:100px;" /></td>
+                                <td><b>@Html.DisplayFor(modelItem => item.Product.Name)</b>
                                     <br />
-                                    <span>ID: @item.Fish.FishId</span>
-                                    <br />
-                                    <span>Size: @item.Fish.FishSize Inch</span>
+                                    <span>ID: @item.Product.Name</span>
+                                    <br />                                   
+                                </td>
+                                <td>
+                                    <span>Size: @item.Product.Length Inch</span>
                                 </td>
                                 <td><b>@Html.DisplayFor(modelItem => item.Quantity)</b></td>
-                                <td><b>@((item.Fish.Price * item.Quantity).ToString("C"))</b></td>
+                                <td><b>@((item.Product.Price * item.Quantity).ToString("C"))</b></td>
                                 <td>
                                     <br />
-                                    <a id="remove_btn" asp-action="Remove" asp-route-id="@item.FishId">Remove Item</a>
-                                    <a id="decrease_btn" asp-action="DecreaseQuantity" asp-route-id="@item.FishId"><b>-</b></a>
+                                    <a id="remove_btn" asp-action="Remove" asp-route-id="@item.ProductId">Remove Item</a>
+                                    <a id="decrease_btn" asp-action="DecreaseQuantity" asp-route-id="@item.Product"><b>-</b></a>
                                 </td>
                             </tr>
                         }

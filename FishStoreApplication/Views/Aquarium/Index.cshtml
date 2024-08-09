@@ -34,14 +34,14 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.Aquariums[0].AquariumId)
+                    @Html.DisplayNameFor(model => model.Aquariums[0].Id)
                 </th>
                 <th>Image</th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Aquariums[0].AquariumBrand)
+                    @Html.DisplayNameFor(model => model.Aquariums[0].Name)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Aquariums[0].AquariumPrice)
+                    @Html.DisplayNameFor(model => model.Aquariums[0].Price)
                 </th>
                 <th id="actions">Actions</th>
             </tr>
@@ -52,24 +52,24 @@
                 <tr>
                     <td>
                         <br />
-                        @Html.DisplayFor(modelItem => item.AquariumId)
+                        @Html.DisplayFor(modelItem => item.Id)
                     </td>
                     <td>
-                        <img height="200" src="@item.MainImageURL" alt="@item.AquariumBrand" />
+                        <img height="200" src="@item.MainImageURL" alt="@item.Name" />
                     </td>
                     <td>
                         <br />
-                        @Html.DisplayFor(modelItem => item.AquariumBrand)
+                        @Html.DisplayFor(modelItem => item.Name)
                     </td>               
                     <td>
                         <br />
-                        $@Html.DisplayFor(modelItem => item.AquariumPrice)
+                        $@Html.DisplayFor(modelItem => item.Price)
                     </td>
                     <td>
                         <br />                    
-                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.AquariumId">Edit</a> |
-                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.AquariumId">Details</a> |
-                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.AquariumId">Delete</a>
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }

@@ -122,7 +122,7 @@ namespace FishStoreApplication.Controllers
 				_context.Aquariums.Add(a.Aquarium);
 				await _context.SaveChangesAsync();
 
-				ViewData["MEssage"] = $"{a.Aquarium.AquariumBrand} was added successfully";
+				ViewData["MEssage"] = $"{a.Aquarium.Name} was added successfully";
 				return View();
 			}
 			return View(a);
@@ -151,7 +151,7 @@ namespace FishStoreApplication.Controllers
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Edit(int id, AquariumViewModel viewModel)
 		{
-			if (id != viewModel.Aquarium.AquariumId)
+			if (id != viewModel.Aquarium.Id)
 			{
 				return NotFound();
 			}
@@ -228,12 +228,12 @@ namespace FishStoreApplication.Controllers
 					_context.Update(viewModel.Aquarium);
 					await _context.SaveChangesAsync();
 
-					TempData["Message"] = $"{viewModel.Aquarium.AquariumBrand} was updated successfully";
+					TempData["Message"] = $"{viewModel.Aquarium.Name} was updated successfully";
 					return RedirectToAction("Index");
 				}
 				catch (DbUpdateConcurrencyException)
 				{
-					if (!AquariumExist(viewModel.Aquarium.AquariumId))
+					if (!AquariumExist(viewModel.Aquarium.Id))
 					{
 						return NotFound();
 					}
@@ -248,7 +248,7 @@ namespace FishStoreApplication.Controllers
 
 		private bool AquariumExist(int id)
 		{
-			return _context.Aquariums.Any(e => e.AquariumId == id);
+			return _context.Aquariums.Any(e => e.Id == id);
 		}
 
 		public async Task<ActionResult> Delete(int id)
@@ -270,7 +270,7 @@ namespace FishStoreApplication.Controllers
 			{
 				_context.Aquariums.Remove(aquariumToDelete);
 				await _context.SaveChangesAsync();
-				TempData["Message"] = aquariumToDelete.AquariumBrand + "was deleted successfully";
+				TempData["Message"] = aquariumToDelete.Name + "was deleted successfully";
 				return RedirectToAction("Index");
 			}
 			TempData["Message"] = "This aquarium was already deleted";

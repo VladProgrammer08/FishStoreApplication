@@ -1,17 +1,18 @@
 ﻿@model FishStoreApplication.Models.Aquarium
 
 @{
-    ViewData["Title"] = Model.AquariumBrand + "Details";
+    ViewData["Title"] = Model.Name + "Details";
 }
 
-<h1>Details @Model.AquariumBrand</h1>
+<h1>Details @Model.Name</h1>
 
 <div>
     <hr />
     <p>
         <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Aquarium Brand/ Price</a>
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Attributes/ Specifications</button>
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Description/ Warranty</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Product Dimension</button>
+        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample4" aria-expanded="false" aria-controls="multiCollapseExample4">Description/ Warranty</button>
         <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2 multiCollapseExample3">Show all Information</button>
     </p>
     <div id="CommonParent">
@@ -20,22 +21,22 @@
                 <dl class="row">
 
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.AquariumId)
+                        @Html.DisplayNameFor(model => model.Id)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.AquariumId)
+                        @Html.DisplayFor(model => model.Id)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.AquariumBrand)
+                        @Html.DisplayNameFor(model => model.Name)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.AquariumBrand)
+                        @Html.DisplayFor(model => model.Name)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.AquariumPrice)
+                        @Html.DisplayNameFor(model => model.Price)
                     </dt>
                     <dd class="col-sm-10">
-                        $@Html.DisplayFor(model => model.AquariumPrice)
+                        $@Html.DisplayFor(model => model.Price)
                     </dd>
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.MainImageURL)
@@ -48,24 +49,60 @@
         </div>
         <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample2">
-                <dl class="row">
-                    <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.AquariumGallons)
-                    </dt>
-                    <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.AquariumGallons)
-                    </dd>
+                <dl class="row">                
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.AquariumMaterial)
                     </dt>
                     <dd class="col-sm-10">
                         @Html.DisplayFor(model => model.AquariumMaterial)
-                    </dd>                                                          
+                    </dd>    
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AquariumColor)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.AquariumColor)
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AquariumVolume)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.AquariumVolume) GAl
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.AquariumWeight)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.AquariumWeight) LBS
+                    </dd>
                 </dl>
             </div>
         </div>
         <div class="col">
             <div class="collapse multi-collapse" id="multiCollapseExample3">
+                <dl class="row">
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Length)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Length) IN
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Height)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Height) IN
+                    </dd>
+                    <dt class="col-sm-2">
+                        @Html.DisplayNameFor(model => model.Width)
+                    </dt>
+                    <dd class="col-sm-10">
+                        @Html.DisplayFor(model => model.Width) IN
+                    </dd>
+                </dl>
+            </div>
+        </div>
+        <div class="col">
+            <div class="collapse multi-collapse" id="multiCollapseExample4">
                 <div class="row">
                     <dt class="col-sm-2">
                         @Html.DisplayNameFor(model => model.Description)
@@ -74,10 +111,10 @@
                         @Html.DisplayFor(model => model.Description)
                     </dd>
                     <dt class="col-sm-2">
-                        @Html.DisplayNameFor(model => model.AquariumWarranty)
+                        @Html.DisplayNameFor(model => model.Warranty)
                     </dt>
                     <dd class="col-sm-10">
-                        @Html.DisplayFor(model => model.AquariumWarranty)
+                        @Html.DisplayFor(model => model.Warranty)
                     </dd>
                 </div>
             </div>
@@ -86,6 +123,6 @@
 </div>
 
 <div>
-    <a class="btn btn-danger" asp-action="Edit" asp-route-id="@Model?.AquariumId">Edit</a> |
+    <a class="btn btn-danger" asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>
 </div>

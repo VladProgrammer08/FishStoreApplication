@@ -36,11 +36,11 @@ namespace FishStoreApplication.Controllers
 
 			if (filterSizeLessThan10)
 			{
-				fishQuery = fishQuery.Where(f => f.FishSize < 10);
+				fishQuery = fishQuery.Where(f => f.Length < 10);
 			}
 			if (filterSizeMoreThan10)
 			{
-				fishQuery = fishQuery.Where(f => f.FishSize > 10);
+				fishQuery = fishQuery.Where(f => f.Length > 10);
 			}
 
 			int totalNumOfProducts = await fishQuery.CountAsync();
@@ -81,20 +81,20 @@ namespace FishStoreApplication.Controllers
 
 			if (filterUnder50)
 			{
-				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumPrice <= 50);
+				aquariumQuerry = aquariumQuerry.Where(a => a.Price <= 50);
 			}
 			if (filter50to100)
 			{
-				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumPrice >= 50 && a.AquariumPrice <= 100);
+				aquariumQuerry = aquariumQuerry.Where(a => a.Price >= 50 && a.Price <= 100);
 			}
 
 			if (filterSizeLessThan20)
 			{
-				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumGallons < 20);
+				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumVolume < 20);
 			}
 			if (filterSizeMoreThan20)
 			{
-				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumGallons > 20);
+				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumVolume > 20);
 			}
 
 			int totalNumOfProducts = await aquariumQuerry.CountAsync();

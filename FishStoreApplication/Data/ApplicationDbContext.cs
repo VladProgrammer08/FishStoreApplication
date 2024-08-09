@@ -22,5 +22,18 @@ namespace FishStoreApplication.Data
         public DbSet<WishList> WishLists { get; set; }
 
         public DbSet<WishListItem> WishListItems { get; set; }
+
+        public DbSet<Product> Products { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure the inheritance mapping
+            modelBuilder.Entity<Product>()
+                .HasDiscriminator<string>("ProductType")
+                .HasValue<Fish>("Fish")
+                .HasValue<Aquarium>("Aquarium");
+        }
     }
 }

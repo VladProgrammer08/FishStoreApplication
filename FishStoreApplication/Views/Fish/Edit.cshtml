@@ -1,21 +1,21 @@
 ﻿@model FishStoreApplication.Models.FishViewModel
 
 @{
-    ViewData["Title"] = "Edit" + Model.Fish.BreedName;
+    ViewData["Title"] = "Edit" + Model.Fish.Name;
 }
 
-<h1>Edit @Model.Fish.BreedName</h1>
+<h1>Edit @Model.Fish.Name</h1>
  <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Fish.FishId" />
+            <input type="hidden" asp-for="Fish.Id" />
             <div class="form-group">
-                <label asp-for="Fish.BreedName" class="control-label"></label>
-                <input asp-for="Fish.BreedName" class="form-control" />
-                <span asp-validation-for="Fish.BreedName" class="text-danger"></span>
+                <label asp-for="Fish.Name" class="control-label"></label>
+                <input asp-for="Fish.Name" class="form-control" />
+                <span asp-validation-for="Fish.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Fish.Price" class="control-label"></label>
@@ -81,11 +81,6 @@
                 <span asp-validation-for="FishUpload.SecondaryImageFour" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fish.FishSize" class="control-label">Fish Size(IN)</label>
-                <input asp-for="Fish.FishSize" class="form-control" />
-                <span asp-validation-for="Fish.FishSize" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Fish.FishSpecialDiet" class="control-label">Fish Special Diet</label>
                 <input asp-for="Fish.FishSpecialDiet" class="form-control" />
                 <span asp-validation-for="Fish.FishSpecialDiet" class="text-danger"></span>
@@ -106,14 +101,29 @@
                 <span asp-validation-for="Fish.FishCareLevel" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Fish.Length" class="control-label">Length</label>
+                <input asp-for="Fish.Length" class="form-control" />
+                <span asp-validation-for="Fish.Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fish.Height" class="control-label">Height</label>
+                <input asp-for="Fish.Height" class="form-control" />
+                <span asp-validation-for="Fish.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fish.Width" class="control-label">Width</label>
+                <input asp-for="Fish.Width" class="form-control" />
+                <span asp-validation-for="Fish.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Fish.Description" class="control-label">Description</label>
                 <input asp-for="Fish.Description" class="form-control" />
                 <span asp-validation-for="Fish.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Fish.FishWarranty" class="control-label">Warranty</label>
-                <input asp-for="Fish.FishWarranty" class="form-control" />
-                <span asp-validation-for="Fish.FishWarranty" class="text-danger"></span>
+                <label asp-for="Fish.Warranty" class="control-label">Warranty</label>
+                <input asp-for="Fish.Warranty" class="form-control" />
+                <span asp-validation-for="Fish.Warranty" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-success mb-2" />

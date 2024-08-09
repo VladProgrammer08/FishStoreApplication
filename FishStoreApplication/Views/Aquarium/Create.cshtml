@@ -21,17 +21,17 @@ else
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Aquarium.AquariumBrand" class="control-label">Brand Name</label>
-                <input asp-for="Aquarium.AquariumBrand" class="form-control" />
-                <span asp-validation-for="Aquarium.AquariumBrand" class="text-danger"></span>
+                <label asp-for="Aquarium.Name" class="control-label">Brand Name</label>
+                <input asp-for="Aquarium.Name" class="form-control" />
+                <span asp-validation-for="Aquarium.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Aquarium.AquariumPrice" class="control-label">Price</label>
+                <label asp-for="Aquarium.Price" class="control-label">Price</label>
                 <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input asp-for="Aquarium.AquariumPrice" class="form-control" />
+                    <input asp-for="Aquarium.Price" class="form-control" />
                 </div>
-                <span asp-validation-for="Aquarium.AquariumPrice" class="text-danger"></span>
+                <span asp-validation-for="Aquarium.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="AquariumFileUpload.MainImage" class="control-label">Upload Main Image</label>
@@ -59,14 +59,39 @@ else
                 <span asp-validation-for="AquariumFileUpload.SecondaryImageFour" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Aquarium.AquariumGallons" class="control-label">Gallon capacity</label>
-                <input asp-for="Aquarium.AquariumGallons" class="form-control" />
-                <span asp-validation-for="Aquarium.AquariumGallons" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="Aquarium.AquariumMaterial" class="control-label">Material</label>
                 <input asp-for="Aquarium.AquariumMaterial" class="form-control" />
                 <span asp-validation-for="Aquarium.AquariumMaterial" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumColor" class="control-label">Aquarium color</label>
+                <input asp-for="Aquarium.AquariumColor" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumVolume" class="control-label">Gallon capacity</label>
+                <input asp-for="Aquarium.AquariumVolume" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumVolume" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.Length" class="control-label">Length</label>
+                <input asp-for="Aquarium.Length" class="form-control" />
+                <span asp-validation-for="Aquarium.Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.Height" class="control-label">Height</label>
+                <input asp-for="Aquarium.Height" class="form-control" />
+                <span asp-validation-for="Aquarium.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.Width" class="control-label">Width</label>
+                <input asp-for="Aquarium.Width" class="form-control" />
+                <span asp-validation-for="Aquarium.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Aquarium.AquariumWeight" class="control-label">Weight</label>
+                <input asp-for="Aquarium.AquariumWeight" class="form-control" />
+                <span asp-validation-for="Aquarium.AquariumWeight" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Aquarium.Description" class="control-label">Description</label>
@@ -74,9 +99,9 @@ else
                 <span asp-validation-for="Aquarium.Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Aquarium.AquariumWarranty" class="control-label">Warranty</label>
-                <input asp-for="Aquarium.AquariumWarranty" class="form-control" />
-                <span asp-validation-for="Aquarium.AquariumWarranty" class="text-danger"></span>
+                <label asp-for="Aquarium.Warranty" class="control-label">Warranty</label>
+                <input asp-for="Aquarium.Warranty" class="form-control" />
+                <span asp-validation-for="Aquarium.Warranty" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary mb-2" />
