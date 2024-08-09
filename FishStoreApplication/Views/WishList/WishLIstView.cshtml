@@ -95,11 +95,11 @@
             <div id="line"></div>
             <table class="table table-striped">
                 <thead class="gray-header">
-                    <tr>
-                        <th></th>
+                    <tr>                      
                         <th>Product</th>
                         <th>Name</th>
                         <th>Price</th>
+                        <th>Length</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -108,28 +108,32 @@
                     {
                         <tr>
                             <td>
-                                <a asp-action="RemoveFromWishList" asp-route-id="@item.FishId" class="remove-btn">
+                                <a asp-action="RemoveFromWishList" asp-route-id="@item.ProductId" class="remove-btn">
                                     <i class="bx bx-x"></i>
                                 </a>
                             </td>
-                            <td><img src="@Url.Content(item.Fish.MainImageURL)" alt="Product Image" style="width:150px; height:100px;" /></td>
+                            <td><img src="@Url.Content(item.Product.MainImageURL)" alt="Product Image" style="width:150px; height:100px;" /></td>
                             <td>
-                                <b>@Html.DisplayFor(modelItem => item.Fish.BreedName)</b>
+                                <b>@Html.DisplayFor(modelItem => item.Product.Name)</b>
                                 <br />
-                                <span>ID: @item.Fish.FishId</span>
+                                <span>ID: @item.Product.Id</span>
                                 <br />
-                                <span>Size: @item.Fish.FishSize Inch</span>
                             </td>
                             <td>
                                 <br />
-                                <b>@item.Fish.Price.ToString("C")</b></td>
+                                <b>@item.Product.Price.ToString("C")</b>
+                            </td>
+                            <td>
+                                <span>Size: @item.Product.Length</span>
+                            </td>
                             <td>
                                 <br />
-                                <a id="cart" asp-controller="WishList" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+                                <a id="cart" asp-controller="WishList" asp-action="Add" asp-route-id="@item.ProductId">Add to Cart</a>
                             </td>
                         </tr>
                     }
                 </tbody>
+
             </table>
         }
         else
