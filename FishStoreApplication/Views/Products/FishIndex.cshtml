@@ -193,7 +193,7 @@
 			</div>
 
 			<div>
-				<h2><i class='bx bxs-filter-alt icon-small'></i> Size</h2>
+				<h2><i class='bx bxs-filter-alt icon-small'></i> Length</h2>
 				<div id="line"></div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
@@ -223,19 +223,19 @@
 						@foreach (Fish item in Model.Fishes)
 						{
 
-							<div class="col-md-4 fish-card" data-price="@item.Price" data-size="@item.FishSize">
+							<div class="col-md-4 fish-card" data-price="@item.Price" data-size="@item.Length">
 								<div class="card mb-4 box-shadow">
 
 								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main fish image" style="height: 250px; width:334px;">
 								<div class="card-body">
-									<p class="card-text"><strong>@item.BreedName</strong></p>
+									<p class="card-text"><strong>@item.Name</strong></p>
 									<p class="card-text">$@item.Price</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a id="details_btn" asp-action="FishDetails" asp-route-id="@item.FishId">Details</a>
-											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.FishId">Add to Cart</a>
+											<a id="details_btn" asp-action="FishDetails" asp-route-id="@item.Id">Details</a>
+											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">Add to Cart</a>
 										</div>
-										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.FishId" data-fish-id="@item.FishId" style="position: absolute; top: 0; right: 0;">
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.Id" data-fish-id="@item.Id" style="position: absolute; top: 0; right: 0;">
 											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
 										</a>
 									</div>
@@ -283,14 +283,14 @@
 					function updateUrl() {
 						var filterUnder10 = $('#filter1').is(':checked');
 						var filter10to20 = $('#filter2').is(':checked');
-						var filterSizeLessThan10 = $('#filter4').is(':checked');
-						var filterSizeMoreThan10 = $('#filter5').is(':checked');
+						var filterLengthLessThan10 = $('#filter4').is(':checked');
+						var filterLengthMoreThan10 = $('#filter5').is(':checked');
 						var queryParams = new URLSearchParams(window.location.search);
 
 						queryParams.set('filterUnder10', filterUnder10);
 						queryParams.set('filter10to20', filter10to20);
-						queryParams.set('filterSizeLessThan10', filterSizeLessThan10);
-						queryParams.set('filterSizeMoreThan10', filterSizeMoreThan10);
+						queryParams.set('filterLengthLessThan10', filterLengthLessThan10);
+						queryParams.set('filterLengthMoreThan10', filterLengthMoreThan10);
 						history.replaceState(null, null, "?" + queryParams.toString());
 					}
 
@@ -299,13 +299,13 @@
 						var queryParams = new URLSearchParams(window.location.search);
 						var filterUnder10 = queryParams.get('filterUnder10') === 'true';
 						var filter10to20 = queryParams.get('filter10to20') === 'true';
-						var filterSizeLessThan10 = queryParams.get('filterSizeLessThan10') === 'true';
-						var filterSizeMoreThan10 = queryParams.get('filterSizeMoreThan10') === 'true';
+						var filterLengthLessThan10 = queryParams.get('filterLengthLessThan10') === 'true';
+						var filterLengthMoreThan10 = queryParams.get('filterLengthMoreThan10') === 'true';
 
 						$('#filter1').prop('checked', filterUnder10);
 						$('#filter2').prop('checked', filter10to20);
-						$('#filter4').prop('checked', filterSizeLessThan10);
-						$('#filter5').prop('checked', filterSizeMoreThan10);
+						$('#filter4').prop('checked', filterLengthLessThan10);
+						$('#filter5').prop('checked', filterLengthMoreThan10);
 					}
 
 					$('#btn_results').on('click', function () {
@@ -327,8 +327,8 @@
 							var queryParams = new URLSearchParams(window.location.search);
 							queryParams.delete('filterUnder10');
 							queryParams.delete('filter10to20');
-							queryParams.delete('filterSizeLessThan10');
-							queryParams.delete('filterSizeMoreThan10');
+							queryParams.delete('filterLengthLessThan10');
+							queryParams.delete('filterLengthMoreThan10');
 							history.replaceState(null, null, window.location.pathname);
 
 							window.location.reload();

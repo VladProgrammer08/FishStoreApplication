@@ -194,7 +194,7 @@
 				</div>
 			</div>
 			<div>
-				<h2><i class='bx bxs-filter-alt icon-small'></i> Size</h2>
+				<h2><i class='bx bxs-filter-alt icon-small'></i> Volume</h2>
 				<div id="line"></div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="flexRadioDefault2" id="filter4">
@@ -223,19 +223,19 @@
 					@foreach (Aquarium item in Model.Aquariums)
 					{
 
-						<div class="col-md-4 aquarium-card" data-price="@item.AquariumPrice" data-size="@item.AquariumGallons">
+						<div class="col-md-4 aquarium-card" data-price="@item.Price" data-size="@item.AquariumVolume">
 							<div class="card mb-4 box-shadow">
 
 								<img class="card-img-top" src="@Url.Content(item.MainImageURL)" alt="Main aquarium image" style="height: 250px; width:334px;">
 								<div class="card-body">
-									<p class="card-text"><strong>@item.AquariumBrand</strong></p>
-									<p class="card-text">$@item.AquariumPrice</p>
+									<p class="card-text"><strong>@item.Name</strong></p>
+									<p class="card-text">$@item.Price</p>
 									<div class="d-flex justify-content-between align-items-center">
 										<div class="btn-group">
-											<a id="details_btn" asp-action="AquariumDetails" asp-route-id="@item.AquariumId">Details</a>
-											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.AquariumId">Add to Cart</a>
+											<a id="details_btn" asp-action="AquariumDetails" asp-route-id="@item.Id">Details</a>
+											<a id="add_to_cart_btn" asp-controller="Cart" asp-action="Add" asp-route-id="@item.Id">Add to Cart</a>
 										</div>
-										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.AquariumId" data-aquarium-id="@item.AquariumId" style="position: absolute; top: 0; right: 0;">
+										<a class="btn heart-btn" asp-controller="WishList" asp-action="ToggleWishList" asp-route-id="@item.Id" data-aquarium-id="@item.Id" style="position: absolute; top: 0; right: 0;">
 											<i class="bx bx-heart heart-icon" style="font-size: 27px;"></i>
 										</a>
 									</div>
@@ -284,14 +284,14 @@
 			function updateUrl() {
 				var filterUnder50 = $('#filter1').is(':checked');
 				var filter50to100 = $('#filter2').is(':checked');
-				var filterSizeLessThan20 = $('#filter4').is(':checked');
-				var filterSizeMoreThan20 = $('#filter5').is(':checked');
+				var filterVolumeLessThan20 = $('#filter4').is(':checked');
+				var filterVolumeMoreThan20 = $('#filter5').is(':checked');
 				var queryParams = new URLSearchParams(window.location.search);
 
 				queryParams.set('filterUnder50', filterUnder50);
 				queryParams.set('filter50to100', filter50to100);
-				queryParams.set('filterSizeLessThan20', filterSizeLessThan20);
-				queryParams.set('filterSizeMoreThan20', filterSizeMoreThan20);
+				queryParams.set('filterVolumeLessThan20', filterVolumeLessThan20);
+				queryParams.set('filterVolumeMoreThan20', filterVolumeMoreThan20);
 				history.replaceState(null, null, "?" + queryParams.toString());
 			}
 
@@ -300,13 +300,13 @@
 				var queryParams = new URLSearchParams(window.location.search);
 				var filterUnder50 = queryParams.get('filterUnder50') === 'true';
 				var filter50to100 = queryParams.get('filter50to100') === 'true';
-				var filterSizeLessThan20 = queryParams.get('filterSizeLessThan20') === 'true';
-				var filterSizeMoreThan20 = queryParams.get('filterSizeMoreThan20') === 'true';
+				var filterVolumeLessThan20 = queryParams.get('filterVolumeLessThan20') === 'true';
+				var filterVolumeMoreThan20 = queryParams.get('filterVolumeMoreThan20') === 'true';
 
 				$('#filter1').prop('checked', filterUnder50);
 				$('#filter2').prop('checked', filter50to1000);
-				$('#filter4').prop('checked', filterSizeLessThan20);
-				$('#filter5').prop('checked', filterSizeMoreThan20);
+				$('#filter4').prop('checked', filterVolumeLessThan20);
+				$('#filter5').prop('checked', filterVolumeMoreThan20);
 			}
 
 			$('#btn_results').on('click', function () {
@@ -328,8 +328,8 @@
 					var queryParams = new URLSearchParams(window.location.search);
 					queryParams.delete('filterUnder50');
 					queryParams.delete('filter50to100');
-					queryParams.delete('filterSizeLessThan20');
-					queryParams.delete('filterSizeMoreThan20');
+					queryParams.delete('filterVolumeLessThan20');
+					queryParams.delete('filterVolumeMoreThan20');
 					history.replaceState(null, null, window.location.pathname);
 
 					window.location.reload();
