@@ -25,6 +25,11 @@
                 <span asp-validation-for="Aquarium.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Aquarium.Size" class="control-label">Size (S/M/L)</label>
+                <input asp-for="Aquarium.Size" class="form-control" />
+                <span asp-validation-for="Aquarium.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Aquarium.MainImageURL" class="control-label">Main Image</label>
                 <input type="text" asp-for="Aquarium.MainImageURL" class="form-control" readonly />
                 @if (!string.IsNullOrEmpty(Model.Aquarium.MainImageURL))

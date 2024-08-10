@@ -34,6 +34,11 @@ else
                 <span asp-validation-for="Aquarium.Price" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Aquarium.Size" class="control-label">Size (S/M/L)</label>
+                <input asp-for="Aquarium.Size" class="form-control" />
+                <span asp-validation-for="Aquarium.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="AquariumFileUpload.MainImage" class="control-label">Upload Main Image</label>
                 <input asp-for="AquariumFileUpload.MainImage" type="file" class="form-control" />
                 <span asp-validation-for="AquariumFileUpload.MainImage" class="text-danger"></span>

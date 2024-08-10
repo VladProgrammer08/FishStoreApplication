@@ -136,7 +136,7 @@ else
                         <tr>
                             <th>Product</th>
                             <th>Name</th>
-                            <th>Length</th>
+                            <th>Size</th>
                             <th>Quantity</th>
                             <th>Subtotal</th>
                         </tr>
@@ -152,7 +152,7 @@ else
                                     <br />                                   
                                 </td>
                                 <td>
-                                    <span>Size: @item.Product.Length Inch</span>
+                                    <span>Size: @item.Product.Size</span>
                                 </td>
                                 <td><b>@Html.DisplayFor(modelItem => item.Quantity)</b></td>
                                 <td><b>@((item.Product.Price * item.Quantity).ToString("C"))</b></td>
