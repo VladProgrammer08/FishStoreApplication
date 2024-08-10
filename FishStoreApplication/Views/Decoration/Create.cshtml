@@ -1,0 +1,120 @@
+﻿@model DecorationViewModel
+
+@{
+	ViewData["Title"] = "Create a new Decoration";
+}
+
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-success">
+        @ViewData["Message"]
+    </div>
+}
+else
+{
+<h1>Create a new Decoration</h1>
+
+<hr />
+    <div class="row">
+        <div class="col-md-4">
+            <!-- The enctype is required to allow file upload -->
+            <form asp-action="Create" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Name" class="control-label">Brand Name</label>
+                    <input asp-for="Decoration.Name" class="form-control" />
+                    <span asp-validation-for="Decoration.Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Price" class="control-label">Price</label>
+                    <div class="input-group">
+                        <span class="input-group-text">$</span>
+                        <input asp-for="Decoration.Price" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Decoration.Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Size" class="control-label">Size (S/M/L)</label>
+                    <input asp-for="Decoration.Size" class="form-control" />
+                    <span asp-validation-for="Decoration.Size" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DecorationFileUpload.MainImage" class="control-label">Upload Main Image</label>
+                    <input asp-for="DecorationFileUpload.MainImage" type="file" class="form-control" />
+                    <span asp-validation-for="DecorationFileUpload.MainImage" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DecorationFileUpload.SecondaryImageOne" class="control-label">Secondary image URL one</label>
+                    <input asp-for="DecorationFileUpload.SecondaryImageOne" class="form-control" />
+                    <span asp-validation-for="DecorationFileUpload.SecondaryImageOne" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DecorationFileUpload.SecondaryImageTwo" class="control-label">Secondary image URL two</label>
+                    <input asp-for="DecorationFileUpload.SecondaryImageTwo" class="form-control" />
+                    <span asp-validation-for="DecorationFileUpload.SecondaryImageTwo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DecorationFileUpload.SecondaryImageThree" class="control-label">Secondary image URL three</label>
+                    <input asp-for="DecorationFileUpload.SecondaryImageThree" class="form-control" />
+                    <span asp-validation-for="DecorationFileUpload.SecondaryImageThree" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DecorationFileUpload.SecondaryImageFour" class="control-label">Secondary image URL four</label>
+                    <input asp-for="DecorationFileUpload.SecondaryImageFour" class="form-control" />
+                    <span asp-validation-for="DecorationFileUpload.SecondaryImageFour" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Material" class="control-label">Material</label>
+                    <input asp-for="Decoration.Material" class="form-control" />
+                    <span asp-validation-for="Decoration.Material" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Color" class="control-label">Decoration color</label>
+                    <input asp-for="Decoration.Color" class="form-control" />
+                    <span asp-validation-for="Decoration.Color" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Length" class="control-label">Length</label>
+                    <input asp-for="Decoration.Length" class="form-control" />
+                    <span asp-validation-for="Decoration.Length" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Height" class="control-label">Height</label>
+                    <input asp-for="Decoration.Height" class="form-control" />
+                    <span asp-validation-for="Decoration.Height" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Width" class="control-label">Width</label>
+                    <input asp-for="Decoration.Width" class="form-control" />
+                    <span asp-validation-for="Decoration.Width" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.DecorationWeight" class="control-label">Weight</label>
+                    <input asp-for="Decoration.DecorationWeight" class="form-control" />
+                    <span asp-validation-for="Decoration.DecorationWeight" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Description" class="control-label">Description</label>
+                    <input asp-for="Decoration.Description" class="form-control" />
+                    <span asp-validation-for="Decoration.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decoration.Warranty" class="control-label">Warranty</label>
+                    <input asp-for="Decoration.Warranty" class="form-control" />
+                    <span asp-validation-for="Decoration.Warranty" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary mb-2" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+<div class="mb-2">
+    <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>
+</div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

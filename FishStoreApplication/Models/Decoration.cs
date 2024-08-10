@@ -10,6 +10,10 @@
 		/// Material from which the decoration is made
 		/// </summary>
         public string Material { get; set; }
+        /// <summary>
+		/// A weight of the decoration
+		/// </summary>
+        public double DecorationWeight { get; set; }
     }
 
     public class DecorationFileUpload

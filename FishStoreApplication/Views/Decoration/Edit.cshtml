@@ -1,0 +1,143 @@
+﻿@model DecorationViewModel
+
+@{
+	ViewData["Title"] = "Edit" + Model.Decoration.Name;
+}
+
+<h1>Edit @Model.Decoration.Name</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Decoration.Id" />
+            <div class="form-group">
+                <label asp-for="Decoration.Name" class="control-label"></label>
+                <input asp-for="Decoration.Name" class="form-control" />
+                <span asp-validation-for="Decoration.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Price" class="control-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="Decoration.Price" class="form-control" />
+                </div>
+                <span asp-validation-for="Decoration.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Size" class="control-label">Size (S/M/L)</label>
+                <input asp-for="Decoration.Size" class="form-control" />
+                <span asp-validation-for="Decoration.Size" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.MainImageURL" class="control-label">Main Image</label>
+                <input type="text" asp-for="Decoration.MainImageURL" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Decoration.MainImageURL))
+                {
+                    <img src="@Model.Decoration.MainImageURL" alt="Main Image" height="100" />
+                }
+                <label asp-for="DecorationFileUpload.MainImage" class="control-label">Replace Main Image</label>
+                <input asp-for="DecorationFileUpload.MainImage" class="form-control" />
+                <span asp-validation-for="DecorationFileUpload.MainImage" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.SecondaryImageOne" class="control-label">Secondary Image One</label>
+                <input type="text" asp-for="Decoration.SecondaryImageOne" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Decoration.SecondaryImageOne))
+                {
+                    <img src="@Model.Decoration.SecondaryImageOne" alt="Secondary Image One" height="100" />
+                }
+                <label asp-for="DecorationFileUpload.SecondaryImageOne" class="control-label">Replace Secondary Image One</label>
+                <input asp-for="DecorationFileUpload.SecondaryImageOne" class="form-control" />
+                <span asp-validation-for="DecorationFileUpload.SecondaryImageOne" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.SecondaryImageTwo" class="control-label">Secondary Image Two</label>
+                <input type="text" asp-for="Decoration.SecondaryImageTwo" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Decoration.SecondaryImageTwo))
+                {
+                    <img src="@Model.Decoration.SecondaryImageTwo" alt="Secondary Image Two" height="100" />
+                }
+                <label asp-for="DecorationFileUpload.SecondaryImageTwo" class="control-label">Replace Secondary Image Two</label>
+                <input asp-for="DecorationFileUpload.SecondaryImageTwo" class="form-control" />
+                <span asp-validation-for="DecorationFileUpload.SecondaryImageTwo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.SecondaryImageThree" class="control-label">Secondary Image Three</label>
+                <input type="text" asp-for="Decoration.SecondaryImageThree" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Decoration.SecondaryImageThree))
+                {
+                    <img src="@Model.Decoration.SecondaryImageThree" alt="Secondary Image Three" height="100" />
+                }
+                <label asp-for="DecorationFileUpload.SecondaryImageThree" class="control-label">Replace Secondary Image Three</label>
+                <input asp-for="DecorationFileUpload.SecondaryImageThree" class="form-control" />
+                <span asp-validation-for="DecorationFileUpload.SecondaryImageThree" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.SecondaryImageFour" class="control-label">Secondary Image Four</label>
+                <input type="text" asp-for="Decoration.SecondaryImageFour" class="form-control" readonly />
+                @if (!string.IsNullOrEmpty(Model.Decoration.SecondaryImageFour))
+                {
+                    <img src="@Model.Decoration.SecondaryImageFour" alt="Secondary Image Four" height="100" />
+                }
+                <label asp-for="DecorationFileUpload.SecondaryImageFour" class="control-label">Replace Secondary Image Four</label>
+                <input asp-for="DecorationFileUpload.SecondaryImageFour" class="form-control" />
+                <span asp-validation-for="DecorationFileUpload.SecondaryImageFour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Material" class="control-label">Material</label>
+                <input asp-for="Decoration.Material" class="form-control" />
+                <span asp-validation-for="Decoration.Material" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Color" class="control-label">Decoration color</label>
+                <input asp-for="Decoration.Color" class="form-control" />
+                <span asp-validation-for="Decoration.Color" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Length" class="control-label">Length</label>
+                <input asp-for="Decoration.Length" class="form-control" />
+                <span asp-validation-for="Decoration.Length" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Height" class="control-label">Height</label>
+                <input asp-for="Decoration.Height" class="form-control" />
+                <span asp-validation-for="Decoration.Height" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Width" class="control-label">Width</label>
+                <input asp-for="Decoration.Width" class="form-control" />
+                <span asp-validation-for="Decoration.Width" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.DecorationWeight" class="control-label">Weight</label>
+                <input asp-for="Decoration.DecorationWeight" class="form-control" />
+                <span asp-validation-for="Decoration.DecorationWeight" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Description" class="control-label">Description</label>
+                <input asp-for="Decoration.Description" class="form-control" />
+                <span asp-validation-for="Decoration.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Decoration.Warranty" class="control-label">Warranty</label>
+                <input asp-for="Decoration.Warranty" class="form-control" />
+                <span asp-validation-for="Decoration.Warranty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success mb-2" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="mb-2">
+    <a class="btn btn-secondary" href="@Url.Action("Index")">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
