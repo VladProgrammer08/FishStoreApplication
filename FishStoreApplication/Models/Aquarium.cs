@@ -19,7 +19,7 @@ namespace FishStoreApplication.Models
 		/// <summary>
 		/// A weight of the aquarium
 		/// </summary>
-        public int AquariumWeight { get; set; }
+        public double AquariumWeight { get; set; }
     }
 
 	public class AquariumFileUpload

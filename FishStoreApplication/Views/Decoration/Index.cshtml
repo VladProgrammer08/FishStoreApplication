@@ -1,0 +1,100 @@
+﻿@model DecorationCatalogViewModel
+
+@section Head
+{
+    <style>
+        #actions {
+            padding-left: 6.3%;
+        }
+    </style>
+}
+
+@{
+    ViewData["Title"] = "Decoration Catalog";
+}
+<h1>Decoration Catalog</h1>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<div class="d-flex justify-content-between mt-3">
+    <a class="btn btn-outline-primary" asp-action="BackToManage" asp-controller="Decoration">Back</a>
+    <a class="btn btn-outline-primary" asp-action="Create" asp-controller="Decoration">Create Decoration</a>
+</div>
+@if (Model.Decorations.Count() != 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Decorations[0].Id)
+                </th>
+                <th>Image</th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Decorations[0].Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Decorations[0].Price)
+                </th>
+                <th id="actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Decoration item in Model.Decorations)
+            {
+                <tr>
+                    <td>
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        <img height="200" src="@item.MainImageURL" alt="@item.Name" />
+                    </td>
+                    <td>
+                        <br />
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <br />
+                        $@Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        <br />
+                        <a class="btn btn-success" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h2>There are no Decorations for this page</h2>
+}
+
+<nav aria-label="Decoration Catalog Pages">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.LastPage; i++)
+        {
+            if (i == Model.CurrentPage)
+            {
+                <li class="page-item active">
+                    <a class="page-link">@i</a>
+                </li>
+            }
+            else
+            {
+                <li class=" page-item">
+                    <a class="page-link" asp-action="Index" asp-route-id="@i">@i</a>
+                </li>
+            }
+
+        }
+    </ul>
+</nav>
