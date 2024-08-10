@@ -19,6 +19,10 @@ namespace FishStoreApplication.Models
         /// </summary>
         public double Price { get; set; }
         /// <summary>
+        /// A size of a single product (small, medium, large)
+        /// </summary>
+        public string Size { get; set; }
+        /// <summary>
         /// A main image for a single product
         /// </summary>
         public string MainImageURL { get; set; }
