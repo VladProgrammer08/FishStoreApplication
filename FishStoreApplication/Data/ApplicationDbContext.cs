@@ -22,6 +22,7 @@ namespace FishStoreApplication.Data
         public DbSet<WishList> WishLists { get; set; }
 
         public DbSet<WishListItem> WishListItems { get; set; }
+        public DbSet<Decoration> Decorations { get; set; }
 
         public DbSet<Product> Products { get; set; }
 
