@@ -50,7 +50,11 @@ namespace FishStoreApplication.Controllers
                     productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
                     redirectAction = "AquariumIndex";
                 }
-
+                if (productType == "Decoration")
+                {
+                    productToAdd = _context.Decorations.SingleOrDefault(f => f.Id == id);
+                    redirectAction = "DecorationIndex";
+                }
                 if (productToAdd == null)
                 {
                     TempData["Message"] = "Sorry, that product no longer exists";
