@@ -52,7 +52,7 @@ namespace FishStoreApplication.Controllers
                 }
                 if (productType == "Decoration")
                 {
-                    productToAdd = _context.Decorations.SingleOrDefault(f => f.Id == id);
+                    productToAdd = _context.Decorations.SingleOrDefault(d => d.Id == id);
                     redirectAction = "DecorationIndex";
                 }
                 if (productToAdd == null)

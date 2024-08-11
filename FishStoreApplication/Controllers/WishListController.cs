@@ -52,7 +52,12 @@ namespace FishStoreApplication.Controllers
                 else if (productType == "Aquarium")
                 {
                     productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
-                    redirectAction = "ProductIndex";
+                    redirectAction = "AquariumIndex";
+                }
+                else if (productType == "Decoration")
+                {
+                    productToAdd = _context.Decorations.SingleOrDefault(d => d.Id == id);
+                    redirectAction = "DecorationIndex";
                 }
 
                 if (productToAdd == null)
