@@ -14,7 +14,7 @@ namespace FishStoreApplication.Controllers
 			_context = context;
 		}
 		[Authorize]
-		public async Task<IActionResult> FishIndex(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterSizeLessThan10 = false, bool filterSizeMoreThan10 = false)
+		public async Task<IActionResult> FishIndex(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterLengthLessThan10 = false, bool filterLengthMoreThan10 = false)
 		{
 			const int NumFishToDisplayPerPage = 6;
 			const int PageOffSet = 1;
@@ -34,11 +34,11 @@ namespace FishStoreApplication.Controllers
 			}
 
 
-			if (filterSizeLessThan10)
+			if (filterLengthLessThan10)
 			{
 				fishQuery = fishQuery.Where(f => f.Length < 10);
 			}
-			if (filterSizeMoreThan10)
+			if (filterLengthMoreThan10)
 			{
 				fishQuery = fishQuery.Where(f => f.Length > 10);
 			}
@@ -71,7 +71,7 @@ namespace FishStoreApplication.Controllers
 
 
 		[Authorize]
-		public async Task<IActionResult> AquariumIndex(int? id, bool filterUnder50 = false, bool filter50to100 = false, bool filterSizeLessThan20 = false, bool filterSizeMoreThan20 = false)
+		public async Task<IActionResult> AquariumIndex(int? id, bool filterUnder50 = false, bool filter50to100 = false, bool filterVolumeLessThan20 = false, bool filterVolumeMoreThan20 = false)
 		{
 			const int NumAquariumToDisplayPerPage = 6;
 			const int PageOffSet = 1;
@@ -88,11 +88,11 @@ namespace FishStoreApplication.Controllers
 				aquariumQuerry = aquariumQuerry.Where(a => a.Price >= 50 && a.Price <= 100);
 			}
 
-			if (filterSizeLessThan20)
+			if (filterVolumeLessThan20)
 			{
 				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumVolume < 20);
 			}
-			if (filterSizeMoreThan20)
+			if (filterVolumeMoreThan20)
 			{
 				aquariumQuerry = aquariumQuerry.Where(a => a.AquariumVolume > 20);
 			}
@@ -119,6 +119,49 @@ namespace FishStoreApplication.Controllers
                 return NotFound();
             }
             return View(productDetails);
+        }
+
+        [Authorize]
+        public async Task<IActionResult> DecorationIndex(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterLengthLessThan10 = false, bool filterLengthMoreThan10 = false)
+        {
+            const int NumDecorationToDisplayPerPage = 6;
+            const int PageOffSet = 1;
+            int currPage = id ?? 1;
+
+
+            var decorationQuery = _context.Decorations.AsQueryable();
+
+
+            if (filterUnder10)
+            {
+                decorationQuery = decorationQuery.Where(f => f.Price <= 10);
+            }
+            if (filter10to20)
+            {
+                decorationQuery = decorationQuery.Where(f => f.Price > 10 && f.Price <= 20);
+            }
+
+
+            if (filterLengthLessThan10)
+            {
+                decorationQuery = decorationQuery.Where(f => f.Length < 10);
+            }
+            if (filterLengthMoreThan10)
+            {
+                decorationQuery = decorationQuery.Where(f => f.Length > 10);
+            }
+
+            int totalNumOfProducts = await decorationQuery.CountAsync();
+            double maxNumPages = Math.Ceiling((double)totalNumOfProducts / NumDecorationToDisplayPerPage);
+            int lastPage = Convert.ToInt32(maxNumPages);
+
+            List<Decoration> decorations = await decorationQuery
+                                       .Skip(NumDecorationToDisplayPerPage * (currPage - PageOffSet))
+                                       .Take(NumDecorationToDisplayPerPage)
+                                       .ToListAsync();
+            DecorationCatalogViewModel catalogModel = new(decorations, lastPage, currPage);
+
+            return View(catalogModel);
         }
 
     }
