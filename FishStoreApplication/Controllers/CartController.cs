@@ -17,7 +17,7 @@ namespace FishStoreApplication.Controllers
         {
             _context = context;
         }
-        public IActionResult Add(int id, string productType)
+        public IActionResult Add(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -36,29 +36,27 @@ namespace FishStoreApplication.Controllers
                     cart.Items = new List<CartItem>();
                 }
 
-                Product productToAdd = null;
-                string redirectAction = "Index";
-                string redirectController = "Products";
-
-                if (productType == "Fish")
-                {
-                    productToAdd = _context.Fishes.SingleOrDefault(f => f.Id == id);
-                    redirectAction = "FishIndex";
-                }
-                else if (productType == "Aquarium")
-                {
-                    productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
-                    redirectAction = "AquariumIndex";
-                }
-                if (productType == "Decoration")
-                {
-                    productToAdd = _context.Decorations.SingleOrDefault(d => d.Id == id);
-                    redirectAction = "DecorationIndex";
-                }
+                var productToAdd = _context.Products.SingleOrDefault(p => p.Id == id);
                 if (productToAdd == null)
                 {
                     TempData["Message"] = "Sorry, that product no longer exists";
-                    return RedirectToAction(redirectAction, redirectController);
+                    return RedirectToAction("Index", "Products");
+                }
+
+                string redirectAction = "Index";
+                string redirectController = "Products";
+
+                if (productToAdd is Fish)
+                {
+                    redirectAction = "FishIndex";
+                }
+                else if (productToAdd is Aquarium)
+                {
+                    redirectAction = "AquariumIndex";
+                }
+                if (productToAdd is Decoration)
+                {
+                    redirectAction = "DecorationIndex";
                 }
 
                 var cartItem = cart.Items.FirstOrDefault(ci => ci.ProductId == productToAdd.Id);
@@ -82,6 +80,8 @@ namespace FishStoreApplication.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
+
 
 
         [Authorize]
@@ -145,16 +145,19 @@ namespace FishStoreApplication.Controllers
                                        .Include(ci => ci.Cart)
                                        .FirstOrDefault(ci => ci.ProductId == id && ci.Cart.UserId == userId);
 
-                if (cartItem != null && cartItem.Quantity > 1)
+                if (cartItem != null)
                 {
-                    cartItem.Quantity--;
+                    if (cartItem.Quantity > 1)
+                    {
+                        cartItem.Quantity--;
+                    }
+                    else
+                    {
+                        _context.CartItems.Remove(cartItem);
+                    }
+
                     _context.SaveChanges();
-                }
-                else if (cartItem != null)
-                {
-                    _context.CartItems.Remove(cartItem);
-                    _context.SaveChanges();
-                }
+                }             
 
                 return RedirectToAction(nameof(Summary));
             }
@@ -163,6 +166,7 @@ namespace FishStoreApplication.Controllers
                 return RedirectToAction("Login", "Account");
             }
         }
+
 
 
         public async Task<IActionResult> CheckoutAsync()
@@ -177,13 +181,13 @@ namespace FishStoreApplication.Controllers
                 _context.SaveChanges();
                 TempData["Message"] = "Thank you for shopping with us!";
             }
-            return RedirectToAction("FishIndex", "Products");
+            return RedirectToAction("Index", "ProductCatalog");
         }
 
         public IActionResult ShoppingAction()
         {
 
-            return RedirectToAction("FishIndex", "Products");
+            return RedirectToAction("Index", "ProductCatalog");
         }
 
     }
