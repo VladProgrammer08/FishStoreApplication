@@ -386,8 +386,8 @@ namespace FishStoreApplication.Migrations
                     b.Property<int>("AquariumVolume")
                         .HasColumnType("int");
 
-                    b.Property<int>("AquariumWeight")
-                        .HasColumnType("int");
+                    b.Property<double>("AquariumWeight")
+                        .HasColumnType("float");
 
                     b.HasDiscriminator().HasValue("Aquarium");
                 });
@@ -399,6 +399,9 @@ namespace FishStoreApplication.Migrations
                     b.Property<string>("Color")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("DecorationWeight")
+                        .HasColumnType("float");
 
                     b.Property<string>("Material")
                         .IsRequired()

@@ -1,0 +1,62 @@
+﻿@section Head
+{
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s;
+        }
+
+        .rounded-img {
+            border-radius: 50%;
+        }
+
+    </style>
+}
+@{
+    ViewData["Title"] = "Product Catalog";
+}
+<div class="container mt-5">
+    <header class="text-left mb-4">
+        <h1>@ViewData["Title"]</h1>
+    </header>
+    <div class="text-center">
+        <h2>Shop by Category</h2>
+    </div>
+    <br />
+    <br />
+    <div class="row justify-content-center">
+        <div class="col-md-3">
+            <div class="card border-0">
+                <a asp-controller="Products" asp-action="FishIndex">
+                    <img src="~/images/fish.jpg" class="card-img-top rounded-img" alt="Fish">
+                </a>
+                <div class="card-body text-center">
+                    <a asp-controller="Products" asp-action="FishIndex" class="btn btn-primary btn-lg">Live Fish</a>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card no-shadow border-0">
+                <a asp-controller="Products" asp-action="AquariumIndex">
+                    <img src="~/images/aquarium.jpg" class="card-img-top rounded-img" alt="Aquarium">
+                </a>
+                <div class="card-body text-center">
+                    <a asp-controller="Products" asp-action="AquariumIndex" class="btn btn-primary btn-lg">Aquarium</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card no-shadow border-0">
+                <a asp-controller="Products" asp-action="DecorationIndex">
+                    <img src="~/images/decoration.jpg" class="card-img-top rounded-img" alt="Decoration">
+                </a>
+                <div class="card-body text-center">
+                    <a asp-controller="Products" asp-action="DecorationIndex" class="btn btn-primary btn-lg">Decoration</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center mt-4">
+    </footer>
+</div>
