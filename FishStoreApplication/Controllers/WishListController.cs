@@ -18,7 +18,7 @@ namespace FishStoreApplication.Controllers
 			_context = context;
 		}
 
-        public IActionResult AddToWishList(int id, string productType)
+        public IActionResult AddToWishList(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -40,30 +40,27 @@ namespace FishStoreApplication.Controllers
                     wishList.Items = new List<WishListItem>();
                 }
 
-                Product productToAdd = null;
-                string redirectAction = "Index";
-                string redirectController = "Products";
-
-                if (productType == "Fish")
-                {
-                    productToAdd = _context.Fishes.SingleOrDefault(f => f.Id == id);
-                    redirectAction = "FishIndex";
-                }
-                else if (productType == "Aquarium")
-                {
-                    productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
-                    redirectAction = "AquariumIndex";
-                }
-                else if (productType == "Decoration")
-                {
-                    productToAdd = _context.Decorations.SingleOrDefault(d => d.Id == id);
-                    redirectAction = "DecorationIndex";
-                }
-
+                var productToAdd = _context.Products.SingleOrDefault(p => p.Id == id);
                 if (productToAdd == null)
                 {
                     TempData["Message"] = "Sorry, that product no longer exists";
-                    return RedirectToAction(redirectAction, redirectController);
+                    return RedirectToAction("Index", "ProductCatalog");
+                }
+
+                string redirectAction = "Index";
+                string redirectController = "ProductCatalog";
+
+                if (productToAdd is Fish)
+                {
+                    redirectAction = "FishIndex";
+                }
+                else if (productToAdd is Aquarium)
+                {
+                    redirectAction = "AquariumIndex";
+                }
+                if (productToAdd is Decoration)
+                {
+                    redirectAction = "DecorationIndex";
                 }
 
                 var wishListItem = wishList.Items.FirstOrDefault(wi => wi.ProductId == productToAdd.Id);
@@ -93,7 +90,7 @@ namespace FishStoreApplication.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                string userName = User.Identity.Name; // Get the username
+                string userName = User.Identity.Name;
 
                 var wishListItems = _context.WishListItems.Include(wi => wi.Product)
                                             .Where(wi => wi.WishList.UserId == userId)
@@ -133,7 +130,7 @@ namespace FishStoreApplication.Controllers
 
 
         [HttpPost]
-        public IActionResult ToggleWishList(int id, string productType)
+        public IActionResult ToggleWishList(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -154,19 +151,21 @@ namespace FishStoreApplication.Controllers
                 var wishListItem = wishList.Items.FirstOrDefault(wi => wi.ProductId == id);
                 if (wishListItem == null)
                 {
-                    Product productToAdd = null;
+                    var productToAdd = _context.Products.SingleOrDefault(p => p.Id == id);
                     string redirectAction = "Index";
-                    string redirectController = "Products";
+                    string redirectController = "ProductCatalog";
 
-                    if (productType == "Fish")
+                    if (productToAdd is Fish)
                     {
-                        productToAdd = _context.Fishes.SingleOrDefault(f => f.Id == id);
                         redirectAction = "FishIndex";
                     }
-                    else if (productType == "Aquarium")
+                    else if (productToAdd is Aquarium)
                     {
-                        productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
-                        redirectAction = "ProductIndex";
+                        redirectAction = "AquariumIndex";
+                    }
+                    if (productToAdd is Decoration)
+                    {
+                        redirectAction = "DecorationIndex";
                     }
 
                     if (productToAdd == null)
@@ -214,7 +213,7 @@ namespace FishStoreApplication.Controllers
         }
 
 
-        public IActionResult Add(int id, string productType)
+        public IActionResult Add(int id)
         {
             if (User.Identity.IsAuthenticated)
             {
@@ -233,19 +232,21 @@ namespace FishStoreApplication.Controllers
                     cart.Items = new List<CartItem>();
                 }
 
-                Product productToAdd = null;
+                var productToAdd = _context.Products.SingleOrDefault(p => p.Id == id);
                 string redirectAction = "Index";
-                string redirectController = "Products";
+                string redirectController = "ProductCatalog";
 
-                if (productType == "Fish")
+                if (productToAdd is Fish)
                 {
-                    productToAdd = _context.Fishes.SingleOrDefault(f => f.Id == id);
                     redirectAction = "FishIndex";
                 }
-                else if (productType == "Aquarium")
+                else if (productToAdd is Aquarium)
                 {
-                    productToAdd = _context.Aquariums.SingleOrDefault(a => a.Id == id);
-                    redirectAction = "ProductIndex";
+                    redirectAction = "AquariumIndex";
+                }
+                if (productToAdd is Decoration)
+                {
+                    redirectAction = "DecorationIndex";
                 }
 
                 if (productToAdd == null)
@@ -265,7 +266,6 @@ namespace FishStoreApplication.Controllers
                     cartItem.Quantity++;
                 }
 
-                // Remove the item from the wishlist
                 var wishList = _context.WishLists.Include(w => w.Items)
                                                  .ThenInclude(wi => wi.Product)
                                                  .FirstOrDefault(w => w.UserId == userId);
