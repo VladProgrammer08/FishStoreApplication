@@ -164,5 +164,15 @@ namespace FishStoreApplication.Controllers
             return View(catalogModel);
         }
 
-    }
+		public async Task<IActionResult> DecorationDetails(int id)
+		{
+			Decoration productDetails = await _context.Decorations.FindAsync(id);
+			if (productDetails == null)
+			{
+				return NotFound();
+			}
+			return View(productDetails);
+		}
+
+	}
 }
