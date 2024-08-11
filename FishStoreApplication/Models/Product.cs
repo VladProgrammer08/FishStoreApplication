@@ -25,7 +25,7 @@ namespace FishStoreApplication.Models
         /// <summary>
         /// A main image for a single product
         /// </summary>
-        public string MainImageURL { get; set; }
+        public string? MainImageURL { get; set; }
         /// <summary>
         /// A length of the product
         /// </summary>
