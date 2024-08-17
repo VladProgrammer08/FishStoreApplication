@@ -181,7 +181,7 @@ namespace FishStoreApplication.Controllers
                 _context.SaveChanges();
                 TempData["Message"] = "Thank you for shopping with us!";
             }
-            return RedirectToAction("Index", "ProductCatalog");
+            return RedirectToAction("Summary", "Cart");
         }
 
         public IActionResult ShoppingAction()
