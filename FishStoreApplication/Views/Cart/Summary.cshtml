@@ -112,6 +112,13 @@
 
     </style>
 }
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
 @if (Model.Items.Count == 0)
 {
     <div class="cart-icon-container">
@@ -146,16 +153,24 @@ else
                         {
                             <tr>
                                 <td><img src="@Url.Content(item.Product.MainImageURL)" alt="Product Image" style="width:100px; height:100px;" /></td>
-                                <td><b>@Html.DisplayFor(modelItem => item.Product.Name)</b>
+                                <td>
                                     <br />
-                                    <span>ID: @item.Product.Name</span>
+                                    <b>@Html.DisplayFor(modelItem => item.Product.Name)</b>
+                                    <br />
+                                    <span>ID: @item.Product.Id</span>
                                     <br />                                   
                                 </td>
                                 <td>
-                                    <span>Size: @item.Product.Size</span>
+                                    <br />
+                                    <span><b>@item.Product.Size</b></span>
                                 </td>
-                                <td><b>@Html.DisplayFor(modelItem => item.Quantity)</b></td>
-                                <td><b>@((item.Product.Price * item.Quantity).ToString("C"))</b></td>
+                                <td>
+                                    <br /><b>@Html.DisplayFor(modelItem => item.Quantity)</b>
+                                </td>
+                                <td>
+                                    <br />
+                                    <b>@((item.Product.Price * item.Quantity).ToString("C"))</b>
+                                </td>
                                 <td>
                                     <br />
                                     <a id="remove_btn" asp-action="Remove" asp-route-id="@item.ProductId">Remove Item</a>
