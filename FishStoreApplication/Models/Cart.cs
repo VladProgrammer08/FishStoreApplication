@@ -7,7 +7,7 @@ namespace FishStoreApplication.Models
     public class Cart
     {
         /// <summary>
-        /// The unique identifier for each fish product
+        /// The unique identifier for each product
         /// (Primary Key)
         /// </summary>
         [Key]
@@ -36,7 +36,7 @@ namespace FishStoreApplication.Models
         [Key]
         public int CartItemId { get; set; }
         /// <summary>
-        /// The unique identifier for each fish product
+        /// The unique identifier for each product
         /// </summary>
         public int ProductId { get; set; }
         /// <summary>
@@ -44,7 +44,7 @@ namespace FishStoreApplication.Models
         /// </summary>
         public int Quantity { get; set; }
         /// <summary>
-        /// The unique identifier for each fish product
+        /// The unique identifier for each product
         /// </summary>
         public int CartId { get; set; }
 

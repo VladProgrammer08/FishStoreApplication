@@ -1,21 +1,29 @@
 ﻿using FishStoreApplication.Data;
 using FishStoreApplication.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Configuration;
+using System.Net.Mail;
 using System.Security.Claims;
+using System.Text;
 
 namespace FishStoreApplication.Controllers
 {
-	public class CartController : Controller
-	{
+    public class CartController : Controller
+    {
         private readonly ApplicationDbContext _context;
         private const string Cart = "ShopingCart";
+        private readonly IConfiguration _configuration;
 
-        public CartController(ApplicationDbContext context)
+        public CartController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public IActionResult Add(int id)
         {
@@ -157,7 +165,7 @@ namespace FishStoreApplication.Controllers
                     }
 
                     _context.SaveChanges();
-                }             
+                }
 
                 return RedirectToAction(nameof(Summary));
             }
@@ -177,8 +185,35 @@ namespace FishStoreApplication.Controllers
 
             if (cart != null && cart.Items.Any())
             {
+                // Get the user's email address
+                var userEmailClaim = User.FindFirstValue(ClaimTypes.Email);
+                if (string.IsNullOrEmpty(userEmailClaim))
+                {
+                    // Handle the case where email is not available
+                    TempData["Message"] = "Email address not found.";
+                    return RedirectToAction("Summary", "Cart");
+                }
+
+                // Send the email
+                var apiKey = _configuration["ApiKey"];
+                var fromEmail = _configuration["FromEmail"];
+
+                var client = new SendGridClient(apiKey);
+                var msg = new SendGridMessage
+                {
+                    From = new EmailAddress(fromEmail),
+                    Subject = "Order Receipt",
+                    PlainTextContent = "Thank you for shopping with us!",
+                    HtmlContent = "<p>Thank you for shopping with us!</p>"
+                };
+                msg.AddTo(new EmailAddress(userEmailClaim));
+
+                await client.SendEmailAsync(msg);
+
+                // Remove cart items
                 _context.CartItems.RemoveRange(cart.Items);
                 _context.SaveChanges();
+
                 TempData["Message"] = "Thank you for shopping with us!";
             }
             return RedirectToAction("Summary", "Cart");
@@ -186,13 +221,7 @@ namespace FishStoreApplication.Controllers
 
         public IActionResult ShoppingAction()
         {
-
             return RedirectToAction("Index", "ProductCatalog");
         }
-
     }
 }
-		
-		
-		
-	
