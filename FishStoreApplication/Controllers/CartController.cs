@@ -1,8 +1,11 @@
 ﻿using FishStoreApplication.Data;
 using FishStoreApplication.Models;
+using FishStoreApplication.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SendGrid;
@@ -19,11 +22,15 @@ namespace FishStoreApplication.Controllers
         private readonly ApplicationDbContext _context;
         private const string Cart = "ShopingCart";
         private readonly IConfiguration _configuration;
+        private readonly IRazorViewToStringRenderer _viewRenderer;
 
-        public CartController(ApplicationDbContext context, IConfiguration configuration)
+
+
+        public CartController(ApplicationDbContext context, IConfiguration configuration, IRazorViewToStringRenderer viewRenderer)
         {
             _context = context;
             _configuration = configuration;
+            _viewRenderer = viewRenderer;;
         }
         public IActionResult Add(int id)
         {
@@ -176,7 +183,7 @@ namespace FishStoreApplication.Controllers
         }
 
 
-
+        [HttpPost]
         public async Task<IActionResult> CheckoutAsync()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -189,10 +196,22 @@ namespace FishStoreApplication.Controllers
                 var userEmailClaim = User.FindFirstValue(ClaimTypes.Email);
                 if (string.IsNullOrEmpty(userEmailClaim))
                 {
-                    // Handle the case where email is not available
                     TempData["Message"] = "Email address not found.";
                     return RedirectToAction("Summary", "Cart");
                 }
+
+                // Render the email template
+                var cartItems = _context.CartItems
+                                        .Include(ci => ci.Product)
+                                        .Where(ci => ci.Cart.UserId == userId)
+                                        .ToList();
+                var model = new CartSummaryViewModel
+                {
+                    Items = cartItems,
+                    TotalPrice = cartItems.Sum(ci => ci.Product.Price * ci.Quantity),
+                    TaxRate = 0.10
+                };
+                var emailBody = await _viewRenderer.RenderViewToStringAsync("EmailTemplate", model);
 
                 // Send the email
                 var apiKey = _configuration["ApiKey"];
@@ -203,8 +222,7 @@ namespace FishStoreApplication.Controllers
                 {
                     From = new EmailAddress(fromEmail),
                     Subject = "Order Receipt",
-                    PlainTextContent = "Thank you for shopping with us!",
-                    HtmlContent = "<p>Thank you for shopping with us!</p>"
+                    HtmlContent = emailBody // Rendered HTML content
                 };
                 msg.AddTo(new EmailAddress(userEmailClaim));
 
@@ -216,6 +234,7 @@ namespace FishStoreApplication.Controllers
 
                 TempData["Message"] = "Thank you for shopping with us!";
             }
+
             return RedirectToAction("Summary", "Cart");
         }
 
