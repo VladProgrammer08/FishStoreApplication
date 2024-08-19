@@ -1,5 +1,6 @@
 using FishStoreApplication.Data;
 using FishStoreApplication.Models;
+using FishStoreApplication.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+builder.Services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
