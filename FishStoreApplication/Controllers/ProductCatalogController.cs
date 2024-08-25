@@ -6,7 +6,7 @@ namespace FishStoreApplication.Controllers
 {
     public class ProductCatalogController : Controller
     {
-        [Authorize(Roles = IdentityHelper.Customer)]
+        [Authorize]
         public IActionResult Index()
         {
             return View();
