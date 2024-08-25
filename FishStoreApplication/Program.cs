@@ -1,6 +1,5 @@
 using FishStoreApplication.Data;
 using FishStoreApplication.Models;
-using FishStoreApplication.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +16,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
-builder.Services.AddScoped<IRazorViewToStringRenderer, RazorViewToStringRenderer>();
 
 
 builder.Services.AddControllersWithViews();
