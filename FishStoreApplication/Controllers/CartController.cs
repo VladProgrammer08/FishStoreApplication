@@ -32,6 +32,8 @@ namespace FishStoreApplication.Controllers
             _context = context;
             _configuration = configuration;
         }
+
+        // Add item to a Cart
         public IActionResult Add(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -98,7 +100,7 @@ namespace FishStoreApplication.Controllers
 
 
 
-
+        // A summary view of a Cart
         [Authorize]
         public IActionResult Summary()
         {
@@ -126,7 +128,7 @@ namespace FishStoreApplication.Controllers
         }
 
 
-
+        // Remove item from a Cart
         public IActionResult Remove(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -150,7 +152,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
-
+        // Decrease quantity of an item in the Cart
         public IActionResult DecreaseQuantity(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -182,7 +184,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
-
+        // Checkout a Cart - Empty a Cart - Send an email receipt
         [HttpPost]
         public async Task<IActionResult> CheckoutAsync()
         {

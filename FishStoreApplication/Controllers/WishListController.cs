@@ -18,6 +18,7 @@ namespace FishStoreApplication.Controllers
 			_context = context;
 		}
 
+        // Add item to a WishList page
         public IActionResult AddToWishList(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -84,6 +85,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
+        // Wishlist view
         [Authorize]
         public IActionResult WishListView()
         {
@@ -106,7 +108,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
-
+        // Remove item from a WishList
         public IActionResult RemoveFromWishList(int id)
         {
             if (User.Identity.IsAuthenticated)
@@ -128,7 +130,7 @@ namespace FishStoreApplication.Controllers
             }
         }
 
-
+        // Toggle the WishList
         [HttpPost]
         public IActionResult ToggleWishList(int id)
         {
@@ -197,8 +199,8 @@ namespace FishStoreApplication.Controllers
             }
         }
 
-
-        [HttpGet]
+        
+        // Check for the same item in the WishList
         [HttpGet]
         public JsonResult IsInWishList(int id)
         {
@@ -212,7 +214,7 @@ namespace FishStoreApplication.Controllers
             return Json(new { isInWishList = false });
         }
 
-
+        // Add an item from WishList to Cart page - remove from WishList
         public IActionResult Add(int id)
         {
             if (User.Identity.IsAuthenticated)

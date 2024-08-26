@@ -31,17 +31,37 @@ namespace FishStoreApplication.Models
 
     public class CreateProductViewModel
     {
+        /// <summary>
+		/// The main image file to be uploaded.
+		/// </summary>
         public IFormFile MainImage { get; set; }
+        /// <summary>
+		/// The secondary image file to be uploaded.
+		/// </summary>
         public IFormFile SecondaryImageOne { get; set; }
+        /// <summary>
+		/// The secondary image file to be uploaded.
+		/// </summary>
         public IFormFile SecondaryImageTwo { get; set; }
+        /// <summary>
+		/// The secondary image file to be uploaded.
+		/// </summary>
         public IFormFile SecondaryImageThree { get; set; }
+        /// <summary>
+		/// The secondary image file to be uploaded.
+		/// </summary>
         public IFormFile SecondaryImageFour { get; set; }
     }
 
     public class FishViewModel
     {
+        /// <summary>
+		/// Makes a navigation between Fish and FileUpload classes
+		/// </summary>
         public Fish Fish { get; set; }
-
+        /// <summary>
+		/// Makes a navigation between FileUpload and Fish classes
+		/// </summary>
         public CreateProductViewModel FishUpload { get; set; }
     }
 }

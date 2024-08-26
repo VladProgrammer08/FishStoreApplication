@@ -17,7 +17,7 @@ namespace FishStoreApplication.Controllers
             _environment = environment;
         }
         [Authorize(Roles = IdentityHelper.Admin)]
-
+        // Index page of a CRUD
         public async Task<IActionResult> Index(int? id)
         {
             const int NumDecorationToDisplayPerPage = 6;
@@ -38,6 +38,7 @@ namespace FishStoreApplication.Controllers
             return View(catalogModel);
         }
 
+        // Create a Decoration (CRUD)
         [HttpGet]
         public IActionResult Create()
         {
@@ -123,6 +124,7 @@ namespace FishStoreApplication.Controllers
             }
             return View(d);
         }
+        // Edit/Update a Decoration (CRUD)
         public async Task<IActionResult> Edit(int id)
         {
             Decoration? decorationToEdit = await _context.Decorations.FindAsync(id);
@@ -246,6 +248,7 @@ namespace FishStoreApplication.Controllers
             return _context.Decorations.Any(e => e.Id == id);
         }
 
+        // Delete a Decoration (CRUD)
         public async Task<IActionResult> Delete(int id)
         {
             Decoration? decorationToDelete = await _context.Decorations.FindAsync(id);
@@ -271,6 +274,7 @@ namespace FishStoreApplication.Controllers
             return RedirectToAction("Index");
         }
 
+        // Read/Details a Decoration (CRUD)
         public async Task<IActionResult> Details(int id)
         {
             Decoration decorationDetails = await _context.Decorations.FindAsync(id);
