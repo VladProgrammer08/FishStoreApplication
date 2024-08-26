@@ -6,6 +6,7 @@ namespace FishStoreApplication.Controllers
 {
     public class ProductCatalogController : Controller
     {
+        // Index page of a Product Catalog
         [Authorize]
         public IActionResult Index()
         {

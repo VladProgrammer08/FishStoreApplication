@@ -18,6 +18,7 @@ namespace FishStoreApplication.Controllers
             _environment = environment;
         }
 
+        // Index page of a CRUD
         [Authorize(Roles = IdentityHelper.Admin)]
         public async Task<IActionResult> Index(int? id)
         {
@@ -41,6 +42,7 @@ namespace FishStoreApplication.Controllers
             return View(catalogModel);
         }
 
+        // Create a Fish (CRUD)
         [HttpGet]
         public IActionResult Create()
         {
@@ -127,6 +129,7 @@ namespace FishStoreApplication.Controllers
             }
             return View(f);
         }
+        // Edit/Update a Fish (CRUD)
         public async Task<IActionResult> Edit(int id)
         {
             Fish? fishToEdit = await _context.Fishes.FindAsync(id);
@@ -250,6 +253,7 @@ namespace FishStoreApplication.Controllers
             return _context.Fishes.Any(e => e.Id == id);
         }
 
+        // Delete a Fish (CRUD)
         public async Task<IActionResult> Delete(int id)
         {
             Fish? fishToDelete = await _context.Fishes.FindAsync(id);
@@ -273,6 +277,7 @@ namespace FishStoreApplication.Controllers
             TempData["Message"] = "This fish was already deleted";
             return RedirectToAction("Index");
         }
+        // Read/Details a Fish (CRUD)
         public async Task<IActionResult> Details(int id)
         {
             Fish fishDetails = await _context.Fishes.FindAsync(id);

@@ -49,6 +49,7 @@ namespace FishStoreApplication.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
+		// Create Aquarium (CRUD)
 		public async Task<ActionResult> Create(AquariumViewModel a)
 		{
 			if (ModelState.IsValid)
@@ -128,8 +129,8 @@ namespace FishStoreApplication.Controllers
 			return View(a);
 		}
 
-		// GET: Aquarium/Edit/5
-		public async Task<ActionResult> Edit(int id)
+        // Update/Edit Aquarium (CRUD)
+        public async Task<ActionResult> Edit(int id)
 		{
 			Aquarium? aquariumToEdit = await _context.Aquariums.FindAsync(id);
 			if (aquariumToEdit == null)
@@ -146,7 +147,7 @@ namespace FishStoreApplication.Controllers
 			return View(viewModel);
 		}
 
-		// POST: Aquarium/Edit/5
+
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<ActionResult> Edit(int id, AquariumViewModel viewModel)
@@ -250,8 +251,8 @@ namespace FishStoreApplication.Controllers
 		{
 			return _context.Aquariums.Any(e => e.Id == id);
 		}
-
-		public async Task<ActionResult> Delete(int id)
+        // Delete Aquarium (CRUD)
+        public async Task<ActionResult> Delete(int id)
 		{
 			Aquarium? aquariumToDelete = await _context.Aquariums.FindAsync(id);
 			if (aquariumToDelete == null)
@@ -277,7 +278,8 @@ namespace FishStoreApplication.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public async Task<ActionResult> Details(int id)
+        // Read/Details Aquarium (CRUD)
+        public async Task<ActionResult> Details(int id)
 		{
 			Aquarium aquariumDetails = await _context.Aquariums.FindAsync(id);
 			if (aquariumDetails == null)

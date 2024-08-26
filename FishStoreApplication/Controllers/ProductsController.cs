@@ -13,6 +13,7 @@ namespace FishStoreApplication.Controllers
 		{
 			_context = context;
 		}
+		// Fish Index page
 		[Authorize]
 		public async Task<IActionResult> FishIndex(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterLengthLessThan10 = false, bool filterLengthMoreThan10 = false)
 		{
@@ -57,8 +58,8 @@ namespace FishStoreApplication.Controllers
 		}
 
 
-
-		public async Task<IActionResult> FishDetails(int id)
+        // Fish Details page
+        public async Task<IActionResult> FishDetails(int id)
 		{
 			Fish productDetails = await _context.Fishes.FindAsync(id);
 			if (productDetails == null)
@@ -69,8 +70,8 @@ namespace FishStoreApplication.Controllers
 		}
 
 
-
-		[Authorize]
+        // Aquarium Index page
+        [Authorize]
 		public async Task<IActionResult> AquariumIndex(int? id, bool filterUnder50 = false, bool filter50to100 = false, bool filterVolumeLessThan20 = false, bool filterVolumeMoreThan20 = false)
 		{
 			const int NumAquariumToDisplayPerPage = 6;
@@ -111,6 +112,7 @@ namespace FishStoreApplication.Controllers
 
 		}
 
+        // Aquarium Details page
         public async Task<IActionResult> AquariumDetails(int id)
         {
             Aquarium productDetails = await _context.Aquariums.FindAsync(id);
@@ -121,6 +123,7 @@ namespace FishStoreApplication.Controllers
             return View(productDetails);
         }
 
+        // Decoration Index page
         [Authorize]
         public async Task<IActionResult> DecorationIndex(int? id, bool filterUnder10 = false, bool filter10to20 = false, bool filterLengthLessThan10 = false, bool filterLengthMoreThan10 = false)
         {
@@ -164,7 +167,8 @@ namespace FishStoreApplication.Controllers
             return View(catalogModel);
         }
 
-		public async Task<IActionResult> DecorationDetails(int id)
+        // Decoration Detail page
+        public async Task<IActionResult> DecorationDetails(int id)
 		{
 			Decoration productDetails = await _context.Decorations.FindAsync(id);
 			if (productDetails == null)
